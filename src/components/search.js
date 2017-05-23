@@ -12,21 +12,21 @@ class Search extends Component {
         };
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
         this.setState({query: event.target.value});
-    }
+    };
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         showRepository.search(this.state.query).then(shows => this.setState({shows: shows}));
         event.preventDefault();
-    }
+    };
 
     render() {
         return (
             <div className="container">
                 <SearchBar query={this.state.query}
-                           onSubmit={(e) => this.handleSubmit(e)}
-                           onChange={(e) => this.handleChange(e)}
+                           onSubmit={this.handleSubmit}
+                           onChange={this.handleChange}
                 />
                 <TVShowList shows={this.state.shows} />
             </div>
