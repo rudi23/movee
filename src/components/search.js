@@ -30,7 +30,7 @@ class Search extends Component {
                            onSubmit={this.handleSubmit}
                            onChange={this.handleChange}
                 />
-                <TVShowList shows={this.state.shows}/>
+                <TVShowList shows={this.state.shows} />
             </div>
         );
     }

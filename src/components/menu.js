@@ -9,7 +9,7 @@ const Menu = (props) => (
     <Navbar inverse fixedTop>
         <div className="container">
             <Navbar.Header>
-                <NavbarToggle collapsed/>
+                <NavbarToggle collapsed />
                 <Navbar.Brand>
                     <a href="#">Movee</a>
                 </Navbar.Brand>

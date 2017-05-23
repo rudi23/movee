@@ -8,9 +8,9 @@ import Footer from "./components/footer";
 
 ReactDOM.render(
     <div>
-        <Menu/>
-        <Search/>
-        <Footer/>
+        <Menu />
+        <Search />
+        <Footer />
     </div>,
     document.getElementById('root')
 );
