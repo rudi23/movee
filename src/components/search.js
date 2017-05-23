@@ -10,8 +10,6 @@ class Search extends Component {
             query: '',
             shows: [],
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -27,8 +25,8 @@ class Search extends Component {
         return (
             <div className="container">
                 <SearchBar query={this.state.query}
-                           onSubmit={this.handleSubmit}
-                           onChange={this.handleChange}
+                           onSubmit={(e) => this.handleSubmit(e)}
+                           onChange={(e) => this.handleChange(e)}
                 />
                 <TVShowList shows={this.state.shows} />
             </div>
