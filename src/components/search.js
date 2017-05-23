@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import SearchBar from './search-bar';
 import TVShowList from './tv-show-list';
-import fetch from 'node-fetch';
-import showListFactory from '../factory/showListFactory';
+import showRepository from '../repository/tvShowRepository';
 
 class Search extends Component {
     constructor() {
@@ -20,10 +19,7 @@ class Search extends Component {
     }
 
     handleSubmit() {
-        fetch(`http://api.tvmaze.com/search/shows?q=${this.state.query}`)
-        .then(res => res.json())
-        .then(showListFactory)
-        .then(shows => this.setState({shows: shows}));
+        showRepository.search(this.state.query).then(shows => this.setState({shows: shows}));
     }
 
     render() {
