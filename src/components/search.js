@@ -1,40 +1,39 @@
 import React, {Component} from 'react';
 import SearchBar from './search-bar';
 import TVShowList from './tv-show-list';
+import fetch from 'node-fetch';
+import showListFactory from '../factory/showListFactory';
 
 class Search extends Component {
     constructor() {
         super();
         this.state = {
-            query: 'Prison',
-            shows: [
-                {
-                    title: 'Prison Break',
-                    language: 'English',
-                    premiered: '2005-08-29',
-                    image: {
-                        medium: 'http://static.tvmaze.com/uploads/images/medium_portrait/104/261035.jpg',
-                        original: 'http://static.tvmaze.com/uploads/images/original_untouched/104/261035.jpg'
-                    },
-                },
-                {
-                    title: 'Prison Woman',
-                    language: 'English',
-                    premiered: '2011-02-13',
-                    image: {
-                        medium: 'http://static.tvmaze.com/uploads/images/medium_portrait/33/84701.jpg',
-                        original: 'http://static.tvmaze.com/uploads/images/original_untouched/33/84701.jpg'
-                    },
-                }
-            ],
+            query: '',
+            shows: [],
         };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({query: event.target.value});
+    }
+
+    handleSubmit() {
+        fetch(`http://api.tvmaze.com/search/shows?q=${this.state.query}`)
+        .then(res => res.json())
+        .then(showListFactory)
+        .then(shows => this.setState({shows: shows}));
     }
 
     render() {
         return (
             <div className="container">
-                <SearchBar query={this.state.query} />
-                <TVShowList shows={this.state.shows} />
+                <SearchBar query={this.state.query}
+                           onClick={this.handleSubmit}
+                           onChange={this.handleChange}
+                />
+                <TVShowList shows={this.state.shows}/>
             </div>
         );
     }

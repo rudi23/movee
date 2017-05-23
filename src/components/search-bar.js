@@ -8,10 +8,17 @@ const SearchBar = (props) => (
                     <input type="text"
                            className="form-control input-lg"
                            value={props.query}
+                           onChange={props.onChange}
                            placeholder="Type TV Show..."/>
                 </div>
                 <div className="col-md-2">
-                    <button type="submit" className="btn btn-default btn-primary btn-lg" title="Search">Search</button>
+                    <button
+                        type="submit"
+                        className="btn btn-default btn-primary btn-lg"
+                        title="Search"
+                        onClick={props.onClick}
+                    >Search
+                    </button>
                 </div>
             </div>
         </div>
