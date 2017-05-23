@@ -32,7 +32,7 @@ class Search extends Component {
 
     render() {
         return (
-            <div className="row">
+            <div className="container">
                 <SearchBar query={this.state.query} />
                 <TVShowList shows={this.state.shows} />
             </div>
