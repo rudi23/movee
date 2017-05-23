@@ -31,5 +31,5 @@ body {
 
 .tv-show-info {
     float: left;
-    padding-left: 20px;
+    margin: 0 0 10px 15px;
 }
