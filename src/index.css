@@ -25,6 +25,8 @@ body {
 
 .tv-show img {
     float: left;
+    width: 210px;
+    height: 295px;
 }
 
 .tv-show-info {

@@ -18,15 +18,16 @@ class Search extends Component {
         this.setState({query: event.target.value});
     }
 
-    handleSubmit() {
+    handleSubmit(event) {
         showRepository.search(this.state.query).then(shows => this.setState({shows: shows}));
+        event.preventDefault();
     }
 
     render() {
         return (
             <div className="container">
                 <SearchBar query={this.state.query}
-                           onClick={this.handleSubmit}
+                           onSubmit={this.handleSubmit}
                            onChange={this.handleChange}
                 />
                 <TVShowList shows={this.state.shows}/>
