@@ -1,5 +1,5 @@
 import React from 'react';
-import TVShow from './tv-show';
+import TVShow from './tvShow';
 
 const TVShowList = (props) => {
     const shows = props.shows.slice();

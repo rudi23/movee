@@ -2,15 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import Menu from "./components/menu";
-import Search from "./components/search";
-import Footer from "./components/footer";
+import App from "./components/app";
 
 ReactDOM.render(
-    <div>
-        <Menu />
-        <Search />
-        <Footer />
-    </div>,
+    <App />,
     document.getElementById('root')
 );

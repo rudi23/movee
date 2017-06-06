@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import SearchBar from './search-bar';
-import TVShowList from './tv-show-list';
+import SearchBar from './searchBar';
+import TVShowList from './tvShowList';
 import showRepository from '../repository/tvShowRepository';
 
 class Search extends Component {
@@ -10,13 +10,15 @@ class Search extends Component {
             query: '',
             shows: [],
         };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange = (event) => {
+    handleChange(event) {
         this.setState({query: event.target.value});
     };
 
-    handleSubmit = (event) => {
+    handleSubmit(event) {
         showRepository.search(this.state.query).then(shows => this.setState({shows: shows}));
         event.preventDefault();
     };
@@ -28,7 +30,7 @@ class Search extends Component {
                            onSubmit={this.handleSubmit}
                            onChange={this.handleChange}
                 />
-                <TVShowList shows={this.state.shows} />
+                <TVShowList shows={this.state.shows}/>
             </div>
         );
     }
