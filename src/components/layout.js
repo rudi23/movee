@@ -4,7 +4,7 @@ import Menu from "./menu";
 import Search from "./search";
 import Footer from "./footer";
 
-const Layout = (props) => (
+const Layout = () => (
     <div>
         <Menu/>
         <Search/>

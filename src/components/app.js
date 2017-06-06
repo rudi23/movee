@@ -2,7 +2,7 @@ import React from 'react';
 
 import Layout from "./layout";
 
-const App = (props) => (
+const App = () => (
     <div>
         <Layout/>
     </div>

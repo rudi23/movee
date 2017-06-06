@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/lib/Navbar';
 import NavbarToggle from 'react-bootstrap/lib/NavbarToggle';
 import NavbarCollapse from 'react-bootstrap/lib/NavbarCollapse';
 
-const Menu = (props) => (
+const Menu = () => (
     <Navbar inverse fixedTop>
         <div className="container">
             <Navbar.Header>
