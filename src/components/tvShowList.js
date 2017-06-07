@@ -5,7 +5,8 @@ import TVShowListItem from './tvShowListItem';
 class TVShowList extends Component {
     renderList() {
         const shows = this.props.shows.slice();
-        if (shows.length === 0) {
+
+        if (shows.length === 0 && this.props.routerQuery === this.props.query && this.props.loading === false) {
             return <div>Sorry, we couldn't find anything that matches "{this.props.query}".</div>
         }
 

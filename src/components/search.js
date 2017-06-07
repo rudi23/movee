@@ -8,6 +8,7 @@ class Search extends Component {
     constructor() {
         super();
         this.state = {
+            loading: false,
             query: '',
             shows: [],
         };
@@ -18,8 +19,8 @@ class Search extends Component {
     componentWillMount() {
         if (this.props.match.params.query !== undefined) {
             const query = this.props.match.params.query;
-            this.setState({query: query});
-            showRepository.search(query).then(shows => this.setState({shows: shows}));
+            this.setState({query: query, loading: true});
+            showRepository.search(query).then(shows => this.setState({shows: shows, loading: false}));
         }
     }
 
@@ -30,14 +31,15 @@ class Search extends Component {
     }
 
     handleChange(event) {
-        this.setState({query: event.target.value.trim()});
+        this.setState({query: event.target.value});
     };
 
     handleSubmit(event) {
         const query = this.state.query;
-        if (query.trim() !== '') {
+        if (query.trim() !== '' && this.state.query !== this.props.match.params.query) {
+            this.setState({loading: true});
             showRepository.search(query)
-                .then(shows => this.setState({shows: shows}))
+                .then(shows => this.setState({shows: shows, loading: false}))
                 .then(() => this.props.history.push('/search/' + query));
         }
         event.preventDefault();
@@ -53,6 +55,8 @@ class Search extends Component {
                 />
                 <TVShowList shows={this.state.shows}
                             query={this.state.query}
+                            loading={this.state.loading}
+                            routerQuery={this.props.match.params.query}
                 />
             </div>
         );
