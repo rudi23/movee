@@ -1,25 +1,49 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import showRepository from '../repository/tvShowRepository';
 
-class TVShowList extends React.Component {
-    render() {
+class TVShow extends Component {
+    constructor() {
+        super();
+        this.state = {
+            show: null,
+        };
+    }
+
+    componentWillMount() {
+        const showId = this.props.match.params.showId;
+        showRepository.findById(showId).then(show => this.setState({show: show}));
+    }
+
+    renderShow() {
+        const show = this.state.show;
+        if (!show) {
+            return <article className="tv-show"/>;
+        }
+
         return (
             <article className="tv-show">
-                <img src={this.props.image} alt={this.props.title}/>
+                <img src={show.image} alt={show.title}/>
                 <div className="tv-show-info">
-                    <h3>{this.props.title}</h3>
-                    <h5>{this.props.language}, {this.props.premiered}</h5>
+                    <h3>{show.title}</h3>
+                    <h5>{show.language}, {show.premiered}</h5>
                 </div>
             </article>
         );
     }
+
+    render() {
+        const show = this.renderShow();
+
+        return (
+            <div className="row">
+                <div className="col-md-8 col-md-offset-2">
+                    <div className="row">
+                        { show }
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
 
-TVShowList.PropTypes = {
-    image: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
-    premiered: PropTypes.string.isRequired,
-};
-
-export default TVShowList;
+export default TVShow;

@@ -1,18 +1,26 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import TVShow from './tvShow';
+import TVShowListItem from './tvShowListItem';
 
-class TVShowList extends React.Component {
-    render() {
+class TVShowList extends Component {
+    renderList() {
         const shows = this.props.shows.slice();
+        if (shows.length === 0) {
+            return <div>Sorry, we couldn't find anything that matches "{this.props.query}".</div>
+        }
 
+        return shows.map(show => {
+            return <TVShowListItem key={show.id} {...show} />
+        });
+    }
+
+    render() {
+        const list = this.renderList();
         return (
             <div id="tv-show-list" className="row">
                 <div className="col-md-12">
                     <section>
-                        {shows.map((show, i) => {
-                            return <TVShow key={i} {...show} />
-                        })}
+                        {list}
                     </section>
                 </div>
             </div>
@@ -21,7 +29,8 @@ class TVShowList extends React.Component {
 }
 
 TVShowList.PropTypes = {
-    shows: PropTypes.array.isRequired
+    shows: PropTypes.array.isRequired,
+    query: PropTypes.string.isRequired
 };
 
 export default TVShowList;

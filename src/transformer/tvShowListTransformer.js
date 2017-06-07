@@ -1,17 +1,23 @@
-const tvShowListTransformer = (apiData) => apiData.map(apiShow => {
+const transformItem = (apiShow) => {
     let image;
-    if (apiShow.show.image === null) {
+    if (apiShow.image === null) {
         image = '//static.tvmaze.com/images/no-img/no-img-portrait-text.png'
     } else {
-        image = apiShow.show.image.medium;
+        image = apiShow.image.medium;
     }
 
     return {
-        title: apiShow.show.name,
-        premiered: apiShow.show.premiered,
-        language: apiShow.show.language,
+        id: apiShow.id,
+        title: apiShow.name,
+        premiered: apiShow.premiered,
+        language: apiShow.language,
         image: image,
     }
-});
+};
+
+const tvShowListTransformer = {
+    transformItem: transformItem,
+    transformCollection: (apiData) => apiData.map((apiShow) => transformItem(apiShow.show))
+};
 
 export default tvShowListTransformer;
