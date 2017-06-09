@@ -2,7 +2,12 @@
   "name": "movee",
   "version": "0.0.1",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rudi23/movee.git"
+  },
   "dependencies": {
+    "history": "^4.6.1",
     "node-fetch": "^1.7.0",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
@@ -12,12 +17,18 @@
     "react-router-dom": "^4.1.1"
   },
   "devDependencies": {
+    "eslint": "3.9.1",
+    "eslint-config-airbnb": "13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "2.x",
+    "eslint-plugin-react": "6.6.0",
     "react-scripts": "0.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . -o build/eslint.xml -f jslint-xml"
   }
 }
