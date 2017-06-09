@@ -18,7 +18,7 @@ class Search extends Component {
 
     componentDidMount() {
         if (this.props.match.params.query !== undefined) {
-            const { query } = this.props.match.params;
+            const {query} = this.props.match.params;
             this.setState({query: query, loading: true});
             showRepository.search(query).then(shows => this.setState({shows: shows, loading: false}));
         }
@@ -45,6 +45,20 @@ class Search extends Component {
         event.preventDefault();
     };
 
+    renderList() {
+        const {query} = this.state;
+
+        if (!this.state.shows.length && this.props.match.params.query === query && this.state.loading === false) {
+            return <div>Sorry, we could not find anything that matches "{query}".</div>
+        } else {
+            return <TVShowList shows={this.state.shows}
+                               query={this.state.query}
+                               loading={this.state.loading}
+                               routerQuery={this.props.match.params.query}
+            />
+        }
+    }
+
     render() {
         return (
             <div className="container">
@@ -53,11 +67,11 @@ class Search extends Component {
                            onSubmit={this.handleSubmit}
                            onChange={this.handleChange}
                 />
-                <TVShowList shows={this.state.shows}
-                            query={this.state.query}
-                            loading={this.state.loading}
-                            routerQuery={this.props.match.params.query}
-                />
+                <div id="tv-show-list" className="row">
+                    <div className="col-md-12">
+                        {this.renderList()}
+                    </div>
+                </div>
             </div>
         );
     }
