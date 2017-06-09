@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import showRepository from '../repository/tvShowRepository';
+import showRepository from '../../repository/tvShowRepository';
 
 class TVShow extends Component {
     constructor() {
@@ -9,13 +9,13 @@ class TVShow extends Component {
         };
     }
 
-    componentWillMount() {
-        const showId = this.props.match.params.showId;
+    componentDidMount() {
+        const {showId} = this.props.match.params;
         showRepository.findById(showId).then(show => this.setState({show: show}));
     }
 
     renderShow() {
-        const show = this.state.show;
+        const {show} = this.state;
         if (!show) {
             return <article className="tv-show"/>;
         }
@@ -32,13 +32,11 @@ class TVShow extends Component {
     }
 
     render() {
-        const show = this.renderShow();
-
         return (
             <div className="row">
                 <div className="col-md-8 col-md-offset-2">
                     <div className="row">
-                        { show }
+                        { this.renderShow() }
                     </div>
                 </div>
             </div>

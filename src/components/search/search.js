@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import SearchBar from './searchBar';
 import TVShowList from './tvShowList';
-import showRepository from '../repository/tvShowRepository';
+import showRepository from '../../repository/tvShowRepository';
 
 class Search extends Component {
     constructor() {
@@ -16,9 +16,9 @@ class Search extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.match.params.query !== undefined) {
-            const query = this.props.match.params.query;
+            const { query } = this.props.match.params;
             this.setState({query: query, loading: true});
             showRepository.search(query).then(shows => this.setState({shows: shows, loading: false}));
         }
@@ -35,8 +35,8 @@ class Search extends Component {
     };
 
     handleSubmit(event) {
-        const query = this.state.query;
-        if (query.trim() !== '' && this.state.query !== this.props.match.params.query) {
+        const query = this.state.query.trim();
+        if (query && this.state.query !== this.props.match.params.query) {
             this.setState({loading: true});
             showRepository.search(query)
                 .then(shows => this.setState({shows: shows, loading: false}))
@@ -66,7 +66,7 @@ class Search extends Component {
 Search.propTypes = {
     match: PropTypes.shape({
         params: PropTypes.object.isRequired,
-    }),
+    }).isRequired,
     history: PropTypes.shape({
         push: PropTypes.func.isRequired,
     }).isRequired,

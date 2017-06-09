@@ -15,9 +15,9 @@ const transformItem = (apiShow) => {
     }
 };
 
-const tvShowListTransformer = {
+const tvShowTransformer = {
     transformItem: transformItem,
     transformCollection: (apiData) => apiData.map((apiShow) => transformItem(apiShow.show))
 };
 
-export default tvShowListTransformer;
+export default tvShowTransformer;

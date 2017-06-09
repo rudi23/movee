@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SearchBar from './searchBar';
+import SearchBar from './search/searchBar';
 
 class Home extends Component {
     constructor() {
@@ -16,8 +16,8 @@ class Home extends Component {
     }
 
     handleSubmit(event) {
-        const query = this.state.query;
-        if (query.trim() !== '') {
+        const query = this.state.query.trim();
+        if (query) {
             this.setState({query: ''});
             this.props.history.push('/search/' + query);
         }

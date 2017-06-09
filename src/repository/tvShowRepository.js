@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import transformer from '../transformer/tvShowListTransformer';
+import transformer from '../transformer/tvShowTransformer';
 
 const API_BASE_URL = 'http://api.tvmaze.com';
 
