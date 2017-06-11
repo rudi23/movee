@@ -7,7 +7,6 @@
     "url": "git@github.com:rudi23/movee.git"
   },
   "dependencies": {
-    "history": "^4.6.1",
     "node-fetch": "^1.7.0",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
