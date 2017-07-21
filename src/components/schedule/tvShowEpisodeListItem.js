@@ -16,7 +16,7 @@ const TVShowEpisodeListItem = props => (
 TVShowEpisodeListItem.propTypes = {
   title: PropTypes.string.isRequired,
   airTime: PropTypes.string.isRequired,
-  show: PropTypes.shape().isRequired,
+  show: PropTypes.object().isRequired,
   summary: PropTypes.string,
 };
 
