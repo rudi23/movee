@@ -15,7 +15,7 @@ const TVShowListItem = props => (
 );
 
 TVShowListItem.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
