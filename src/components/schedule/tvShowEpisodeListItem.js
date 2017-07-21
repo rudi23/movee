@@ -9,7 +9,7 @@ const TVShowEpisodeListItem = props => (
   <div className="episode">
     <h3>{props.show.title}: {props.title}</h3>
     <h4>{props.airTime}</h4>
-    <div dangerouslySetInnerHTML={createMarkup(props.summary)} />
+    <div dangerouslySetInnerHTML={props.summary !== null ? createMarkup(props.summary) : null} />
   </div>
 );
 
@@ -17,7 +17,7 @@ TVShowEpisodeListItem.propTypes = {
   title: PropTypes.string.isRequired,
   airTime: PropTypes.string.isRequired,
   show: PropTypes.shape().isRequired,
-  summary: PropTypes.string.isRequired,
+  summary: PropTypes.string,
 };
 
 export default TVShowEpisodeListItem;

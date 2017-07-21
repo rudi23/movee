@@ -13,7 +13,7 @@ const ChannelListItem = props => (
 ChannelListItem.propTypes = {
   name: PropTypes.string.isRequired,
   country: PropTypes.shape().isRequired,
-  episodes: PropTypes.shape().isRequired,
+  episodes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ChannelListItem;
