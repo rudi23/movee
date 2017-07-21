@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TVShowEpisodesList from './tvShowEpisodeList';
 
-const ChannelListItem = props => (
+const ChannelListItem = ({ name, country, episodes }) => (
   <div className="channel">
-    <h2>{props.name}</h2>
-    <p>{props.country.name}</p>
-    <TVShowEpisodesList episodes={props.episodes} />
+    <h2>{name}</h2>
+    <p>{country.name}</p>
+    <TVShowEpisodesList episodes={episodes} />
   </div>
 );
 

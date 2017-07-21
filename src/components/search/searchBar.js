@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SearchBar = props => (
+const SearchBar = ({ query, onSubmit, onChange }) => (
   <div id="search-bar" className="row">
     <div className="col-md-8 col-md-offset-2">
       <div className="row">
-        <form onSubmit={props.onSubmit} className="form">
+        <form onSubmit={onSubmit} className="form">
           <div className="form-group col-md-9 col-xs-12">
             <input
               type="text"
               className="form-control input-lg"
-              value={props.query}
-              onChange={props.onChange}
+              value={query}
+              onChange={onChange}
               placeholder="Type TV Show..."
             />
           </div>

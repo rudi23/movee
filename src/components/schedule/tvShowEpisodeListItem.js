@@ -6,11 +6,11 @@ function createMarkup(summary) {
   return { __html: summary };
 }
 
-const TVShowEpisodeListItem = props => (
+const TVShowEpisodeListItem = ({ show, summary, title, airTime }) => (
   <div className="episode">
-    <h3><Link to={`/show/${props.show.id}`}>{props.show.title}</Link>: {props.title}</h3>
-    <h4>{props.airTime}</h4>
-    <div dangerouslySetInnerHTML={props.summary !== null ? createMarkup(props.summary) : null} />
+    <h3><Link to={`/show/${show.id}`}>{show.title}</Link>: {title}</h3>
+    <h4>{airTime}</h4>
+    <div dangerouslySetInnerHTML={summary !== null ? createMarkup(summary) : null} />
   </div>
 );
 
