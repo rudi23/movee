@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import SearchBar from './searchBar';
 import TVShowList from './tvShowList';
 import showRepository from '../../repository/tvShowRepository';
+import Spinner from '../ui/spinner';
+import { FETCH_STATES } from '../constants';
 
 class Search extends Component {
   constructor() {
     super();
     this.state = {
-      loading: false,
+      fetchState: null,
       query: '',
       shows: [],
     };
@@ -19,8 +21,10 @@ class Search extends Component {
   componentWillMount() {
     if (this.props.match.params.query !== undefined) {
       const { query } = this.props.match.params;
-      this.setState({ query, loading: true });
-      showRepository.search(query).then(shows => this.setState({ shows, loading: false }));
+      this.setState({ query, fetchState: FETCH_STATES.PENDING });
+      showRepository.search(query)
+        .then(shows => this.setState({ shows, fetchState: FETCH_STATES.SUCCESS }))
+        .catch(() => this.setState({ fetchState: FETCH_STATES.FAILED }));
     }
   }
 
@@ -31,50 +35,36 @@ class Search extends Component {
   }
 
   handleChange(event) {
-    this.setState({ query: event.target.value });
+    this.setState({ query: event.target.value, fetchState: null });
   }
 
   handleSubmit(event) {
     const query = this.state.query.trim();
-    if (query && this.state.query !== this.props.match.params.query) {
-      this.setState({ loading: true });
+    if (query && this.state.fetchState === null) {
+      this.setState({ fetchState: FETCH_STATES.PENDING });
       showRepository.search(query)
-        .then(shows => this.setState({ shows, loading: false }))
-        .then(() => this.props.history.push(`/search/${query}`));
+        .then(shows => this.setState({ shows, fetchState: FETCH_STATES.SUCCESS }))
+        .then(() => this.props.history.push(`/search/${query}`))
+        .catch(() => this.setState({ fetchState: FETCH_STATES.FAILED }));
     }
     event.preventDefault();
   }
 
-  renderList() {
-    const { query } = this.state;
-
-    if (!this.state.shows.length
-      && this.props.match.params.query === query
-      && this.state.loading === false
-    ) {
-      return <div>Sorry, we could not find anything that matches {query}.</div>;
-    }
-
-    return (<TVShowList
-      shows={this.state.shows}
-      query={this.state.query}
-      loading={this.state.loading}
-      routerQuery={this.props.match.params.query}
-    />);
-  }
-
   render() {
+    const { query, shows, fetchState } = this.state;
+
     return (
       <div className="container">
         <h1>Search</h1>
         <SearchBar
-          query={this.state.query}
+          query={query}
           onSubmit={this.handleSubmit}
           onChange={this.handleChange}
         />
         <div id="tv-show-list" className="row">
           <div className="col-md-12">
-            {this.renderList()}
+            <Spinner visible={fetchState === FETCH_STATES.PENDING} />
+            <TVShowList shows={shows} query={query} fetchState={fetchState} />
           </div>
         </div>
       </div>

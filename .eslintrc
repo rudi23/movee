@@ -43,7 +43,8 @@
     ],
     "import/extensions": 1,
     "import/no-extraneous-dependencies": 1,
-    "import/no-unresolved": 1
+    "import/no-unresolved": 1,
+    "import/prefer-default-export": 0
   },
   "env": {
     "browser": true,
