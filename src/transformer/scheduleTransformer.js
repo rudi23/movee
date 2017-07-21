@@ -19,12 +19,14 @@ const scheduleTransformer = {
 
     apiData.forEach((el) => {
       const channelId = el.show.network.id;
-      if (!channels[channelId]) {
-        channels[channelId] = el.show.network;
-        channels[channelId].episodes = [];
+
+      let channel = channels.find(item => item.id === channelId);
+      if (channel === undefined) {
+        channel = Object.assign({}, el.show.network, { episodes: [] });
+        channels.push(channel);
       }
 
-      channels[channelId].episodes.push(createEpisode(el));
+      channel.episodes.push(createEpisode(el));
     });
 
     return channels.sort((a, b) => a.name.localeCompare(b.name));
