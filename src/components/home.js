@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SearchBar from './search/searchBar';
+import Schedule from './schedule/schedule';
 
 class Home extends Component {
   constructor() {
@@ -35,6 +36,7 @@ class Home extends Component {
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
         />
+        <Schedule />
       </div>
     );
   }

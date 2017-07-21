@@ -37,9 +37,7 @@
       1,
       {
         "forbid": [
-          "any",
-          "array",
-          "object"
+          "any"
         ]
       }
     ],

@@ -11,7 +11,7 @@ const Menu = () => (
   <Navbar inverse fixedTop>
     <div className="container">
       <Navbar.Header>
-        <NavbarToggle collapsed />
+        <NavbarToggle className="collapsed" />
         <Navbar.Brand>
           <Link to="/">Movee</Link>
         </Navbar.Brand>
