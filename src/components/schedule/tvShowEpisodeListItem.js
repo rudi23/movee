@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function createMarkup(summary) {
   return { __html: summary };
@@ -7,7 +8,7 @@ function createMarkup(summary) {
 
 const TVShowEpisodeListItem = props => (
   <div className="episode">
-    <h3>{props.show.title}: {props.title}</h3>
+    <h3><Link to={`/show/${props.show.id}`}>{props.show.title}</Link>: {props.title}</h3>
     <h4>{props.airTime}</h4>
     <div dangerouslySetInnerHTML={props.summary !== null ? createMarkup(props.summary) : null} />
   </div>
