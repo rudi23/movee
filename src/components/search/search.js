@@ -7,8 +7,8 @@ import Spinner from '../ui/spinner';
 import { FETCH_STATES } from '../constants';
 
 class Search extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       fetchState: null,
       query: '',
@@ -64,7 +64,13 @@ class Search extends Component {
         <div id="tv-show-list" className="row">
           <div className="col-md-12">
             <Spinner visible={fetchState === FETCH_STATES.PENDING} />
-            <TVShowList shows={shows} query={query} fetchState={fetchState} />
+            <TVShowList
+              shows={shows}
+              query={query}
+              fetchState={fetchState}
+              favourites={this.props.favourites}
+              toggleFavourite={this.props.toggleFavourite}
+            />
           </div>
         </div>
       </div>
@@ -73,6 +79,8 @@ class Search extends Component {
 }
 
 Search.propTypes = {
+  favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
+  toggleFavourite: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.object.isRequired,
   }).isRequired,

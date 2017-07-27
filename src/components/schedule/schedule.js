@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import ChannelList from './channelList';
 import scheduleRepository from '../../repository/scheduleRepository';
 import Spinner from '../ui/spinner';
 import { FETCH_STATES } from '../constants';
 
 class Schedule extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       fetchState: null,
       schedule: [],
@@ -25,17 +26,28 @@ class Schedule extends Component {
 
   render() {
     const { fetchState, schedule } = this.state;
+    const { favourites, toggleFavourite } = this.props;
 
     return (
       <div id="schedule" className="row">
         <div className="col-12 col-md-12">
           <h1>Schedule for today</h1>
           <Spinner visible={fetchState === FETCH_STATES.PENDING} />
-          <ChannelList channels={schedule} fetchState={this.state.fetchState} />
+          <ChannelList
+            channels={schedule}
+            fetchState={fetchState}
+            favourites={favourites}
+            toggleFavourite={toggleFavourite}
+          />
         </div>
       </div>
     );
   }
 }
+
+Schedule.PropTypes = {
+  favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
+  toggleFavourite: PropTypes.func.isRequired,
+};
 
 export default Schedule;
