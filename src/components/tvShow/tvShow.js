@@ -5,8 +5,8 @@ import Spinner from '../ui/spinner';
 import { FETCH_STATES } from '../constants';
 
 class TVShow extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       fetchState: null,
       show: null,
@@ -65,6 +65,8 @@ class TVShow extends Component {
 }
 
 TVShow.propTypes = {
+  favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
+  toggleFavourite: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.object.isRequired,
   }).isRequired,

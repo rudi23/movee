@@ -4,8 +4,8 @@ import SearchBar from './search/searchBar';
 import Schedule from './schedule/schedule';
 
 class Home extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       query: '',
     };
@@ -36,13 +36,18 @@ class Home extends Component {
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
         />
-        <Schedule />
+        <Schedule
+          favourites={this.props.favourites}
+          toggleFavourite={this.props.toggleFavourite}
+        />
       </div>
     );
   }
 }
 
 Home.propTypes = {
+  favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
+  toggleFavourite: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

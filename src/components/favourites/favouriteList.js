@@ -12,25 +12,24 @@ const renderList = (shows, favourites, toggleFavourite) => shows.map(show =>
   />
 );
 
-const TVShowList = ({ shows, fetchState, query, favourites, toggleFavourite }) => (
+const FavouriteList = ({ shows, fetchState, favourites, toggleFavourite }) => (
   <section>
     {(fetchState === FETCH_STATES.FAILED) ?
-      <div>Sorry, an error occurred while searching.</div> : null}
+      <div>Sorry, an error occurred while retrieving favourites.</div> : null}
 
     {(fetchState === FETCH_STATES.SUCCESS && !shows.length) ?
-      <div>Sorry, we could not find anything that matches {query}.</div> : null}
+      <div>You don not have any favourite tv shows.</div> : null}
 
     {(fetchState === FETCH_STATES.SUCCESS && shows.length) ?
       renderList(shows, favourites, toggleFavourite) : null}
   </section>
 );
 
-TVShowList.propTypes = {
+FavouriteList.propTypes = {
   shows: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchState: PropTypes.string,
-  query: PropTypes.string,
   favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };
 
-export default TVShowList;
+export default FavouriteList;

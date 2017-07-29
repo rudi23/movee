@@ -24,6 +24,9 @@ const Menu = () => (
           <LinkContainer to="/search">
             <NavItem eventKey={2}>Search</NavItem>
           </LinkContainer>
+          <LinkContainer to="/favourites">
+            <NavItem eventKey={2}>Favourites</NavItem>
+          </LinkContainer>
         </Nav>
       </NavbarCollapse>
     </div>

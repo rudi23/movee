@@ -23,7 +23,7 @@ body {
     overflow: hidden;
 }
 
-.tv-show img {
+.tv-show__cover {
     float: left;
     width: 210px;
     height: 295px;
@@ -50,4 +50,13 @@ body {
 
 .loader__dot:nth-child(3) {
     animation-delay: 500ms
+}
+
+.episode__star {
+    float: left;
+    margin-right: 10px;
+}
+
+.favourite-star {
+    width: 25px;
 }

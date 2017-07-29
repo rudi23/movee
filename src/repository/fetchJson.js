@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import 'whatwg-fetch';
 
 const fetchJson = url => fetch(url)
   .then((res) => {
