@@ -7,13 +7,25 @@ const SearchBar = props => (
       <div className="row">
         <form onSubmit={props.onSubmit} className="form">
           <div className="form-group col-md-9 col-xs-12">
-            <input
-              type="text"
-              className="form-control input-lg"
-              value={props.query}
-              onChange={props.onChange}
-              placeholder="Type TV Show..."
-            />
+            <div className="search-btn">
+              <input
+                type="text"
+                className="form-control input-lg"
+                value={props.query}
+                onChange={props.onChange}
+                placeholder="Type TV Show..."
+              />
+              {props.query ?
+                (
+                  <span
+                    role="button"
+                    tabIndex={-1}
+                    className="search-btn__clear glyphicon glyphicon-remove-circle"
+                    onClick={props.resetQuery}
+                  />
+                ) : null
+              }
+            </div>
           </div>
           <div className="form-group col-md-3 col-xs-12">
             <button
@@ -33,6 +45,7 @@ SearchBar.propTypes = {
   query: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  resetQuery: PropTypes.func.isRequired,
 };
 
 export default SearchBar;
