@@ -60,3 +60,18 @@ body {
 .favourite-star {
     width: 25px;
 }
+
+.search-btn {
+    position: relative;
+}
+.search-btn__clear {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    height: 20px;
+    margin: auto;
+    font-size: 20px;
+    cursor: pointer;
+    color: #ccc;
+}

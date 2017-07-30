@@ -11,6 +11,7 @@ class Home extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.resetQuery = this.resetQuery.bind(this);
   }
 
   handleChange(event) {
@@ -27,6 +28,11 @@ class Home extends Component {
     event.preventDefault();
   }
 
+  resetQuery(event) {
+    this.setState({ query: '', fetchState: null });
+    event.preventDefault();
+  }
+
   render() {
     return (
       <div className="container">
@@ -35,6 +41,7 @@ class Home extends Component {
           query={this.state.query}
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
+          resetQuery={this.resetQuery}
         />
         <Schedule
           favourites={this.props.favourites}

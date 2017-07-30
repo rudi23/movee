@@ -16,6 +16,7 @@ class Search extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.resetQuery = this.resetQuery.bind(this);
   }
 
   componentWillMount() {
@@ -50,6 +51,11 @@ class Search extends Component {
     event.preventDefault();
   }
 
+  resetQuery(event) {
+    this.setState({ query: '', fetchState: null });
+    event.preventDefault();
+  }
+
   render() {
     const { query, shows, fetchState } = this.state;
 
@@ -60,6 +66,7 @@ class Search extends Component {
           query={query}
           onSubmit={this.handleSubmit}
           onChange={this.handleChange}
+          resetQuery={this.resetQuery}
         />
         <div id="tv-show-list" className="row">
           <div className="col-md-12">
