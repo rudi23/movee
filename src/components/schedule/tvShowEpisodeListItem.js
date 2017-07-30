@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -27,7 +28,11 @@ const TVShowEpisodeListItem = (props) => {
       <div dangerouslySetInnerHTML={props.summary !== null ? createMarkup(props.summary) : null} />
     </div>
   );
-}
+};
+
+TVShowEpisodeListItem.defaultProps = {
+  summary: null,
+};
 
 TVShowEpisodeListItem.propTypes = {
   title: PropTypes.string.isRequired,

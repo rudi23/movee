@@ -45,7 +45,7 @@ class Schedule extends Component {
   }
 }
 
-Schedule.PropTypes = {
+Schedule.propTypes = {
   favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };

@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import TVShowListItem from '../tvShow/tvShowListItem';
 import { FETCH_STATES } from '../constants';
 
-const renderList = (shows, favourites, toggleFavourite) => shows.map(show =>
+const renderList = (shows, favourites, toggleFavourite) => shows.map(show => (
   <TVShowListItem
     key={show.id}
     isFavourite={favourites.includes(show.id)}
     toggleFavourite={toggleFavourite}
     {...show}
   />
-);
+));
 
 const TVShowList = ({ shows, fetchState, query, favourites, toggleFavourite }) => (
   <section>
@@ -24,6 +24,11 @@ const TVShowList = ({ shows, fetchState, query, favourites, toggleFavourite }) =
       renderList(shows, favourites, toggleFavourite) : null}
   </section>
 );
+
+TVShowList.defaultProps = {
+  fetchState: null,
+  query: '',
+};
 
 TVShowList.propTypes = {
   shows: PropTypes.arrayOf(PropTypes.object).isRequired,

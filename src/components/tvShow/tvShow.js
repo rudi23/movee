@@ -11,10 +11,12 @@ class TVShow extends Component {
       fetchState: null,
       show: null,
     };
+
+    this.onClick = this.onClick.bind(this);
   }
 
-  componentDidMount() {
-    const { showId } = this.props.match.params;
+  componentWillMount() {
+    const showId = parseInt(this.props.match.params.showId, 10);
     this.setState({ fetchState: FETCH_STATES.PENDING });
     showRepository.findById(showId)
       .then(show => this.setState({ show, fetchState: FETCH_STATES.SUCCESS }))
@@ -24,8 +26,16 @@ class TVShow extends Component {
       });
   }
 
+  onClick = tvShowId => (e) => {
+    e.preventDefault();
+    this.props.toggleFavourite(tvShowId);
+  };
+
   renderShow() {
     const { show, fetchState } = this.state;
+    const { isFavourite } = this.props;
+    const favImage = isFavourite ? 'star-filled' : 'star-unfilled';
+    const favAlt = isFavourite ? 'Filled star' : 'Unfilled star';
 
     if (fetchState === FETCH_STATES.FAILED) {
       return <div>Sorry, an error occurred while trying to access resource.</div>;
@@ -38,10 +48,15 @@ class TVShow extends Component {
     if (fetchState === FETCH_STATES.SUCCESS && show) {
       return (
         <article className="tv-show">
-          <img src={show.image} alt={show.title} />
+          <div className="tv-show__cover">
+            <img src={show.image} alt={show.title} />
+          </div>
           <div className="tv-show-info">
             <h3>{show.title}</h3>
             <h5>{show.language}, {show.premiered}</h5>
+            <a tabIndex="-1" role="button" onClick={this.onClick(show.id)}>
+              <img src={`/${favImage}.svg`} alt={`${favAlt}`} className="favourite-star" />
+            </a>
           </div>
         </article>
       );
@@ -65,7 +80,7 @@ class TVShow extends Component {
 }
 
 TVShow.propTypes = {
-  favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
+  isFavourite: PropTypes.bool.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.object.isRequired,
