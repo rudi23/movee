@@ -4,14 +4,14 @@ import TVShowEpisodeListItem from './tvShowEpisodeListItem';
 
 const TVShowEpisodeList = ({ episodes, favourites, toggleFavourite }) => (
   <div className="episodes">
-    {episodes.map(episode =>
+    {episodes.map(episode => (
       <TVShowEpisodeListItem
         key={episode.id}
         isFavourite={favourites.includes(episode.show.id)}
         toggleFavourite={toggleFavourite}
         {...episode}
       />
-    )}
+    ))}
   </div>
 );
 

@@ -44,54 +44,55 @@ class Layout extends Component {
         <Menu />
         <Switch>
           <Route
-            exact path="/"
-            render={props =>
+            exact
+            path="/"
+            render={props => (
               <Home
                 favourites={favourites}
                 toggleFavourite={toggleFavourite}
                 {...props}
               />
-            }
+            )}
           />
           <Route
             path="/search/:query"
-            render={props =>
+            render={props => (
               <Search
                 favourites={favourites}
                 toggleFavourite={toggleFavourite}
                 {...props}
               />
-            }
+            )}
           />
           <Route
             path="/search"
-            render={props =>
+            render={props => (
               <Search
                 favourites={favourites}
                 toggleFavourite={toggleFavourite}
                 {...props}
               />
-            }
+            )}
           />
           <Route
             path="/show/:showId"
-            render={props =>
+            render={props => (
               <TVShow
-                favourites={favourites}
+                isFavourite={favourites.includes(parseInt(props.match.params.showId, 10))}
                 toggleFavourite={toggleFavourite}
                 {...props}
               />
-            }
+            )}
           />
           <Route
             path="/favourites"
-            render={props =>
+            render={props => (
               <FavouriteContainer
                 favourites={favourites}
                 toggleFavourite={toggleFavourite}
                 {...props}
               />
-            }
+            )}
           />
           <Route component={NotFound} />
         </Switch>

@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import ChannelListItem from './channelListItem';
 import { FETCH_STATES } from '../constants';
 
-const renderList = (channels, favourites, toggleFavourite) => channels.map(channel =>
+const renderList = (channels, favourites, toggleFavourite) => channels.map(channel => (
   <ChannelListItem
     key={channel.id}
     favourites={favourites}
     toggleFavourite={toggleFavourite}
     {...channel}
   />
-);
+));
 
 const ChannelList = ({ channels, fetchState, favourites, toggleFavourite }) => (
   <div>
@@ -24,6 +24,10 @@ const ChannelList = ({ channels, fetchState, favourites, toggleFavourite }) => (
       renderList(channels, favourites, toggleFavourite) : null}
   </div>
 );
+
+ChannelList.defaultProps = {
+  fetchState: null,
+};
 
 ChannelList.propTypes = {
   channels: PropTypes.arrayOf(PropTypes.object).isRequired,
