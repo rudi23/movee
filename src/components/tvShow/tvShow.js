@@ -21,8 +21,6 @@ class TVShow extends Component {
         data: null,
       },
     };
-
-    this.toggleFavourite = this.toggleFavourite.bind(this);
   }
 
   componentWillMount() {
@@ -44,11 +42,6 @@ class TVShow extends Component {
         this.setState({ seasons: { fetchState } });
       });
   }
-
-  toggleFavourite = tvShowId => (e) => {
-    e.preventDefault();
-    this.props.toggleFavourite(tvShowId);
-  };
 
   renderShowContent = () => {
     const { isFavourite, match } = this.props;
@@ -90,7 +83,7 @@ class TVShow extends Component {
               <TVShowInfo
                 isFavourite={isFavourite}
                 show={show}
-                onClick={this.toggleFavourite}
+                toggleFavourite={this.props.toggleFavourite}
               />
             )}
           />

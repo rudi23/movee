@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TVShowListItem from '../tvShow/tvShowListItem';
 import { FETCH_STATES } from '../constants';
+import TVShowInfo from '../tvShow/tvShowInfo';
 
 const renderList = (shows, favourites, toggleFavourite) => shows.map(show => (
-  <TVShowListItem
+  <TVShowInfo
     key={show.id}
     isFavourite={favourites.includes(show.id)}
     toggleFavourite={toggleFavourite}
-    {...show}
+    show={show}
+    isLinked
   />
 ));
 

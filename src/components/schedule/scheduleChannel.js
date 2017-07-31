@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TVShowEpisodesList from './tvShowEpisodeList';
+import ScheduleEpisodes from './scheduleEpisodes';
 
-const ChannelListItem = props => (
-  <div className="channel">
-    <h2>{props.name}</h2>
-    <p>{props.country.name}</p>
-    <TVShowEpisodesList
+const ScheduleChannel = props => (
+  <div className="schedule-channel">
+    <h2 className="schedule-channel__name">{props.name}
+      <span className="schedule-channel__country">{props.country.name}</span>
+    </h2>
+    <ScheduleEpisodes
       episodes={props.episodes}
       favourites={props.favourites}
       toggleFavourite={props.toggleFavourite}
@@ -14,7 +15,7 @@ const ChannelListItem = props => (
   </div>
 );
 
-ChannelListItem.propTypes = {
+ScheduleChannel.propTypes = {
   name: PropTypes.string.isRequired,
   country: PropTypes.object.isRequired,
   episodes: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -22,4 +23,4 @@ ChannelListItem.propTypes = {
   toggleFavourite: PropTypes.func.isRequired,
 };
 
-export default ChannelListItem;
+export default ScheduleChannel;

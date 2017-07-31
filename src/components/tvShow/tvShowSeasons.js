@@ -19,7 +19,7 @@ const TVShowSeasons = ({ seasons, fetchState }) => {
 
   if (fetchState === FETCH_STATES.SUCCESS && seasons) {
     return (
-      <div className="tv-show-seasons">
+      <div id="accordion" className="panel-group" role="tablist" aria-multiselectable="true">
         {seasons.map(season => <TVShowSeason key={season.id} season={season} />)}
       </div>
     );
