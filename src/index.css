@@ -2,6 +2,10 @@ body {
     padding-top: 50px;
 }
 
+.container {
+    position: relative;
+}
+
 .footer {
     margin-top: 50px;
     padding: 10px 30px 0;
@@ -13,25 +17,42 @@ body {
     padding: 50px 0;
 }
 
-#tv-show-container {
-    padding: 50px 0;
+#tv-show-menu {
+    padding: 20px 0;
 }
 
 .tv-show {
     border: #e3e3e3 solid 1px;
     margin-bottom: 20px;
     overflow: hidden;
+
 }
 
 .tv-show__cover {
     float: left;
     width: 210px;
     height: 295px;
+    margin: 10px;
 }
 
 .tv-show-info {
     float: left;
-    margin: 0 0 10px 15px;
+    margin-bottom: 10px;
+}
+
+.tv-show-info__header {
+    margin-top: 10px;
+}
+
+.tv-show-info__premiered {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+@media (max-width: 767px) {
+    .tv-show-info {
+        margin-left: 10px;
+    }
 }
 
 @keyframes blink {
@@ -64,6 +85,7 @@ body {
 .search-btn {
     position: relative;
 }
+
 .search-btn__clear {
     position: absolute;
     right: 10px;
@@ -74,4 +96,37 @@ body {
     font-size: 20px;
     cursor: pointer;
     color: #ccc;
+}
+
+.tv-show-seasons {
+
+}
+
+.tv-show-season {
+
+}
+
+.tv-show-episodes {
+
+}
+
+.tv-show-episode {
+    border: #e3e3e3 solid 1px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.tv-show-episode__cover {
+    float: left;
+}
+
+.tv-show-episode__info {
+    float: left;
+    padding-left: 10px;
+}
+
+.tv-show-episode__summary {
+    clear: left;
+    padding-top: 10px;
 }
