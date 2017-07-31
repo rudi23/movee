@@ -1,78 +1,110 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import showRepository from '../../repository/tvShowRepository';
-import Spinner from '../ui/spinner';
 import { FETCH_STATES } from '../constants';
+import TVShowMenu from './tvShowMenu';
+import TVShowInfo from './tvShowInfo';
+import Spinner from '../ui/spinner';
+import TVShowSeasons from './tvShowSeasons';
 
 class TVShow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fetchState: null,
-      show: null,
+      show: {
+        fetchState: null,
+        data: null,
+      },
+      seasons: {
+        fetchState: null,
+        data: null,
+      },
     };
 
-    this.onClick = this.onClick.bind(this);
+    this.toggleFavourite = this.toggleFavourite.bind(this);
   }
 
   componentWillMount() {
     const showId = parseInt(this.props.match.params.showId, 10);
-    this.setState({ fetchState: FETCH_STATES.PENDING });
+
+    this.setState({ show: { fetchState: FETCH_STATES.PENDING } });
     showRepository.findById(showId)
-      .then(show => this.setState({ show, fetchState: FETCH_STATES.SUCCESS }))
+      .then(data => this.setState({ show: { data, fetchState: FETCH_STATES.SUCCESS } }))
       .catch((err) => {
         const fetchState = (err.message === 'Not Found') ? FETCH_STATES.SUCCESS : FETCH_STATES.FAILED;
-        this.setState({ fetchState });
+        this.setState({ show: { fetchState } });
+      });
+
+    this.setState({ seasons: { fetchState: FETCH_STATES.PENDING } });
+    showRepository.findSeasonsWithEpisodes(showId)
+      .then(data => this.setState({ seasons: { data, fetchState: FETCH_STATES.SUCCESS } }))
+      .catch((err) => {
+        const fetchState = (err.message === 'Not Found') ? FETCH_STATES.SUCCESS : FETCH_STATES.FAILED;
+        this.setState({ seasons: { fetchState } });
       });
   }
 
-  onClick = tvShowId => (e) => {
+  toggleFavourite = tvShowId => (e) => {
     e.preventDefault();
     this.props.toggleFavourite(tvShowId);
   };
 
-  renderShow() {
-    const { show, fetchState } = this.state;
-    const { isFavourite } = this.props;
-    const favImage = isFavourite ? 'star-filled' : 'star-unfilled';
-    const favAlt = isFavourite ? 'Filled star' : 'Unfilled star';
+  renderShowContent = () => {
+    const { isFavourite, match } = this.props;
+    const { data: show = null, fetchState: showFetchState } = this.state.show;
+    const { data: seasons = [], fetchState: seasonsFetchState } = this.state.seasons;
 
-    if (fetchState === FETCH_STATES.FAILED) {
+    if (showFetchState === FETCH_STATES.PENDING) {
+      return <Spinner visible={showFetchState === FETCH_STATES.PENDING} />;
+    }
+
+    if (showFetchState === FETCH_STATES.FAILED) {
       return <div>Sorry, an error occurred while trying to access resource.</div>;
     }
 
-    if (fetchState === FETCH_STATES.SUCCESS && !show) {
+    if (showFetchState === FETCH_STATES.SUCCESS && !show) {
       return <div>Sorry, we could not find searched show.</div>;
     }
 
-    if (fetchState === FETCH_STATES.SUCCESS && show) {
-      return (
-        <article className="tv-show">
-          <div className="tv-show__cover">
-            <img src={show.image} alt={show.title} />
-          </div>
-          <div className="tv-show-info">
-            <h3>{show.title}</h3>
-            <h5>{show.language}, {show.premiered}</h5>
-            <a tabIndex="-1" role="button" onClick={this.onClick(show.id)}>
-              <img src={`/${favImage}.svg`} alt={`${favAlt}`} className="favourite-star" />
-            </a>
-          </div>
-        </article>
-      );
-    }
+    return (
+      <div>
+        <div className="col-md-12">
+          <TVShowMenu match={this.props.match} />
+        </div>
 
-    return null;
-  }
+        <div className="col-md-12">
+          <Route
+            path={`${match.url}/seasons`}
+            render={() => (
+              <TVShowSeasons
+                seasons={seasons}
+                fetchState={seasonsFetchState}
+              />
+            )}
+          />
+          <Route
+            exact
+            path={match.url}
+            render={() => (
+              <TVShowInfo
+                isFavourite={isFavourite}
+                show={show}
+                onClick={this.toggleFavourite}
+              />
+            )}
+          />
+        </div>
+      </div>
+    );
+  };
 
   render() {
     return (
-      <div id="tv-show-container" className="row">
-        <div className="col-md-8 col-md-offset-2">
-          <div className="row">
-            <Spinner visible={this.state.fetchState === FETCH_STATES.PENDING} />
-            {this.renderShow()}
-          </div>
+      <div className="container">
+        <h1>{this.state.show.data ? this.state.show.data.title : null}</h1>
+        <div className="row">
+          {this.renderShowContent()}
         </div>
       </div>
     );
@@ -84,6 +116,7 @@ TVShow.propTypes = {
   toggleFavourite: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.object.isRequired,
+    url: PropTypes.string.isRequired,
   }).isRequired,
 };
 

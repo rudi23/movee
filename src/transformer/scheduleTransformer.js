@@ -10,7 +10,7 @@ const createEpisode = apiEpisode => ({
   airTimestamp: apiEpisode.airstamp,
   runtime: apiEpisode.runtime,
   summary: apiEpisode.summary,
-  show: tvShowTransformer.transformItem(apiEpisode.show),
+  show: tvShowTransformer.transformShow(apiEpisode.show),
 });
 
 const scheduleTransformer = {
