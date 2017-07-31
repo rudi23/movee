@@ -15,6 +15,13 @@ const transformShow = apiShow => ({
   premiered: apiShow.premiered,
   language: apiShow.language,
   image: getImage(apiShow.image),
+  status: apiShow.status,
+  type: apiShow.type,
+  summary: apiShow.summary,
+  officialSite: apiShow.officialSite,
+  genres: apiShow.genres,
+  rating: apiShow.rating.average,
+  runtime: apiShow.runtime,
 });
 
 const transformSeasonEpisodes = ([seasons, episodes]) => {

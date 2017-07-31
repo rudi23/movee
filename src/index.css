@@ -2,6 +2,11 @@ body {
     padding-top: 50px;
 }
 
+a:hover, a:focus {
+    text-decoration: none;
+    outline: none;
+}
+
 .container {
     position: relative;
 }
@@ -17,6 +22,28 @@ body {
     padding: 50px 0;
 }
 
+@media (max-width: 767px) {
+    #search-bar {
+        padding: 10px 0;
+    }
+}
+
+.search-btn {
+    position: relative;
+}
+
+.search-btn__clear {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    height: 20px;
+    margin: auto;
+    font-size: 20px;
+    cursor: pointer;
+    color: #ccc;
+}
+
 #tv-show-menu {
     padding: 20px 0;
 }
@@ -25,7 +52,6 @@ body {
     border: #e3e3e3 solid 1px;
     margin-bottom: 20px;
     overflow: hidden;
-
 }
 
 .tv-show__cover {
@@ -35,18 +61,42 @@ body {
     margin: 10px;
 }
 
+.tv-show__cover img {
+    width: 210px;
+}
+
+.tv-show__summary {
+    clear: both;
+    margin: 10px;
+}
+
 .tv-show-info {
     float: left;
     margin-bottom: 10px;
 }
 
-.tv-show-info__header {
-    margin-top: 10px;
+.tv-show-info__favourite {
+    float: left;
 }
 
-.tv-show-info__premiered {
+.tv-show-info__title {
+    padding-left: 40px;
     margin-top: 10px;
+    font-size: 25px;
+}
+
+.tv-show-info__item {
     font-size: 14px;
+}
+
+/*noinspection CssUnusedSymbol*/
+.tv-show-info__status--running {
+    color: dodgerblue;
+}
+
+/*noinspection CssUnusedSymbol*/
+.tv-show-info__status--ended {
+    color: #E10028;
 }
 
 @media (max-width: 767px) {
@@ -73,60 +123,92 @@ body {
     animation-delay: 500ms
 }
 
-.episode__star {
-    float: left;
-    margin-right: 10px;
-}
-
-.favourite-star {
-    width: 25px;
-}
-
-.search-btn {
-    position: relative;
-}
-
-.search-btn__clear {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    bottom: 0;
-    height: 20px;
-    margin: auto;
+.tv-show-season__title {
     font-size: 20px;
-    cursor: pointer;
-    color: #ccc;
 }
 
-.tv-show-seasons {
-
-}
-
-.tv-show-season {
-
-}
-
-.tv-show-episodes {
-
+.tv-show-season__title :hover, .tv-show-season__title a:hover {
+    text-decoration: none;
 }
 
 .tv-show-episode {
-    border: #e3e3e3 solid 1px;
+    border-top: #e3e3e3 solid 1px;
     margin-bottom: 20px;
     overflow: hidden;
-    padding: 10px;
 }
 
 .tv-show-episode__cover {
     float: left;
+    width: 250px;
+    min-height: 140px;
+    margin: 10px;
 }
 
-.tv-show-episode__info {
-    float: left;
-    padding-left: 10px;
+.tv-show-episode__cover img {
+    width: 250px;
 }
 
 .tv-show-episode__summary {
     clear: left;
-    padding-top: 10px;
+    margin: 10px;
+}
+
+.episode-info {
+    float: left;
+    padding-left: 10px;
+}
+
+.episode-info__title {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.episode-info__item {
+    font-size: 14px;
+}
+
+/*noinspection CssUnusedSymbol*/
+.dv-star-rating-star {
+    font-size: 25px;
+    color: rgb(255, 180, 0) !important;
+}
+
+/*noinspection CssUnusedSymbol*/
+.favourite-icon {
+    color: #333;
+}
+
+/*noinspection CssUnusedSymbol*/
+.favourite-icon--filled {
+    color: #E10028;
+}
+
+/*noinspection CssUnusedSymbol*/
+.favourite-icon--filled:before {
+    content: "\f004";
+}
+
+/*noinspection CssUnusedSymbol*/
+.favourite-icon--unfilled:before {
+    content: "\f08a";
+}
+
+.schedule-episode {
+    border: #e3e3e3 solid 1px;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.schedule-channel__name {
+    font-size: 24px;
+
+}
+.schedule-channel__country {
+    margin-left: 10px;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.schedule-filter .form-group {
+    margin-right: 10px;
 }
