@@ -6,25 +6,26 @@ import TVShowInfo from '../tvShow/tvShowInfo';
 const renderList = (shows, favourites, toggleFavourite) => shows.map(show => (
   <TVShowInfo
     key={show.id}
-    isFavourite={favourites.includes(show.id)}
+    isFavourite={favourites.has(show.id)}
     toggleFavourite={toggleFavourite}
     show={show}
     isLinked
   />
 ));
 
-const FavouriteList = ({ shows, fetchState, favourites, toggleFavourite }) => (
-  <section>
-    {(fetchState === FETCH_STATES.FAILED) ?
-      <div>Sorry, an error occurred while retrieving favourites.</div> : null}
+const FavouriteList = ({ shows, fetchState, favourites, toggleFavourite }) => {
+  let content = null;
 
-    {(fetchState === FETCH_STATES.SUCCESS && !shows.length) ?
-      <div>You don not have any favourite tv shows.</div> : null}
+  if (fetchState === FETCH_STATES.FAILED) {
+    content = <div>Sorry, an error occurred while retrieving favourites.</div>;
+  } else if (fetchState === FETCH_STATES.SUCCESS && !shows.length) {
+    content = <div>You don not have any favourite tv shows.</div>;
+  } else if (fetchState === FETCH_STATES.SUCCESS && shows.length) {
+    content = renderList(shows, favourites, toggleFavourite);
+  }
 
-    {(fetchState === FETCH_STATES.SUCCESS && shows.length) ?
-      renderList(shows, favourites, toggleFavourite) : null}
-  </section>
-);
+  return <section>{content}</section>;
+};
 
 FavouriteList.defaultProps = {
   fetchState: null,
@@ -33,7 +34,7 @@ FavouriteList.defaultProps = {
 FavouriteList.propTypes = {
   shows: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchState: PropTypes.string,
-  favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
+  favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };
 

@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const loader = (
-  <div className="loader">Loading
+  <div className="loader">
+    Loading
     <span className="loader__dot">.</span>
     <span className="loader__dot">.</span>
     <span className="loader__dot">.</span>

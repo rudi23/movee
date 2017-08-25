@@ -26,7 +26,7 @@ class TVShow extends Component {
   componentWillMount() {
     const showId = parseInt(this.props.match.params.showId, 10);
 
-    this.setState({ show: { fetchState: FETCH_STATES.PENDING } });
+    this.setState({ show: { fetchState: FETCH_STATES.PENDING, data: this.state.show.data } });
     showRepository.findById(showId)
       .then(data => this.setState({ show: { data, fetchState: FETCH_STATES.SUCCESS } }))
       .catch((err) => {
@@ -50,13 +50,9 @@ class TVShow extends Component {
 
     if (showFetchState === FETCH_STATES.PENDING) {
       return <Spinner visible={showFetchState === FETCH_STATES.PENDING} />;
-    }
-
-    if (showFetchState === FETCH_STATES.FAILED) {
+    } else if (showFetchState === FETCH_STATES.FAILED) {
       return <div>Sorry, an error occurred while trying to access resource.</div>;
-    }
-
-    if (showFetchState === FETCH_STATES.SUCCESS && !show) {
+    } else if (showFetchState === FETCH_STATES.SUCCESS && !show) {
       return <div>Sorry, we could not find searched show.</div>;
     }
 

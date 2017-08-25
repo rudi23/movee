@@ -3,18 +3,21 @@ import transformer from '../transformer/tvShowTransformer';
 
 const API_BASE_URL = 'http://api.tvmaze.com';
 
+const search = query => fetchJson(`${API_BASE_URL}/search/shows?q=${query}`).then(transformer.transformShowCollection);
 const findById = id => fetchJson(`${API_BASE_URL}/shows/${id}`).then(transformer.transformShow);
+const findByIds = ids => Promise.all(ids.map(findById));
 const findSeasons = id => fetchJson(`${API_BASE_URL}/shows/${id}/seasons`);
 const findEpisodes = id => fetchJson(`${API_BASE_URL}/shows/${id}/episodes`);
+const findSeasonsWithEpisodes = id =>
+  Promise.all([findSeasons(id), findEpisodes(id)]).then(transformer.transformSeasonEpisodes);
 
 const tvShowRepository = {
-  search: query => fetchJson(`${API_BASE_URL}/search/shows?q=${query}`).then(transformer.transformShowCollection),
+  search,
   findById,
-  findByIds: ids => Promise.all(ids.map(findById)),
+  findByIds,
   findSeasons,
   findEpisodes,
-  findSeasonsWithEpisodes: id => Promise.all([findSeasons(id), findEpisodes(id)])
-    .then(transformer.transformSeasonEpisodes),
+  findSeasonsWithEpisodes,
 };
 
 export default tvShowRepository;

@@ -12,18 +12,19 @@ const renderList = (channels, favourites, toggleFavourite) => channels.map(chann
   />
 ));
 
-const ScheduleChannels = ({ channels, fetchState, favourites, toggleFavourite }) => (
-  <div>
-    {(fetchState === FETCH_STATES.FAILED) ?
-      <div>Sorry, an error occurred while loading channels.</div> : null}
+const ScheduleChannels = ({ channels, fetchState, favourites, toggleFavourite }) => {
+  let content = null;
 
-    {(fetchState === FETCH_STATES.SUCCESS && !channels.length) ?
-      <div>No channels</div> : null}
+  if (fetchState === FETCH_STATES.FAILED) {
+    content = <div>Sorry, an error occurred while loading channels.</div>;
+  } else if (fetchState === FETCH_STATES.SUCCESS && !channels.length) {
+    content = <div>No channels</div>;
+  } else if (fetchState === FETCH_STATES.SUCCESS && channels.length) {
+    content = renderList(channels, favourites, toggleFavourite);
+  }
 
-    {(fetchState === FETCH_STATES.SUCCESS && channels.length) ?
-      renderList(channels, favourites, toggleFavourite) : null}
-  </div>
-);
+  return <div>{content}</div>;
+};
 
 ScheduleChannels.defaultProps = {
   fetchState: null,
@@ -32,7 +33,7 @@ ScheduleChannels.defaultProps = {
 ScheduleChannels.propTypes = {
   channels: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchState: PropTypes.string,
-  favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
+  favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };
 

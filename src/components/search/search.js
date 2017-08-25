@@ -86,7 +86,7 @@ class Search extends Component {
 }
 
 Search.propTypes = {
-  favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
+  favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.object.isRequired,

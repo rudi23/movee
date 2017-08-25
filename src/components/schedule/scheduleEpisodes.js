@@ -7,7 +7,7 @@ const ScheduleEpisodes = ({ episodes, favourites, toggleFavourite }) => (
     {episodes.map(episode => (
       <ScheduleEpisode
         key={episode.id}
-        isFavourite={favourites.includes(episode.show.id)}
+        isFavourite={favourites.has(episode.show.id)}
         toggleFavourite={toggleFavourite}
         {...episode}
       />
@@ -17,7 +17,7 @@ const ScheduleEpisodes = ({ episodes, favourites, toggleFavourite }) => (
 
 ScheduleEpisodes.propTypes = {
   episodes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
+  favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };
 
