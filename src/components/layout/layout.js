@@ -19,7 +19,7 @@ class Layout extends Component {
     this.toggleFavourite = this.toggleFavourite.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ favourites: favouriteRepository.findAll() });
   }
 

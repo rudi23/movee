@@ -23,7 +23,7 @@ class Schedule extends Component {
     this.filterChannel = this.filterChannel.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchSchedule(this.state.country, this.state.channel);
   }
 

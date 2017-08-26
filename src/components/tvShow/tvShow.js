@@ -23,7 +23,7 @@ class TVShow extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const showId = parseInt(this.props.match.params.showId, 10);
 
     this.setState({ show: { fetchState: FETCH_STATES.PENDING, data: this.state.show.data } });
@@ -48,7 +48,7 @@ class TVShow extends Component {
     const { data: show = null, fetchState: showFetchState } = this.state.show;
     const { data: seasons = [], fetchState: seasonsFetchState } = this.state.seasons;
 
-    if (showFetchState === FETCH_STATES.PENDING) {
+    if (showFetchState === FETCH_STATES.PENDING || showFetchState === null) {
       return <Spinner visible={showFetchState === FETCH_STATES.PENDING} />;
     } else if (showFetchState === FETCH_STATES.FAILED) {
       return <div>Sorry, an error occurred while trying to access resource.</div>;

@@ -16,7 +16,7 @@ class FavouriteContainer extends Component {
     this.fetchFavouriteShows = this.fetchFavouriteShows.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchFavouriteShows(this.props.favourites);
   }
 

@@ -19,7 +19,7 @@ class Search extends Component {
     this.resetQuery = this.resetQuery.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.match.params.query !== undefined) {
       const { query } = this.props.match.params;
       this.setState({ query, fetchState: FETCH_STATES.PENDING });
