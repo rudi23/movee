@@ -41,6 +41,7 @@
         ]
       }
     ],
+    "react/no-did-mount-set-state": 0,
     "import/extensions": 1,
     "import/no-extraneous-dependencies": 1,
     "import/no-unresolved": 1,

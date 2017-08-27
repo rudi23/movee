@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import ChannelList from './scheduleChannels';
+import ScheduleChannels from './scheduleChannels';
 import scheduleRepository from '../../repository/scheduleRepository';
 import Spinner from '../ui/spinner';
 import { FETCH_STATES } from '../constants';
@@ -23,7 +23,7 @@ class Schedule extends Component {
     this.filterChannel = this.filterChannel.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchSchedule(this.state.country, this.state.channel);
   }
 
@@ -41,15 +41,15 @@ class Schedule extends Component {
   filterCountry(event) {
     const country = event.target.value;
     const channel = '';
-    this.setState({ country, channel });
     this.fetchSchedule(country, channel);
+    this.setState({ country, channel });
   }
 
   filterChannel(event) {
     const country = this.state.country;
     const channel = event.target.value;
-    this.setState({ channel });
     this.fetchSchedule(country, channel);
+    this.setState({ channel });
   }
 
   render() {
@@ -68,7 +68,7 @@ class Schedule extends Component {
             filterChannel={this.filterChannel}
           />
           <Spinner visible={fetchState === FETCH_STATES.PENDING} />
-          <ChannelList
+          <ScheduleChannels
             channels={schedule}
             fetchState={fetchState}
             favourites={favourites}
@@ -81,7 +81,7 @@ class Schedule extends Component {
 }
 
 Schedule.propTypes = {
-  favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
+  favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };
 

@@ -19,7 +19,7 @@ ScheduleChannel.propTypes = {
   name: PropTypes.string.isRequired,
   country: PropTypes.object.isRequired,
   episodes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
+  favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash.isequal';
 import showRepository from '../../repository/tvShowRepository';
 import Spinner from '../ui/spinner';
 import FavouriteList from './favouriteList';
@@ -12,22 +13,22 @@ class FavouriteContainer extends Component {
       fetchState: null,
       shows: [],
     };
-    this.fetchShows = this.fetchShows.bind(this);
+    this.fetchFavouriteShows = this.fetchFavouriteShows.bind(this);
   }
 
-  componentWillMount() {
-    this.fetchShows(this.props.favourites);
+  componentDidMount() {
+    this.fetchFavouriteShows(this.props.favourites);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (JSON.stringify(nextProps.favourites) !== JSON.stringify(this.props.favourites)) {
-      this.fetchShows(nextProps.favourites);
+    if (!isEqual(nextProps.favourites, this.props.favourites)) {
+      this.fetchFavouriteShows(nextProps.favourites);
     }
   }
 
-  fetchShows(favourites) {
+  fetchFavouriteShows(favourites) {
     this.setState({ fetchState: FETCH_STATES.PENDING });
-    showRepository.findByIds(favourites)
+    showRepository.findByIds([...favourites])
       .then(shows => this.setState({ shows, fetchState: FETCH_STATES.SUCCESS }))
       .catch(() => this.setState({ fetchState: FETCH_STATES.FAILED }));
   }
@@ -55,7 +56,7 @@ class FavouriteContainer extends Component {
 }
 
 FavouriteContainer.propTypes = {
-  favourites: PropTypes.arrayOf(PropTypes.number).isRequired,
+  favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };
 

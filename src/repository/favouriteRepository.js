@@ -3,15 +3,15 @@ const favouriteRepository = {
     if (typeof window.Storage !== 'undefined') {
       const encodedFavourites = window.localStorage.getItem('favourites');
       if (encodedFavourites !== null) {
-        return JSON.parse(encodedFavourites);
+        return new Set(JSON.parse(encodedFavourites));
       }
     }
 
-    return [];
+    return new Set();
   },
   save: (favourites) => {
     if (typeof window.Storage !== 'undefined') {
-      window.localStorage.setItem('favourites', JSON.stringify(favourites));
+      window.localStorage.setItem('favourites', JSON.stringify([...favourites]));
     }
   },
 };

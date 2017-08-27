@@ -14,22 +14,22 @@ class Layout extends Component {
   constructor() {
     super();
     this.state = {
-      favourites: [],
+      favourites: new Set(),
     };
     this.toggleFavourite = this.toggleFavourite.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ favourites: favouriteRepository.findAll() });
   }
 
   toggleFavourite(tvShowId) {
-    const index = this.state.favourites.indexOf(tvShowId);
-    const favourites = this.state.favourites.slice();
-    if (index !== -1) {
-      favourites.splice(index, 1);
+    const favourites = new Set([...this.state.favourites]);
+
+    if (favourites.has(tvShowId)) {
+      favourites.delete(tvShowId);
     } else {
-      favourites.push(tvShowId);
+      favourites.add(tvShowId);
     }
     this.setState({ favourites });
     favouriteRepository.save(favourites);
@@ -78,7 +78,7 @@ class Layout extends Component {
             path="/show/:showId"
             render={props => (
               <TVShow
-                isFavourite={favourites.includes(parseInt(props.match.params.showId, 10))}
+                isFavourite={favourites.has(parseInt(props.match.params.showId, 10))}
                 toggleFavourite={toggleFavourite}
                 {...props}
               />

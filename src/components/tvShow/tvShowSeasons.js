@@ -1,31 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import 'rc-collapse/assets/index.css';
+import Collapse, { Panel } from 'rc-collapse';
 import Spinner from '../ui/spinner';
 import { FETCH_STATES } from '../constants';
-import TVShowSeason from './tvShowSeason';
+import TVShowEpisodes from './tvShowEpisodes';
 
 const TVShowSeasons = ({ seasons, fetchState }) => {
-  if (fetchState === FETCH_STATES.PENDING) {
+  if (fetchState === FETCH_STATES.PENDING || fetchState === null) {
     return <Spinner visible={fetchState === FETCH_STATES.PENDING} />;
-  }
-
-  if (fetchState === FETCH_STATES.FAILED) {
+  } else if (fetchState === FETCH_STATES.FAILED) {
     return <div>Sorry, an error occurred while trying to access resource.</div>;
-  }
-
-  if (fetchState === FETCH_STATES.SUCCESS && !seasons) {
+  } else if (fetchState === FETCH_STATES.SUCCESS && !seasons) {
     return <div>Sorry, we could not find searched show.</div>;
   }
 
-  if (fetchState === FETCH_STATES.SUCCESS && seasons) {
-    return (
-      <div id="accordion" className="panel-group" role="tablist" aria-multiselectable="true">
-        {seasons.map(season => <TVShowSeason key={season.id} season={season} />)}
-      </div>
-    );
-  }
+  return (
+    <Collapse defaultActiveKey={`${seasons[0].id}`} accordion>
+      {seasons.map((season) => {
+        const title = `Season ${season.number}: ${season.name} (${season.premiereDate} - ${season.endDate})`;
 
-  return null;
+        return (
+          <Panel header={title} key={season.id}>
+            <TVShowEpisodes episodes={season.episodes} />
+          </Panel>
+        );
+      })}
+    </Collapse>
+  );
 };
 
 TVShowSeasons.defaultProps = {
