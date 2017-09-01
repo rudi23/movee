@@ -9,6 +9,4 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk, favouritesInitiator))
 );
 
-store.dispatch({ type: 'FETCH_FAVOURITES' });
-
 export default store;

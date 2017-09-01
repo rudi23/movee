@@ -3,6 +3,8 @@ import favouriteRepository from '../../repository/favouriteRepository';
 
 export const favouritesInitiator = store => next => (action) => {
   if (action.type === favouritesConstants.FETCH_FAVOURITES) {
+    const response = next(action);
+
     store.dispatch({
       type: favouritesConstants.FETCH_FAVOURITES_PENDING,
     });
@@ -10,7 +12,7 @@ export const favouritesInitiator = store => next => (action) => {
     try {
       store.dispatch({
         type: favouritesConstants.FETCH_FAVOURITES_SUCCESS,
-        favourites: favouriteRepository.findAll(),
+        favourites: [...favouriteRepository.findAll()],
       });
     } catch (error) {
       store.dispatch({
@@ -18,6 +20,8 @@ export const favouritesInitiator = store => next => (action) => {
         error,
       });
     }
+
+    return response;
   }
 
   return next(action);
