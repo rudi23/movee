@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Menu from './menu';
 import Home from '../home';
 import Search from '../search/search';
-import TVShow from '../tvShow/tvShow';
+import TVShow from '../tvShow/tvShowContainer';
 import Footer from './footer';
 import NotFound from '../notFound';
 import FavouriteContainer from '../favourites/favouriteContainer';
