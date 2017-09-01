@@ -6,6 +6,7 @@ import { FETCH_STATES } from '../constants';
 import Spinner from '../ui/spinner';
 import TVShow from './tvShow';
 import { toggleFavourite } from '../../redux/actions/favouritesActions';
+import { fetchTvShow } from '../../redux/actions/tvShowActions';
 
 class TVShowContainer extends Component {
   constructor(props) {
@@ -25,13 +26,7 @@ class TVShowContainer extends Component {
   componentDidMount() {
     const showId = parseInt(this.props.match.params.showId, 10);
 
-    this.setState({ show: { fetchState: FETCH_STATES.PENDING, data: this.state.show.data } });
-    showRepository.findById(showId)
-      .then(data => this.setState({ show: { data, fetchState: FETCH_STATES.SUCCESS } }))
-      .catch((err) => {
-        const fetchState = (err.message === 'Not Found') ? FETCH_STATES.SUCCESS : FETCH_STATES.FAILED;
-        this.setState({ show: { fetchState } });
-      });
+    this.props.fetchTvShow(showId);
 
     this.setState({ seasons: { fetchState: FETCH_STATES.PENDING } });
     showRepository.findSeasonsWithEpisodes(showId)
@@ -45,7 +40,7 @@ class TVShowContainer extends Component {
   renderShowContent = () => {
     const { match } = this.props;
     const isFavourite = this.props.favourites.has(parseInt(match.params.showId, 10));
-    const { data: show = null, fetchState: showFetchState } = this.state.show;
+    const { data: show, fetchState: showFetchState } = this.props.show;
     const { data: seasons = [], fetchState: seasonsFetchState } = this.state.seasons;
 
     if (showFetchState === FETCH_STATES.PENDING || showFetchState === null) {
@@ -85,14 +80,21 @@ TVShowContainer.propTypes = {
     url: PropTypes.string.isRequired,
   }).isRequired,
   favourites: PropTypes.object.isRequired,
+  fetchTvShow: PropTypes.func.isRequired,
+  show: PropTypes.shape({
+    data: PropTypes.object,
+    fetchState: PropTypes.string,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
   favourites: new Set(state.favourites),
+  show: state.tvShow,
 });
 
 const mapDispatchToProps = {
   toggleFavourite,
+  fetchTvShow,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TVShowContainer);
