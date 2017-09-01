@@ -13,10 +13,17 @@ export const fetchTvShow = showId => (dispatch) => {
         show,
       })
     )
-    .catch(
-      error => dispatch({
+    .catch((error) => {
+      if (error.message === 'Not Found') {
+        return dispatch({
+          type: tvShowConstants.FETCH_SHOW_SUCCESS,
+          show: null,
+        });
+      }
+
+      return dispatch({
         type: tvShowConstants.FETCH_SHOW_FAILED,
         error,
-      })
-    );
+      });
+    });
 };

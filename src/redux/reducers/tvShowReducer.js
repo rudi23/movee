@@ -21,13 +21,6 @@ export default (state = defaultState, action = {}) => {
       });
 
     case tvShowConstants.FETCH_SHOW_FAILED:
-      if (action.error.message === 'Not Found') {
-        return Object.assign({}, state, {
-          data: null,
-          fetchState: FETCH_STATES.SUCCESS,
-        });
-      }
-
       return Object.assign({}, state, {
         data: null,
         fetchState: FETCH_STATES.FAILED,
