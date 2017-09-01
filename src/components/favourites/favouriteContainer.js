@@ -9,14 +9,6 @@ import { FETCH_STATES } from '../constants';
 import { fetchFavouriteShows } from '../../redux/actions/favouriteShowsActions';
 
 class FavouriteContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fetchState: null,
-      shows: [],
-    };
-  }
-
   componentDidMount() {
     this.props.fetchFavouriteShows(this.props.favourites);
   }
@@ -33,10 +25,10 @@ class FavouriteContainer extends Component {
         <h1>Favourites</h1>
         <div id="tv-show-list" className="row">
           <div className="col-md-12">
-            <Spinner visible={this.props.fetchState === FETCH_STATES.PENDING} />
+            <Spinner visible={this.props.shows.fetchState === FETCH_STATES.PENDING} />
             <FavouriteList
-              shows={this.props.shows}
-              fetchState={this.props.fetchState}
+              shows={this.props.shows.data}
+              fetchState={this.props.shows.fetchState}
               favourites={this.props.favourites}
               toggleFavourite={this.props.toggleFavourite}
             />
@@ -51,14 +43,15 @@ FavouriteContainer.propTypes = {
   favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
   fetchFavouriteShows: PropTypes.func.isRequired,
-  shows: PropTypes.arrayOf(PropTypes.object).isRequired,
-  fetchState: PropTypes.string.isRequired,
+  shows: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchState: PropTypes.string,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
   favourites: new Set(state.favourites),
-  shows: state.favouriteShows.shows,
-  fetchState: state.favouriteShows.fetchState,
+  shows: state.favouriteShows,
 });
 
 const mapDispatchToProps = {
