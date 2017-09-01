@@ -27,3 +27,30 @@ export const fetchTvShow = showId => (dispatch) => {
       });
     });
 };
+
+export const fetchTvShowSeasonAndEpisodes = showId => (dispatch) => {
+  dispatch({
+    type: tvShowConstants.FETCH_SHOW_SEASON_AND_EPISODES_PENDING,
+  });
+
+  return tvShowRepository.findSeasonsWithEpisodes(showId)
+    .then(
+      seasons => dispatch({
+        type: tvShowConstants.FETCH_SHOW_SEASON_AND_EPISODES_SUCCESS,
+        seasons,
+      })
+    )
+    .catch((error) => {
+      if (error.message === 'Not Found') {
+        return dispatch({
+          type: tvShowConstants.FETCH_SHOW_SEASON_AND_EPISODES_SUCCESS,
+          seasons: null,
+        });
+      }
+
+      return dispatch({
+        type: tvShowConstants.FETCH_SHOW_SEASON_AND_EPISODES_FAILED,
+        error,
+      });
+    });
+};

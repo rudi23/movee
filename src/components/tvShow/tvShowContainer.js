@@ -1,47 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import showRepository from '../../repository/tvShowRepository';
 import { FETCH_STATES } from '../constants';
 import Spinner from '../ui/spinner';
 import TVShow from './tvShow';
 import { toggleFavourite } from '../../redux/actions/favouritesActions';
-import { fetchTvShow } from '../../redux/actions/tvShowActions';
+import { fetchTvShow, fetchTvShowSeasonAndEpisodes } from '../../redux/actions/tvShowActions';
 
 class TVShowContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: {
-        fetchState: null,
-        data: null,
-      },
-      seasons: {
-        fetchState: null,
-        data: null,
-      },
-    };
-  }
-
   componentDidMount() {
     const showId = parseInt(this.props.match.params.showId, 10);
 
-    this.props.fetchTvShow(showId);
-
-    this.setState({ seasons: { fetchState: FETCH_STATES.PENDING } });
-    showRepository.findSeasonsWithEpisodes(showId)
-      .then(data => this.setState({ seasons: { data, fetchState: FETCH_STATES.SUCCESS } }))
-      .catch((err) => {
-        const fetchState = (err.message === 'Not Found') ? FETCH_STATES.SUCCESS : FETCH_STATES.FAILED;
-        this.setState({ seasons: { fetchState } });
-      });
+    this.props.fetchTvShow(showId).then(
+      this.props.fetchTvShowSeasonAndEpisodes(showId)
+    );
   }
 
   renderShowContent = () => {
     const { match } = this.props;
     const isFavourite = this.props.favourites.has(parseInt(match.params.showId, 10));
     const { data: show, fetchState: showFetchState } = this.props.show;
-    const { data: seasons = [], fetchState: seasonsFetchState } = this.state.seasons;
+    const { data: seasons, fetchState: seasonsFetchState } = this.props.show.seasons;
 
     if (showFetchState === FETCH_STATES.PENDING || showFetchState === null) {
       return <Spinner visible={showFetchState === FETCH_STATES.PENDING} />;
@@ -53,9 +32,9 @@ class TVShowContainer extends Component {
 
     return (<TVShow
       match={this.props.match}
-      seasons={seasons}
-      seasonsFetchState={seasonsFetchState}
       show={show}
+      seasonsFetchState={seasonsFetchState}
+      seasons={seasons}
       isFavourite={isFavourite}
       toggleFavourite={this.props.toggleFavourite}
     />);
@@ -64,7 +43,7 @@ class TVShowContainer extends Component {
   render() {
     return (
       <div className="container">
-        <h1>{this.state.show.data ? this.state.show.data.title : null}</h1>
+        <h1>{this.props.show.data ? this.props.show.data.title : null}</h1>
         <div className="row">
           {this.renderShowContent()}
         </div>
@@ -81,9 +60,14 @@ TVShowContainer.propTypes = {
   }).isRequired,
   favourites: PropTypes.object.isRequired,
   fetchTvShow: PropTypes.func.isRequired,
+  fetchTvShowSeasonAndEpisodes: PropTypes.func.isRequired,
   show: PropTypes.shape({
     data: PropTypes.object,
     fetchState: PropTypes.string,
+    seasons: PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.object),
+      fetchState: PropTypes.string,
+    }).isRequired,
   }).isRequired,
 };
 
@@ -95,6 +79,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   toggleFavourite,
   fetchTvShow,
+  fetchTvShowSeasonAndEpisodes,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TVShowContainer);
