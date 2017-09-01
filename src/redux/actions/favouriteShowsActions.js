@@ -15,7 +15,7 @@ export const fetchFavouriteShows = favouriteIds => (dispatch) => {
     )
     .catch(
       error => dispatch({
-        type: favouriteShowsConstants.FETCH_FAVOURITE_SHOWS_ERROR,
+        type: favouriteShowsConstants.FETCH_FAVOURITE_SHOWS_FAILED,
         error,
       })
     );

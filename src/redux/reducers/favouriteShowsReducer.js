@@ -20,7 +20,7 @@ export default (state = defaultState, action = {}) => {
         fetchState: FETCH_STATES.SUCCESS,
       });
 
-    case favouriteShowsConstants.FETCH_FAVOURITE_SHOWS_ERROR:
+    case favouriteShowsConstants.FETCH_FAVOURITE_SHOWS_FAILED:
       return Object.assign({}, state, {
         fetchState: FETCH_STATES.FAILED,
       });
