@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SearchBar from './searchBar';
 import TVShowList from './tvShowList';
 import showRepository from '../../repository/tvShowRepository';
 import Spinner from '../ui/spinner';
 import { FETCH_STATES } from '../constants';
+import { toggleFavourite } from '../../redux/actions/favouritesActions';
 
 class Search extends Component {
   constructor(props) {
@@ -96,4 +98,12 @@ Search.propTypes = {
   }).isRequired,
 };
 
-export default Search;
+const mapStateToProps = state => ({
+  favourites: new Set(state.favourites),
+});
+
+const mapDispatchToProps = {
+  toggleFavourite,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

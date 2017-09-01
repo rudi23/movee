@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash.isequal';
 import showRepository from '../../repository/tvShowRepository';
+
+import { toggleFavourite } from '../../redux/actions/favouritesActions';
 import Spinner from '../ui/spinner';
 import FavouriteList from './favouriteList';
 import { FETCH_STATES } from '../constants';
@@ -21,7 +24,7 @@ class FavouriteContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(nextProps.favourites, this.props.favourites)) {
+    if (!isEqual([...nextProps.favourites], [...this.props.favourites])) {
       this.fetchFavouriteShows(nextProps.favourites);
     }
   }
@@ -60,4 +63,12 @@ FavouriteContainer.propTypes = {
   toggleFavourite: PropTypes.func.isRequired,
 };
 
-export default FavouriteContainer;
+const mapStateToProps = state => ({
+  favourites: new Set(state.favourites),
+});
+
+const mapDispatchToProps = {
+  toggleFavourite,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavouriteContainer);

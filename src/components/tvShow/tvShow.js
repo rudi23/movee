@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import showRepository from '../../repository/tvShowRepository';
@@ -7,6 +8,7 @@ import TVShowMenu from './tvShowMenu';
 import TVShowInfo from './tvShowInfo';
 import Spinner from '../ui/spinner';
 import TVShowSeasons from './tvShowSeasons';
+import { toggleFavourite } from '../../redux/actions/favouritesActions';
 
 class TVShow extends Component {
   constructor(props) {
@@ -44,7 +46,8 @@ class TVShow extends Component {
   }
 
   renderShowContent = () => {
-    const { isFavourite, match } = this.props;
+    const { match } = this.props;
+    const isFavourite = this.props.favourites.has(parseInt(match.params.showId, 10));
     const { data: show = null, fetchState: showFetchState } = this.state.show;
     const { data: seasons = [], fetchState: seasonsFetchState } = this.state.seasons;
 
@@ -101,12 +104,20 @@ class TVShow extends Component {
 }
 
 TVShow.propTypes = {
-  isFavourite: PropTypes.bool.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.object.isRequired,
     url: PropTypes.string.isRequired,
   }).isRequired,
+  favourites: PropTypes.object.isRequired,
 };
 
-export default TVShow;
+const mapStateToProps = state => ({
+  favourites: new Set(state.favourites),
+});
+
+const mapDispatchToProps = {
+  toggleFavourite,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TVShow);

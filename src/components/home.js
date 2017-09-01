@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SearchBar from './search/searchBar';
 import Schedule from './schedule/schedule';
+import { toggleFavourite } from '../redux/actions/favouritesActions';
 
 class Home extends Component {
   constructor(props) {
@@ -60,4 +62,12 @@ Home.propTypes = {
   }).isRequired,
 };
 
-export default Home;
+const mapStateToProps = state => ({
+  favourites: new Set(state.favourites),
+});
+
+const mapDispatchToProps = {
+  toggleFavourite,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
