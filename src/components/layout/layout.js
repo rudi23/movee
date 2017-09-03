@@ -3,8 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 
 import Menu from './menu';
 import Home from '../home';
-import Search from '../search/search';
-import TVShow from '../tvShow/tvShowContainer';
+import SearchContainer from '../search/searchContainer';
+import TVShowContainer from '../tvShow/tvShowContainer';
 import Footer from './footer';
 import NotFound from '../notFound';
 import FavouriteContainer from '../favourites/favouriteContainer';
@@ -14,9 +14,9 @@ const Layout = () => (
     <Menu />
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route path="/search/:query" component={Search} />
-      <Route path="/search" component={Search} />
-      <Route path="/show/:showId" component={TVShow} />
+      <Route path="/search/:query" component={SearchContainer} />
+      <Route path="/search" component={SearchContainer} />
+      <Route path="/show/:showId" component={TVShowContainer} />
       <Route path="/favourites" component={FavouriteContainer} />
       <Route component={NotFound} />
     </Switch>

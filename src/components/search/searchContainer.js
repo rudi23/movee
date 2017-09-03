@@ -8,7 +8,7 @@ import { FETCH_STATES } from '../constants';
 import { toggleFavourite } from '../../redux/actions/favouritesActions';
 import { setQuery, clearQuery, fetchResults } from '../../redux/actions/searchActions';
 
-class Search extends Component {
+class SearchContainer extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -69,7 +69,7 @@ class Search extends Component {
   }
 }
 
-Search.propTypes = {
+SearchContainer.propTypes = {
   favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
   match: PropTypes.shape({
@@ -101,4 +101,4 @@ const mapDispatchToProps = {
   fetchResults,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);
