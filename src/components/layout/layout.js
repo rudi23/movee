@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Menu from './menu';
-import Home from '../home';
+import HomeContainer from '../home/homeContainer';
 import SearchContainer from '../search/searchContainer';
 import TVShowContainer from '../tvShow/tvShowContainer';
 import Footer from './footer';
@@ -13,7 +13,7 @@ const Layout = () => (
   <div>
     <Menu />
     <Switch>
-      <Route exact path="/" component={Home} />
+      <Route exact path="/" component={HomeContainer} />
       <Route path="/search/:query" component={SearchContainer} />
       <Route path="/search" component={SearchContainer} />
       <Route path="/show/:showId" component={TVShowContainer} />

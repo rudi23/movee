@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SearchBar from './search/searchBar';
-import Schedule from './schedule/schedule';
-import { toggleFavourite } from '../redux/actions/favouritesActions';
-import { setQuery, clearQuery } from '../redux/actions/searchActions';
+import { toggleFavourite } from '../../redux/actions/favouritesActions';
+import { setQuery, clearQuery } from '../../redux/actions/searchActions';
+import Home from './home';
 
-class Home extends Component {
+class HomeContainer extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -37,24 +36,19 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="container">
-        <h1>Home</h1>
-        <SearchBar
-          query={this.props.query}
-          onChange={this.handleChange}
-          onSubmit={this.handleSubmit}
-          resetQuery={this.resetQuery}
-        />
-        <Schedule
-          favourites={this.props.favourites}
-          toggleFavourite={this.props.toggleFavourite}
-        />
-      </div>
+      <Home
+        query={this.props.query}
+        favourites={this.props.favourites}
+        toggleFavourite={this.props.toggleFavourite}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+        resetQuery={this.resetQuery}
+      />
     );
   }
 }
 
-Home.propTypes = {
+HomeContainer.propTypes = {
   favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
   history: PropTypes.shape({
@@ -76,4 +70,4 @@ const mapDispatchToProps = {
   clearQuery,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
