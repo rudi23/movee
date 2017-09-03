@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SearchBar from './../search/searchBar';
-import Schedule from './../schedule/schedule';
+import ScheduleContainer from './../schedule/scheduleContainer';
 
 const Home = ({
   query,
@@ -19,7 +19,7 @@ const Home = ({
       onSubmit={handleSubmit}
       resetQuery={resetQuery}
     />
-    <Schedule
+    <ScheduleContainer
       favourites={favourites}
       toggleFavourite={toggleFavourite}
     />
