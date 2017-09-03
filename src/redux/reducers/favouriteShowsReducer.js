@@ -10,7 +10,7 @@ export default (state = defaultState, action = {}) => {
   switch (action.type) {
     case favouriteShowsConstants.FETCH_FAVOURITE_SHOWS_PENDING:
       return Object.assign({}, state, {
-        data: [],
+        data: defaultState.data,
         fetchState: FETCH_STATES.PENDING,
       });
 
@@ -22,7 +22,7 @@ export default (state = defaultState, action = {}) => {
 
     case favouriteShowsConstants.FETCH_FAVOURITE_SHOWS_FAILED:
       return Object.assign({}, state, {
-        data: [],
+        data: defaultState.data,
         fetchState: FETCH_STATES.FAILED,
       });
 

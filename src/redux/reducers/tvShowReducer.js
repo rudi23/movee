@@ -15,7 +15,7 @@ export default (state = defaultState, action = {}) => {
     case tvShowConstants.FETCH_SHOW_PENDING:
       return Object.assign({}, state, {
         fetchState: FETCH_STATES.PENDING,
-        data: null,
+        data: defaultState.data,
       });
 
     case tvShowConstants.FETCH_SHOW_SUCCESS:
@@ -27,14 +27,14 @@ export default (state = defaultState, action = {}) => {
     case tvShowConstants.FETCH_SHOW_FAILED:
       return Object.assign({}, state, {
         fetchState: FETCH_STATES.FAILED,
-        data: null,
+        data: defaultState.data,
       });
 
     case tvShowConstants.FETCH_SHOW_SEASON_AND_EPISODES_PENDING:
       return Object.assign({}, state, {
         seasons: {
           fetchState: FETCH_STATES.PENDING,
-          data: null,
+          data: defaultState.seasons.data,
         },
       });
 
@@ -50,7 +50,7 @@ export default (state = defaultState, action = {}) => {
       return Object.assign({}, state, {
         seasons: {
           fetchState: FETCH_STATES.FAILED,
-          data: null,
+          data: defaultState.seasons.data,
         },
       });
 
