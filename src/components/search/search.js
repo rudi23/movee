@@ -3,19 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SearchBar from './searchBar';
 import TVShowList from './tvShowList';
-import showRepository from '../../repository/tvShowRepository';
 import Spinner from '../ui/spinner';
 import { FETCH_STATES } from '../constants';
 import { toggleFavourite } from '../../redux/actions/favouritesActions';
-import { setQuery, clearQuery } from '../../redux/actions/searchActions';
+import { setQuery, clearQuery, fetchResults } from '../../redux/actions/searchActions';
 
 class Search extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      fetchState: null,
-      shows: [],
-    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
@@ -25,38 +20,29 @@ class Search extends Component {
     if (this.props.match.params.query !== undefined) {
       const { query } = this.props.match.params;
       this.props.setQuery(query);
-      showRepository.search(query)
-        .then(shows => this.setState({ shows, fetchState: FETCH_STATES.SUCCESS }))
-        .catch(() => this.setState({ fetchState: FETCH_STATES.FAILED }));
+      this.props.fetchResults(query);
     }
   }
 
   handleChange(event) {
     this.props.setQuery(event.target.value);
-    this.setState({ fetchState: null });
   }
 
   handleSubmit(event) {
     const query = this.props.query.trim();
-    if (query && this.state.fetchState === null) {
+    if (query && this.props.results.fetchState === null) {
       this.setState({ fetchState: FETCH_STATES.PENDING });
-      showRepository.search(query)
-        .then(shows => this.setState({ shows, fetchState: FETCH_STATES.SUCCESS }))
-        .then(() => this.props.history.push(`/search/${query}`))
-        .catch(() => this.setState({ fetchState: FETCH_STATES.FAILED }));
+      this.props.fetchResults(query).then(() => this.props.history.push(`/search/${query}`));
     }
     event.preventDefault();
   }
 
   resetQuery(event) {
     this.props.clearQuery();
-    this.setState({ fetchState: null });
     event.preventDefault();
   }
 
   render() {
-    const { shows, fetchState } = this.state;
-
     return (
       <div className="container">
         <h1>Search</h1>
@@ -68,11 +54,11 @@ class Search extends Component {
         />
         <div id="tv-show-list" className="row">
           <div className="col-md-12">
-            <Spinner visible={fetchState === FETCH_STATES.PENDING} />
+            <Spinner visible={this.props.results.fetchState === FETCH_STATES.PENDING} />
             <TVShowList
-              shows={shows}
+              shows={this.props.results.data}
               query={this.props.query}
-              fetchState={fetchState}
+              fetchState={this.props.results.fetchState}
               favourites={this.props.favourites}
               toggleFavourite={this.props.toggleFavourite}
             />
@@ -93,19 +79,26 @@ Search.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   query: PropTypes.string.isRequired,
+  results: PropTypes.shape({
+    fetchState: PropTypes.string,
+    data: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
   setQuery: PropTypes.func.isRequired,
   clearQuery: PropTypes.func.isRequired,
+  fetchResults: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   favourites: new Set(state.favourites),
   query: state.search.query,
+  results: state.search.results,
 });
 
 const mapDispatchToProps = {
   toggleFavourite,
   setQuery,
   clearQuery,
+  fetchResults,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
