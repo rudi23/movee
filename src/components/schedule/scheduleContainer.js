@@ -1,64 +1,40 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import scheduleRepository from '../../repository/scheduleRepository';
-import { FETCH_STATES } from '../constants';
+import { fetchSchedule, setCountryFilter, setChannelFilter } from '../../redux/actions/scheduleActions';
 import Schedule from './schedule';
 
 class ScheduleContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      fetchState: null,
-      schedule: [],
-      date: moment().format('YYYY-MM-DD'),
-      country: 'US',
-      channel: '',
-      channels: [],
-    };
 
     this.filterCountry = this.filterCountry.bind(this);
     this.filterChannel = this.filterChannel.bind(this);
   }
 
   componentDidMount() {
-    this.fetchSchedule(this.state.country, this.state.channel);
-  }
-
-  fetchSchedule(country, channel) {
-    const filterChannels = channel ? [channel] : [];
-
-    this.setState({ fetchState: FETCH_STATES.PENDING });
-    scheduleRepository.findForDate(this.state.date, country, filterChannels)
-      .then(([schedule, channels]) =>
-        this.setState({ schedule, channels, fetchState: FETCH_STATES.SUCCESS })
-      )
-      .catch(() => this.setState({ fetchState: FETCH_STATES.FAILED }));
+    this.props.fetchSchedule();
   }
 
   filterCountry(event) {
-    const country = event.target.value;
-    const channel = '';
-    this.fetchSchedule(country, channel);
-    this.setState({ country, channel });
+    this.props.setCountryFilter(event.target.value);
+    this.props.setChannelFilter();
+    this.props.fetchSchedule();
   }
 
   filterChannel(event) {
-    const country = this.state.country;
-    const channel = event.target.value;
-    this.fetchSchedule(country, channel);
-    this.setState({ channel });
+    this.props.setChannelFilter(event.target.value);
+    this.props.fetchSchedule();
   }
 
   render() {
-    const { schedule, fetchState, country, channel, channels } = this.state;
-    const { favourites, toggleFavourite } = this.props;
+    const { schedule, fetchState, filter, favourites, toggleFavourite } = this.props;
 
     return (
       <Schedule
-        country={country}
-        channel={channel}
-        channels={channels}
+        country={filter.country}
+        channel={filter.channel}
+        channelOptions={filter.channelOptions}
         filterCountry={this.filterCountry}
         filterChannel={this.filterChannel}
         schedule={schedule}
@@ -71,8 +47,30 @@ class ScheduleContainer extends Component {
 }
 
 ScheduleContainer.propTypes = {
+  fetchState: PropTypes.string,
+  schedule: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filter: PropTypes.object.isRequired,
+  fetchSchedule: PropTypes.func.isRequired,
+  setCountryFilter: PropTypes.func.isRequired,
+  setChannelFilter: PropTypes.func.isRequired,
   favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };
 
-export default ScheduleContainer;
+ScheduleContainer.defaultProps = {
+  fetchState: null,
+};
+
+const mapStateToProps = state => ({
+  fetchState: state.schedule.fetchState,
+  schedule: state.schedule.data,
+  filter: state.schedule.filter,
+});
+
+const mapDispatchToProps = {
+  fetchSchedule,
+  setCountryFilter,
+  setChannelFilter,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ScheduleContainer);

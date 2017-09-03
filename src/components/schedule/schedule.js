@@ -8,7 +8,7 @@ import ScheduleFilter from './scheduleFilter';
 const Schedule = ({
   country,
   channel,
-  channels,
+  channelOptions,
   filterCountry,
   filterChannel,
   fetchState,
@@ -22,7 +22,7 @@ const Schedule = ({
       <ScheduleFilter
         country={country}
         channel={channel}
-        channels={channels}
+        channelOptions={channelOptions}
         filterCountry={filterCountry}
         filterChannel={filterChannel}
       />
@@ -44,7 +44,7 @@ Schedule.defaultProps = {
 Schedule.propTypes = {
   country: PropTypes.string.isRequired,
   channel: PropTypes.string.isRequired,
-  channels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  channelOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
   filterCountry: PropTypes.func.isRequired,
   filterChannel: PropTypes.func.isRequired,
   fetchState: PropTypes.string,
