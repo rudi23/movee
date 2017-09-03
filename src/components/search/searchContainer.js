@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SearchBar from './searchBar';
-import TVShowList from './tvShowList';
-import Spinner from '../ui/spinner';
 import { FETCH_STATES } from '../constants';
 import { toggleFavourite } from '../../redux/actions/favouritesActions';
 import { setQuery, clearQuery, fetchResults } from '../../redux/actions/searchActions';
+import Search from './search';
 
 class SearchContainer extends Component {
   constructor(props) {
@@ -44,27 +42,15 @@ class SearchContainer extends Component {
 
   render() {
     return (
-      <div className="container">
-        <h1>Search</h1>
-        <SearchBar
-          query={this.props.query}
-          onSubmit={this.handleSubmit}
-          onChange={this.handleChange}
-          resetQuery={this.resetQuery}
-        />
-        <div id="tv-show-list" className="row">
-          <div className="col-md-12">
-            <Spinner visible={this.props.results.fetchState === FETCH_STATES.PENDING} />
-            <TVShowList
-              shows={this.props.results.data}
-              query={this.props.query}
-              fetchState={this.props.results.fetchState}
-              favourites={this.props.favourites}
-              toggleFavourite={this.props.toggleFavourite}
-            />
-          </div>
-        </div>
-      </div>
+      <Search
+        query={this.props.query}
+        results={this.props.results}
+        favourites={this.props.favourites}
+        toggleFavourite={this.props.toggleFavourite}
+        handleSubmit={this.handleSubmit}
+        handleChange={this.handleChange}
+        resetQuery={this.resetQuery}
+      />
     );
   }
 }
