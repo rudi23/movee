@@ -7,13 +7,13 @@ import showRepository from '../../repository/tvShowRepository';
 import Spinner from '../ui/spinner';
 import { FETCH_STATES } from '../constants';
 import { toggleFavourite } from '../../redux/actions/favouritesActions';
+import { setQuery, clearQuery } from '../../redux/actions/searchActions';
 
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
       fetchState: null,
-      query: '',
       shows: [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -24,25 +24,20 @@ class Search extends Component {
   componentDidMount() {
     if (this.props.match.params.query !== undefined) {
       const { query } = this.props.match.params;
-      this.setState({ query, fetchState: FETCH_STATES.PENDING });
+      this.props.setQuery(query);
       showRepository.search(query)
         .then(shows => this.setState({ shows, fetchState: FETCH_STATES.SUCCESS }))
         .catch(() => this.setState({ fetchState: FETCH_STATES.FAILED }));
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.query === undefined) {
-      this.setState({ query: '', shows: [] });
-    }
-  }
-
   handleChange(event) {
-    this.setState({ query: event.target.value, fetchState: null });
+    this.props.setQuery(event.target.value);
+    this.setState({ fetchState: null });
   }
 
   handleSubmit(event) {
-    const query = this.state.query.trim();
+    const query = this.props.query.trim();
     if (query && this.state.fetchState === null) {
       this.setState({ fetchState: FETCH_STATES.PENDING });
       showRepository.search(query)
@@ -54,18 +49,19 @@ class Search extends Component {
   }
 
   resetQuery(event) {
-    this.setState({ query: '', fetchState: null });
+    this.props.clearQuery();
+    this.setState({ fetchState: null });
     event.preventDefault();
   }
 
   render() {
-    const { query, shows, fetchState } = this.state;
+    const { shows, fetchState } = this.state;
 
     return (
       <div className="container">
         <h1>Search</h1>
         <SearchBar
-          query={query}
+          query={this.props.query}
           onSubmit={this.handleSubmit}
           onChange={this.handleChange}
           resetQuery={this.resetQuery}
@@ -75,7 +71,7 @@ class Search extends Component {
             <Spinner visible={fetchState === FETCH_STATES.PENDING} />
             <TVShowList
               shows={shows}
-              query={query}
+              query={this.props.query}
               fetchState={fetchState}
               favourites={this.props.favourites}
               toggleFavourite={this.props.toggleFavourite}
@@ -96,14 +92,20 @@ Search.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  query: PropTypes.string.isRequired,
+  setQuery: PropTypes.func.isRequired,
+  clearQuery: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   favourites: new Set(state.favourites),
+  query: state.search.query,
 });
 
 const mapDispatchToProps = {
   toggleFavourite,
+  setQuery,
+  clearQuery,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
