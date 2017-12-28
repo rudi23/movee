@@ -8,17 +8,17 @@ import Home from './home';
 class HomeContainer extends Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.typeSearchQuery = this.typeSearchQuery.bind(this);
+    this.submitSearch = this.submitSearch.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
     this.props.clearQuery();
   }
 
-  handleChange(event) {
+  typeSearchQuery(event) {
     this.props.setQuery(event.target.value);
   }
 
-  handleSubmit(event) {
+  submitSearch(event) {
     const query = this.props.query.trim();
     if (query) {
       this.props.clearQuery();
@@ -40,8 +40,8 @@ class HomeContainer extends Component {
         query={this.props.query}
         favourites={this.props.favourites}
         toggleFavourite={this.props.toggleFavourite}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
+        handleChange={this.typeSearchQuery}
+        handleSubmit={this.submitSearch}
         resetQuery={this.resetQuery}
       />
     );
