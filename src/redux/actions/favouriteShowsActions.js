@@ -7,16 +7,16 @@ export const fetchFavouriteShows = favouriteIds => (dispatch) => {
   });
 
   return showRepository.findByIds([...favouriteIds])
-    .then(
-      shows => dispatch({
+    .then((shows) => {
+      dispatch({
         type: favouriteShowsConstants.FETCH_FAVOURITE_SHOWS_SUCCESS,
         shows,
-      })
-    )
-    .catch(
-      error => dispatch({
+      });
+    })
+    .catch((error) => {
+      dispatch({
         type: favouriteShowsConstants.FETCH_FAVOURITE_SHOWS_FAILED,
         error,
-      })
-    );
+      });
+    });
 };

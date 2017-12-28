@@ -86,6 +86,7 @@ a:hover, a:focus {
 }
 
 .tv-show-info__title {
+    margin-left: 10px;
     padding-left: 40px;
     margin-top: 10px;
     font-size: 25px;
@@ -173,6 +174,13 @@ a:hover, a:focus {
     color: rgb(255, 180, 0) !important;
 }
 
+.favourite-btn {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+}
+
 /*noinspection CssUnusedSymbol*/
 .favourite-icon {
     color: #333;
@@ -203,6 +211,7 @@ a:hover, a:focus {
     font-size: 24px;
 
 }
+
 .schedule-channel__country {
     margin-left: 10px;
     font-size: 16px;

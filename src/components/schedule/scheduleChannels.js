@@ -12,7 +12,9 @@ const renderList = (channels, favourites, toggleFavourite) => channels.map(chann
   />
 ));
 
-const ScheduleChannels = ({ channels, fetchState, favourites, toggleFavourite }) => {
+const ScheduleChannels = ({
+  channels, fetchState, favourites, toggleFavourite,
+}) => {
   let content = null;
 
   if (fetchState === FETCH_STATES.FAILED) {

@@ -9,19 +9,19 @@ export const fetchSchedule = () => (dispatch, getState) => {
   const { date, country, channel: filterChannel } = getState().schedule.filter;
 
   return scheduleRepository.findForDate(date, country, filterChannel)
-    .then(
-      ([schedule, channelOptions]) => dispatch({
+    .then(([schedule, channelOptions]) => {
+      dispatch({
         type: scheduleConstants.FETCH_SCHEDULE_SUCCESS,
         schedule,
         channelOptions,
-      })
-    )
-    .catch(
-      error => dispatch({
+      });
+    })
+    .catch((error) => {
+      dispatch({
         type: scheduleConstants.FETCH_SCHEDULE_FAILED,
         error,
-      })
-    );
+      });
+    });
 };
 
 export const setCountryFilter = country => (dispatch) => {

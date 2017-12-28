@@ -13,7 +13,7 @@ const Menu = () => (
       <Navbar.Header>
         <NavbarToggle className="collapsed" />
         <Navbar.Brand>
-          <Link to="/">Movee</Link>
+          <Link href="/" to="/">Movee</Link>
         </Navbar.Brand>
       </Navbar.Header>
       <NavbarCollapse>

@@ -11,9 +11,7 @@ class TVShowContainer extends Component {
   componentDidMount() {
     const showId = parseInt(this.props.match.params.showId, 10);
 
-    this.props.fetchTvShow(showId).then(
-      this.props.fetchTvShowSeasonAndEpisodes(showId)
-    );
+    this.props.fetchTvShow(showId).then(this.props.fetchTvShowSeasonAndEpisodes(showId));
   }
 
   renderShowContent = () => {

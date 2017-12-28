@@ -28,7 +28,9 @@ class ScheduleContainer extends Component {
   }
 
   render() {
-    const { schedule, fetchState, filter, favourites, toggleFavourite } = this.props;
+    const {
+      schedule, fetchState, filter, favourites, toggleFavourite,
+    } = this.props;
 
     return (
       <Schedule

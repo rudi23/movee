@@ -13,7 +13,9 @@ const renderList = (shows, favourites, toggleFavourite) => shows.map(show => (
   />
 ));
 
-const TVShowList = ({ shows, fetchState, query, favourites, toggleFavourite }) => {
+const TVShowList = ({
+  shows, fetchState, query, favourites, toggleFavourite,
+}) => {
   let content = null;
 
   if (fetchState === FETCH_STATES.FAILED) {

@@ -21,16 +21,16 @@ export const fetchResults = query => (dispatch) => {
   });
 
   return showRepository.search(query)
-    .then(
-      results => dispatch({
+    .then((results) => {
+      dispatch({
         type: searchConstants.FETCH_RESULTS_SUCCESS,
         results,
-      })
-    )
-    .catch(
-      error => dispatch({
+      });
+    })
+    .catch((error) => {
+      dispatch({
         type: searchConstants.FETCH_RESULTS_FAILED,
         error,
-      })
-    );
+      });
+    });
 };

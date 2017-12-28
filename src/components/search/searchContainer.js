@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { FETCH_STATES } from '../constants';
 import { toggleFavourite } from '../../redux/actions/favouritesActions';
 import { setQuery, clearQuery, fetchResults } from '../../redux/actions/searchActions';
 import Search from './search';
@@ -29,7 +28,6 @@ class SearchContainer extends Component {
   handleSubmit(event) {
     const query = this.props.query.trim();
     if (query && this.props.results.fetchState === null) {
-      this.setState({ fetchState: FETCH_STATES.PENDING });
       this.props.fetchResults(query).then(() => this.props.history.push(`/search/${query}`));
     }
     event.preventDefault();

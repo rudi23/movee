@@ -56,7 +56,9 @@ const renderStatus = (status) => {
   );
 };
 
-const TVShowInfo = ({ show, isFavourite, toggleFavourite, isLinked }) => (
+const TVShowInfo = ({
+  show, isFavourite, toggleFavourite, isLinked,
+}) => (
   <article className="tv-show">
     {renderCover(show, isLinked)}
     <div className="tv-show-info">

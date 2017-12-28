@@ -30,7 +30,6 @@ class HomeContainer extends Component {
 
   resetQuery(event) {
     this.props.clearQuery();
-    this.setState({ fetchState: null });
     event.preventDefault();
   }
 

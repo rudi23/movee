@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ScheduleFilter = ({ channel, country, channelOptions, filterChannel, filterCountry }) => (
+const ScheduleFilter = ({
+  channel, country, channelOptions, filterChannel, filterCountry,
+}) => (
   <div className="schedule-filter">
     <form className="form-inline">
       <div className="form-group">

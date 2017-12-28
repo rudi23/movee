@@ -29,10 +29,34 @@
         "functions": "never"
       }
     ],
-    "no-plusplus": [
-      1
-    ],
+    "no-plusplus": 1,
     "jsx-a11y/no-static-element-interactions": 1,
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "required": {
+          "every": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "jsx-a11y/anchor-is-valid": [
+      2,
+      {
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "to"
+        ],
+        "aspects": [
+          "noHref",
+          "invalidHref",
+          "preferButton"
+        ]
+      }
+    ],
     "react/forbid-prop-types": [
       1,
       {

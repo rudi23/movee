@@ -5,7 +5,9 @@ import TVShowMenu from './tvShowMenu';
 import TVShowInfo from './tvShowInfo';
 import TVShowSeasons from './tvShowSeasons';
 
-const TVShow = ({ match, seasons, seasonsFetchState, show, isFavourite, toggleFavourite }) => (
+const TVShow = ({
+  match, seasons, seasonsFetchState, show, isFavourite, toggleFavourite,
+}) => (
   <div>
     <div className="col-md-12">
       <TVShowMenu match={match} />

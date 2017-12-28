@@ -22,6 +22,7 @@ const SearchBar = props => (
                     tabIndex={-1}
                     className="search-btn__clear glyphicon glyphicon-remove-circle"
                     onClick={props.resetQuery}
+                    onKeyPress={props.resetQuery}
                   />
                 ) : null
               }
