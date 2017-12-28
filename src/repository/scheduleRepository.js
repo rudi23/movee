@@ -5,9 +5,9 @@ import transformer from '../transformer/scheduleTransformer';
 const API_BASE_URL = 'http://api.tvmaze.com';
 
 const scheduleRepository = {
-  findForDate: (date, country = 'US', channel = null) => {
+  findForDate: (date, country = 'US', channel = '') => {
     const isoDate = date || moment().format('YYYY-MM-DD');
-    const filterChannels = channel !== null ? [channel] : [];
+    const filterChannels = channel !== '' ? [channel] : [];
 
     return fetchJson(`${API_BASE_URL}/schedule?country=${country}&date=${isoDate}`)
       .then(transformer.transform)

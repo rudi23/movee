@@ -31,7 +31,7 @@ export const setCountryFilter = country => (dispatch) => {
   });
 };
 
-export const setChannelFilter = (channel = null) => (dispatch) => {
+export const setChannelFilter = (channel = '') => (dispatch) => {
   dispatch({
     type: scheduleConstants.SET_CHANNEL_FILTER,
     channel,
