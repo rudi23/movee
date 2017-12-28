@@ -8,7 +8,7 @@ export const defaultState = {
   filter: {
     date: moment().format('YYYY-MM-DD'),
     country: 'US',
-    channel: null,
+    channel: '',
     channelOptions: [],
   },
 };

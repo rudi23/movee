@@ -38,12 +38,13 @@ const Schedule = ({
 );
 
 Schedule.defaultProps = {
+  channel: '',
   fetchState: null,
 };
 
 Schedule.propTypes = {
   country: PropTypes.string.isRequired,
-  channel: PropTypes.string.isRequired,
+  channel: PropTypes.string,
   channelOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
   filterCountry: PropTypes.func.isRequired,
   filterChannel: PropTypes.func.isRequired,
