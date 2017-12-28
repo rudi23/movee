@@ -2,11 +2,16 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducer from './redux/reducers';
-import { favouritesInitiator } from './redux/middlewares/favouritesMiddleware';
+import { favouritesMiddleware } from './redux/middlewares/favouritesMiddleware';
+
+let enhancer = applyMiddleware(thunk, favouritesMiddleware);
+if (process.env.NODE_ENV !== 'production') {
+  enhancer = composeWithDevTools(enhancer);
+}
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk, favouritesInitiator))
+  enhancer
 );
 
 export default store;

@@ -14,12 +14,7 @@ const TVShow = ({ match, seasons, seasonsFetchState, show, isFavourite, toggleFa
     <div className="col-md-12">
       <Route
         path={`${match.url}/seasons`}
-        render={() => (
-          <TVShowSeasons
-            seasons={seasons}
-            fetchState={seasonsFetchState}
-          />
-        )}
+        render={() => <TVShowSeasons seasons={seasons} fetchState={seasonsFetchState} />}
       />
       <Route
         exact

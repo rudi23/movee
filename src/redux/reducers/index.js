@@ -5,7 +5,7 @@ import tvShow from './tvShowReducer';
 import search from './searchReducer';
 import schedule from './scheduleReducer';
 
-const reducers = combineReducers({
+const reducer = combineReducers({
   favourites,
   favouriteShows,
   tvShow,
@@ -13,4 +13,4 @@ const reducers = combineReducers({
   schedule,
 });
 
-export default reducers;
+export default reducer;
