@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ScheduleFilter = ({ channel, country, channels, filterChannel, filterCountry }) => (
+const ScheduleFilter = ({ channel, country, channelOptions, filterChannel, filterCountry }) => (
   <div className="schedule-filter">
     <form className="form-inline">
       <div className="form-group">
@@ -36,7 +36,7 @@ const ScheduleFilter = ({ channel, country, channels, filterChannel, filterCount
           onChange={filterChannel}
         >
           <option value="">All channels</option>
-          {channels.map(name => <option key={name} value={name}>{name}</option>)}
+          {channelOptions.map(name => <option key={name} value={name}>{name}</option>)}
         </select>
       </div>
     </form>
@@ -46,13 +46,13 @@ const ScheduleFilter = ({ channel, country, channels, filterChannel, filterCount
 ScheduleFilter.defaultProps = {
   country: 'US',
   channel: '',
-  channels: [],
+  channelOptions: [],
 };
 
 ScheduleFilter.propTypes = {
   country: PropTypes.string,
   channel: PropTypes.string,
-  channels: PropTypes.arrayOf(PropTypes.string),
+  channelOptions: PropTypes.arrayOf(PropTypes.string),
   filterCountry: PropTypes.func.isRequired,
   filterChannel: PropTypes.func.isRequired,
 };

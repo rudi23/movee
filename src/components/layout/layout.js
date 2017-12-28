@@ -1,105 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Menu from './menu';
-import Home from '../home';
-import Search from '../search/search';
-import TVShow from '../tvShow/tvShow';
+import HomeContainer from '../home/homeContainer';
+import SearchContainer from '../search/searchContainer';
+import TVShowContainer from '../tvShow/tvShowContainer';
 import Footer from './footer';
 import NotFound from '../notFound';
 import FavouriteContainer from '../favourites/favouriteContainer';
-import favouriteRepository from '../../repository/favouriteRepository';
 
-class Layout extends Component {
-  constructor() {
-    super();
-    this.state = {
-      favourites: new Set(),
-    };
-    this.toggleFavourite = this.toggleFavourite.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({ favourites: favouriteRepository.findAll() });
-  }
-
-  toggleFavourite(tvShowId) {
-    const favourites = new Set([...this.state.favourites]);
-
-    if (favourites.has(tvShowId)) {
-      favourites.delete(tvShowId);
-    } else {
-      favourites.add(tvShowId);
-    }
-    this.setState({ favourites });
-    favouriteRepository.save(favourites);
-  }
-
-  render() {
-    const { favourites } = this.state;
-    const toggleFavourite = this.toggleFavourite;
-
-    return (
-      <div>
-        <Menu />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={props => (
-              <Home
-                favourites={favourites}
-                toggleFavourite={toggleFavourite}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/search/:query"
-            render={props => (
-              <Search
-                favourites={favourites}
-                toggleFavourite={toggleFavourite}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/search"
-            render={props => (
-              <Search
-                favourites={favourites}
-                toggleFavourite={toggleFavourite}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/show/:showId"
-            render={props => (
-              <TVShow
-                isFavourite={favourites.has(parseInt(props.match.params.showId, 10))}
-                toggleFavourite={toggleFavourite}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/favourites"
-            render={props => (
-              <FavouriteContainer
-                favourites={favourites}
-                toggleFavourite={toggleFavourite}
-                {...props}
-              />
-            )}
-          />
-          <Route component={NotFound} />
-        </Switch>
-        <Footer />
-      </div>
-    );
-  }
-}
+const Layout = () => (
+  <div>
+    <Menu />
+    <Switch>
+      <Route exact path="/" component={HomeContainer} />
+      <Route path="/search/:query" component={SearchContainer} />
+      <Route path="/search" component={SearchContainer} />
+      <Route path="/show/:showId" component={TVShowContainer} />
+      <Route path="/favourites" component={FavouriteContainer} />
+      <Route component={NotFound} />
+    </Switch>
+    <Footer />
+  </div>
+);
 
 export default Layout;

@@ -1,50 +1,34 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash.isequal';
-import showRepository from '../../repository/tvShowRepository';
+import { toggleFavourite } from '../../redux/actions/favouritesActions';
 import Spinner from '../ui/spinner';
 import FavouriteList from './favouriteList';
 import { FETCH_STATES } from '../constants';
+import { fetchFavouriteShows } from '../../redux/actions/favouriteShowsActions';
 
 class FavouriteContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fetchState: null,
-      shows: [],
-    };
-    this.fetchFavouriteShows = this.fetchFavouriteShows.bind(this);
-  }
-
   componentDidMount() {
-    this.fetchFavouriteShows(this.props.favourites);
+    this.props.fetchFavouriteShows(this.props.favourites);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(nextProps.favourites, this.props.favourites)) {
-      this.fetchFavouriteShows(nextProps.favourites);
+    if (!isEqual([...nextProps.favourites], [...this.props.favourites])) {
+      this.props.fetchFavouriteShows(nextProps.favourites);
     }
   }
 
-  fetchFavouriteShows(favourites) {
-    this.setState({ fetchState: FETCH_STATES.PENDING });
-    showRepository.findByIds([...favourites])
-      .then(shows => this.setState({ shows, fetchState: FETCH_STATES.SUCCESS }))
-      .catch(() => this.setState({ fetchState: FETCH_STATES.FAILED }));
-  }
-
   render() {
-    const { shows, fetchState } = this.state;
-
     return (
       <div className="container">
         <h1>Favourites</h1>
         <div id="tv-show-list" className="row">
           <div className="col-md-12">
-            <Spinner visible={fetchState === FETCH_STATES.PENDING} />
+            <Spinner visible={this.props.shows.fetchState === FETCH_STATES.PENDING} />
             <FavouriteList
-              shows={shows}
-              fetchState={fetchState}
+              shows={this.props.shows.data}
+              fetchState={this.props.shows.fetchState}
               favourites={this.props.favourites}
               toggleFavourite={this.props.toggleFavourite}
             />
@@ -58,6 +42,21 @@ class FavouriteContainer extends Component {
 FavouriteContainer.propTypes = {
   favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
+  fetchFavouriteShows: PropTypes.func.isRequired,
+  shows: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchState: PropTypes.string,
+  }).isRequired,
 };
 
-export default FavouriteContainer;
+const mapStateToProps = state => ({
+  favourites: new Set(state.favourites),
+  shows: state.favouriteShows,
+});
+
+const mapDispatchToProps = {
+  toggleFavourite,
+  fetchFavouriteShows,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavouriteContainer);
