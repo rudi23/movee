@@ -1,33 +1,19 @@
 import express from 'express';
+import classifyBrowser from './server/plugins/classifyBrowser';
+import setRequestResources from './server/plugins/setRequestResources';
+import renderHtml from './server/plugins/renderHtml';
+import webpackResources from './server/resources';
 
+const consoleLogger = console;
 const app = express();
+const publicPath = process.env.NODE_ENV === 'development' ? 'public' : 'dist/client';
 
-app.use(express.static('public'));
+app.use(express.static(publicPath));
+app.use(classifyBrowser);
+app.use(setRequestResources(webpackResources(consoleLogger)));
 
-app.get('*', (req, res) => {
-  const html = `
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="shortcut icon" href="/favicon.ico">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/css/index.css">
-        <title>Movee</title>
-    </head>
-    <body>
-        <div id="root"></div>
-        <script type="text/javascript" src="/bundle.js"></script>
-    </body>
-    </html>
-  `;
+app.get('*', renderHtml);
 
-  res.send(html);
+app.listen(3000, () => {
+  consoleLogger.info('Start listening on port 3000');
 });
-
-app.listen(3000);

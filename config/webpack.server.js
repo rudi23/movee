@@ -1,25 +1,42 @@
+const webpack = require('webpack');
 const path = require('path');
-const merge = require('webpack-merge');
-const baseConfig = require('./webpack.base.js');
-const webpackNodeExternals = require('webpack-node-externals');
+const fs = require('fs');
+const CommonOptions = require('./common.js');
+const WebpackNodeExternals = require('webpack-node-externals');
 
-const config = {
-  // Inform webpack that we're building a bundle
-  // for nodeJS, rather than for the browser
-  target: 'node',
+const nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(x => ['.bin'].indexOf(x) === -1)
+  .forEach((mod) => {
+    nodeModules[mod] = 'commonjs ' + mod;
+  });
 
-  // Tell webpack the root file of our
-  // server application
-  entry: './src/server.js',
-
-  // Tell webpack where to put the output file
-  // that is generated
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, '../build'),
+module.exports = {
+  entry: {
+    server: './src/server.js',
   },
-
-  externals: [webpackNodeExternals()],
+  target: 'node',
+  output: {
+    path: path.join(__dirname, '..', 'dist', 'server'),
+    filename: '[name].js',
+  },
+  stats: CommonOptions.WebpackStats,
+  module: {
+    rules: [
+      CommonOptions.BabelLoaderRule,
+      CommonOptions.CSSLoaderRule(),
+    ],
+  },
+  externals: nodeModules,
+  plugins: [
+    CommonOptions.CleanupPlugin,
+    new webpack.DefinePlugin({
+      BROWSER_EXECUTION: false,
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+      },
+    }),
+    CommonOptions.ExtractCSSPlugin,
+    WebpackNodeExternals,
+  ],
 };
-
-module.exports = merge(baseConfig, config);
