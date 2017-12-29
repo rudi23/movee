@@ -33,12 +33,16 @@ const TVShow = ({
   </div>
 );
 
+TVShow.defaultProps = {
+  seasons: [],
+};
+
 TVShow.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.object.isRequired,
     url: PropTypes.string.isRequired,
   }).isRequired,
-  seasons: PropTypes.arrayOf(PropTypes.object).isRequired,
+  seasons: PropTypes.arrayOf(PropTypes.object),
   seasonsFetchState: PropTypes.string.isRequired,
   show: PropTypes.object.isRequired,
   isFavourite: PropTypes.bool.isRequired,

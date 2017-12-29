@@ -28,14 +28,16 @@ class TVShowContainer extends Component {
       return <div>Sorry, we could not find searched show.</div>;
     }
 
-    return (<TVShow
-      match={this.props.match}
-      show={show}
-      seasonsFetchState={seasonsFetchState}
-      seasons={seasons}
-      isFavourite={isFavourite}
-      toggleFavourite={this.props.toggleFavourite}
-    />);
+    return (
+      <TVShow
+        match={this.props.match}
+        show={show}
+        seasonsFetchState={seasonsFetchState}
+        seasons={seasons}
+        isFavourite={isFavourite}
+        toggleFavourite={this.props.toggleFavourite}
+      />
+    );
   };
 
   render() {

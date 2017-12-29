@@ -25,7 +25,10 @@ const transformShow = apiShow => ({
 });
 
 const transformSeasonEpisodes = ([seasons, episodes]) => {
-  const seasonsWithEpisodes = seasons.map(season => Object.assign({}, season, { episodes: [] }));
+  const filteredSeasons = seasons.filter(season => season.premiereDate !== null);
+
+  const seasonsWithEpisodes =
+    filteredSeasons.map(season => Object.assign({}, season, { episodes: [] }));
 
   episodes.forEach((episode) => {
     const season = seasonsWithEpisodes.find(seasonItem => seasonItem.number === episode.season);
