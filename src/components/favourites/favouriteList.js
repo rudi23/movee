@@ -21,7 +21,7 @@ const FavouriteList = ({
   if (fetchState === FETCH_STATES.FAILED) {
     content = <div>Sorry, an error occurred while retrieving favourites.</div>;
   } else if (fetchState === FETCH_STATES.SUCCESS && !shows.length) {
-    content = <div>You don not have any favourite tv shows.</div>;
+    content = <div>You do not have any favourite tv shows.</div>;
   } else if (fetchState === FETCH_STATES.SUCCESS && shows.length) {
     content = renderList(shows, favourites, toggleFavourite);
   }

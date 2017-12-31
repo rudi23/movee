@@ -69,4 +69,6 @@ const mapDispatchToProps = {
   clearQuery,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
+export default {
+  component: connect(mapStateToProps, mapDispatchToProps)(HomeContainer),
+};

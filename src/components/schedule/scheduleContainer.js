@@ -75,4 +75,12 @@ const mapDispatchToProps = {
   setChannelFilter,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ScheduleContainer);
+export const ConnectedScheduleContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ScheduleContainer);
+
+export default {
+  component: ConnectedScheduleContainer,
+  loadData: store => store.dispatch(fetchSchedule()),
+};

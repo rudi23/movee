@@ -59,4 +59,7 @@ const mapDispatchToProps = {
   fetchFavouriteShows,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FavouriteContainer);
+export default {
+  component: connect(mapStateToProps, mapDispatchToProps)(FavouriteContainer),
+  loadData: store => store.dispatch(fetchFavouriteShows(store.getState().favourites)),
+};

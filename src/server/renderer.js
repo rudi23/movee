@@ -1,19 +1,24 @@
-export default function renderHtml(req, res, next) {
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import serialize from 'serialize-javascript';
+import { renderRoutes } from 'react-router-config';
+import Routes from '../routes';
+
+export default (req, store) => {
   const supportsManifest = req.userAgentClassifiction === 'chrome';
   const { resources } = req;
 
-  res.writeHead(200, {
-    Connection: 'Transfer-Encoding',
-    'Content-Type': 'text/html; charset=utf-8',
-    'Transfer-Encoding': 'chunked',
-    'Strict-Transport-Security': 'max-age=31557600; includeSubDomains; preload',
-    'Timing-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': 'true',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-  });
+  const content = (
+    <Provider store={store}>
+      <StaticRouter location={req.path} context={{}}>
+        <div>{renderRoutes(Routes)}</div>
+      </StaticRouter>
+    </Provider>
+  );
 
-  const html = `
+  return `
     <!doctype html>
     <html lang="en">
     <head>
@@ -33,15 +38,12 @@ export default function renderHtml(req, res, next) {
         <title>Movee</title>
     </head>
     <body>
-        <div id="root"></div>
+        <div id="root">${renderToString(content)}</div>
+        <script>
+          window.INITIAL_STATE = ${serialize(store.getState())}
+        </script>
         <script src='${resources.js}' async defer></script>
     </body>
     </html>
   `;
-
-  res.write(html);
-
-  res.end();
-
-  next();
-}
+};

@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch';
+
 const fetchJson = url => fetch(url)
   .then((res) => {
     if (res.status === 200) {

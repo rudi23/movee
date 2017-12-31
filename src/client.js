@@ -6,10 +6,12 @@
 /* global POLYFILL_URL */
 /* global ALLOW_OFFLINE */
 import React from 'react';
-import { render } from 'react-dom';
+import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './store';
-import App from './components/app';
+import { BrowserRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
+import createStore from './client/createStore';
+import routes from './routes';
 
 if (POLYFILL_OBJECT_ASSIGN) {
   // eslint-disable-next-line global-require
@@ -32,11 +34,13 @@ if (POLYFILL_URL) {
   require('url-polyfill');
 }
 
-store.dispatch({ type: 'FETCH_FAVOURITES' });
+const store = createStore(window.INITIAL_STATE);
 
-render(
+hydrate(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <div>{renderRoutes(routes)}</div>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

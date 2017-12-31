@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SearchBar from './../search/searchBar';
-import ScheduleContainer from './../schedule/scheduleContainer';
+import { ConnectedScheduleContainer as ScheduleContainer } from './../schedule/scheduleContainer';
 
 const Home = ({
   query,

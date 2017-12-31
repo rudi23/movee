@@ -1,11 +1,23 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Layout from './layout/layout';
+import PropTypes from 'prop-types';
+import { renderRoutes } from 'react-router-config';
 
-const App = () => (
-  <Router>
-    <Layout />
-  </Router>
+import Menu from './layout/menu';
+import Footer from './layout/footer';
+
+const App = ({ route }) => (
+  <div>
+    <Menu />
+    {renderRoutes(route.routes)}
+    <Footer />
+  </div>
 );
 
-export default App;
+App.propTypes = {
+  route: PropTypes.object.isRequired,
+};
+
+export default {
+  component: App,
+  loadData: store => store.dispatch({ type: 'FETCH_FAVOURITES' }),
+};

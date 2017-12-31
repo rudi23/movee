@@ -85,4 +85,7 @@ const mapDispatchToProps = {
   fetchResults,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);
+export default {
+  component: connect(mapStateToProps, mapDispatchToProps)(SearchContainer),
+};
+
