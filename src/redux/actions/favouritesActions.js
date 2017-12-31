@@ -8,7 +8,7 @@ export const saveFavourites = favourites => (dispatch) => {
   });
 };
 
-export const toggleFavourite = tvShowId => (dispatch, getState) => {
+export const toggleFavourite = tvShowId => (dispatch, getState, { storage }) => {
   const favourites = new Set(getState().favourites);
 
   if (favourites.has(tvShowId)) {
@@ -17,7 +17,7 @@ export const toggleFavourite = tvShowId => (dispatch, getState) => {
     favourites.add(tvShowId);
   }
 
-  favouriteRepository.save([...favourites]);
+  favouriteRepository(storage).save([...favourites]);
 
   saveFavourites([...favourites])(dispatch);
 };

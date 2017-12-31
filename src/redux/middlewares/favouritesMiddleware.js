@@ -1,7 +1,7 @@
 import favouritesConstants from '../constants/favouritesContants';
 import favouriteRepository from '../../repository/favouriteRepository';
 
-export const favouritesMiddleware = store => next => (action) => {
+export const favouritesMiddleware = storage => store => next => (action) => {
   if (action.type === favouritesConstants.FETCH_FAVOURITES) {
     const response = next(action);
 
@@ -12,7 +12,7 @@ export const favouritesMiddleware = store => next => (action) => {
     try {
       store.dispatch({
         type: favouritesConstants.FETCH_FAVOURITES_SUCCESS,
-        favourites: [...favouriteRepository.findAll()],
+        favourites: [...favouriteRepository(storage).findAll()],
       });
     } catch (error) {
       store.dispatch({

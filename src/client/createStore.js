@@ -5,7 +5,13 @@ import reducer from '../redux/reducers/index';
 import { favouritesMiddleware } from '../redux/middlewares/favouritesMiddleware';
 
 export default (initialStore = {}) => {
-  let enhancer = applyMiddleware(thunk, favouritesMiddleware);
+  const extraArg = { storage: window.localStorage };
+
+  let enhancer = applyMiddleware(
+    thunk.withExtraArgument(extraArg),
+    favouritesMiddleware(extraArg.storage)
+  );
+
   if (process.env.NODE_ENV !== 'production') {
     enhancer = composeWithDevTools(enhancer);
   }
