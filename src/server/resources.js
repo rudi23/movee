@@ -11,7 +11,7 @@ const loadResources = (logger) => {
       dev: {
         css: {
           inline: null,
-          url: null,
+          url: '/bundle.css',
         },
         js: '/bundle.js',
         'service.worker': null,

@@ -13,11 +13,16 @@ module.exports = {
       CommonOptions.BabelLoaderRule,
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        include: /node_modules/,
+        use: CommonOptions.ExtractCSSPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader'],
+        }),
       },
     ],
   },
   plugins: [
     CommonOptions.DefineConstants(),
+    CommonOptions.ExtractCSSPlugin,
   ],
 };

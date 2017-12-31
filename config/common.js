@@ -104,19 +104,17 @@ const BabelLoaderRule = {
   },
 };
 
-const CSSLoaderRule = (browsers) => {
-  return {
-    test: /\.css$/,
-    include: /node_modules/,
-    use: ExtractCSSPlugin.extract({
-      fallback: 'style-loader',
-      use: [
-        { loader: 'css-loader', options: CSS_LOADER_OPTIONS },
-        { loader: 'postcss-loader', options: POSTCSS_LOADER_OPTIONS(browsers) },
-      ],
-    }),
-  };
-};
+const CSSLoaderRule = browsers => ({
+  test: /\.css$/,
+  include: /node_modules/,
+  use: ExtractCSSPlugin.extract({
+    fallback: 'style-loader',
+    use: [
+      { loader: 'css-loader', options: CSS_LOADER_OPTIONS },
+      { loader: 'postcss-loader', options: POSTCSS_LOADER_OPTIONS(browsers) },
+    ],
+  }),
+});
 
 module.exports = {
   CSS_LOADER_OPTIONS,
