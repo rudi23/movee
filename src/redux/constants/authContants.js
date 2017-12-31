@@ -1,0 +1,3 @@
+export default {
+  FETCH_AUTH_CURRENT_USER: 'FETCH_AUTH_CURRENT_USER',
+};

@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import { matchRoutes } from 'react-router-config';
+import proxy from 'express-http-proxy';
 import classifyBrowser from './server/plugins/classifyBrowser';
 import setRequestResources from './server/plugins/setRequestResources';
 import webpackResources from './server/resources';
@@ -17,19 +18,43 @@ app.use(express.static(publicPath));
 app.use(classifyBrowser);
 app.use(setRequestResources(webpackResources(logger)));
 
+app.use(
+  '/api',
+  proxy('http://react-ssr-api.herokuapp.com', {
+    proxyReqOptDecorator(opts) {
+      // eslint-disable-next-line no-param-reassign
+      opts.headers['x-forwarded-host'] = 'localhost:3000';
+
+      return opts;
+    },
+  })
+);
+
 app.get('*', (req, res) => {
   logger.info(`Request: ${req.path}`);
 
   const store = createStore(req);
 
-  // eslint-disable-next-line arrow-body-style
-  const promises = matchRoutes(routes, req.path).map(({ route, match }) => {
-    return route.loadData && typeof route.loadData === 'function' ? route.loadData(store, match.params) : null;
-  });
+  const promises = matchRoutes(routes, req.path)
+    .map(({ route, match }) => { // eslint-disable-line arrow-body-style
+      return route.loadData && typeof route.loadData === 'function' ? route.loadData(store, match.params) : null;
+    })
+    .map((promise) => {
+      if (promise instanceof Promise) {
+        return new Promise((resolve) => {
+          promise.then(resolve).catch(resolve);
+        });
+      }
+      return promise;
+    });
 
   Promise.all(promises).then(() => {
     const context = {};
     const content = renderer(req, store, context);
+
+    if (context.action === 'REPLACE' && context.url) {
+      return res.redirect(301, context.url);
+    }
 
     res.status(context.notFound ? 404 : 200);
     res.set({
@@ -42,7 +67,8 @@ app.get('*', (req, res) => {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
     });
-    res.send(content);
+
+    return res.send(content);
   });
 });
 

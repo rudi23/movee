@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-const fetchJson = url => fetch(url)
+const fetchJson = (url, options = {}) => fetch(url, options)
   .then((res) => {
     if (res.status === 200) {
       return res;
@@ -8,6 +8,7 @@ const fetchJson = url => fetch(url)
 
     throw new Error(res.statusText);
   })
-  .then(res => res.json());
+  .then(res => res.text())
+  .then(body => (body ? JSON.parse(body) : body));
 
 export default fetchJson;

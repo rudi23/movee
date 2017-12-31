@@ -7,6 +7,7 @@ import Spinner from '../ui/spinner';
 import FavouriteList from './favouriteList';
 import { FETCH_STATES } from '../constants';
 import { fetchFavouriteShows } from '../../redux/actions/favouriteShowsActions';
+import requireAuth from '../hoc/requireAuth';
 
 class FavouriteContainer extends Component {
   componentDidMount() {
@@ -60,6 +61,6 @@ const mapDispatchToProps = {
 };
 
 export default {
-  component: connect(mapStateToProps, mapDispatchToProps)(FavouriteContainer),
+  component: connect(mapStateToProps, mapDispatchToProps)(requireAuth(FavouriteContainer)),
   loadData: store => store.dispatch(fetchFavouriteShows(store.getState().favourites)),
 };

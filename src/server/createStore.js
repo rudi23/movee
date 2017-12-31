@@ -9,11 +9,19 @@ const storage = cookies => ({
 });
 
 export default (req) => {
-  const storageInstance = storage(req.cookies);
+  const extraArg = {
+    storage: storage(req.cookies),
+    apiAuthOptions: {
+      baseUrl: 'http://react-ssr-api.herokuapp.com',
+      options: {
+        headers: { cookie: req.get('cookie') || '' },
+      },
+    },
+  };
 
   const enhancer = applyMiddleware(
-    thunk.withExtraArgument(storageInstance),
-    favouritesMiddleware(storageInstance)
+    thunk.withExtraArgument(extraArg),
+    favouritesMiddleware(extraArg.storage)
   );
 
   return createStore(reducer, {}, enhancer);

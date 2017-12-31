@@ -4,6 +4,7 @@ import favouriteShows from './favouriteShowsReducer';
 import tvShow from './tvShowReducer';
 import search from './searchReducer';
 import schedule from './scheduleReducer';
+import auth from './authReducer';
 
 const reducer = combineReducers({
   favourites,
@@ -11,6 +12,7 @@ const reducer = combineReducers({
   tvShow,
   search,
   schedule,
+  auth,
 });
 
 export default reducer;

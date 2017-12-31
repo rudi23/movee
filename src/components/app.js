@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { renderRoutes } from 'react-router-config';
+import { fetchCurrentUser } from './../redux/actions/authActions';
 
 import Menu from './layout/menu';
 import Footer from './layout/footer';
@@ -19,5 +20,8 @@ App.propTypes = {
 
 export default {
   component: App,
-  loadData: store => store.dispatch({ type: 'FETCH_FAVOURITES' }),
+  loadData: store => Promise.all([
+    store.dispatch({ type: 'FETCH_FAVOURITES' }),
+    store.dispatch(fetchCurrentUser()),
+  ]),
 };
