@@ -54,3 +54,6 @@ export const fetchTvShowSeasonAndEpisodes = showId => (dispatch) => {
       }
     });
 };
+
+export const fetchTvShowAllDetails = showId => dispatch => fetchTvShow(showId)(dispatch)
+  .then(fetchTvShowSeasonAndEpisodes(showId)(dispatch));

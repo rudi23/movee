@@ -23,8 +23,8 @@ app.get('*', (req, res) => {
   const store = createStore(req);
 
   // eslint-disable-next-line arrow-body-style
-  const promises = matchRoutes(routes, req.path).map(({ route }) => {
-    return route.loadData && typeof route.loadData === 'function' ? route.loadData(store) : null;
+  const promises = matchRoutes(routes, req.path).map(({ route, match }) => {
+    return route.loadData && typeof route.loadData === 'function' ? route.loadData(store, match.params) : null;
   });
 
   Promise.all(promises).then(() => {

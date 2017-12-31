@@ -5,13 +5,13 @@ import { FETCH_STATES } from '../constants';
 import Spinner from '../ui/spinner';
 import TVShow from './tvShow';
 import { toggleFavourite } from '../../redux/actions/favouritesActions';
-import { fetchTvShow, fetchTvShowSeasonAndEpisodes } from '../../redux/actions/tvShowActions';
+import { fetchTvShowAllDetails } from '../../redux/actions/tvShowActions';
 
 class TVShowContainer extends Component {
   componentDidMount() {
     const showId = parseInt(this.props.match.params.showId, 10);
 
-    this.props.fetchTvShow(showId).then(this.props.fetchTvShowSeasonAndEpisodes(showId));
+    this.props.fetchTvShowAllDetails(showId);
   }
 
   renderShowContent = () => {
@@ -59,8 +59,7 @@ TVShowContainer.propTypes = {
     url: PropTypes.string.isRequired,
   }).isRequired,
   favourites: PropTypes.object.isRequired,
-  fetchTvShow: PropTypes.func.isRequired,
-  fetchTvShowSeasonAndEpisodes: PropTypes.func.isRequired,
+  fetchTvShowAllDetails: PropTypes.func.isRequired,
   show: PropTypes.shape({
     data: PropTypes.object,
     fetchState: PropTypes.string,
@@ -78,8 +77,15 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   toggleFavourite,
-  fetchTvShow,
-  fetchTvShowSeasonAndEpisodes,
+  fetchTvShowAllDetails,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TVShowContainer);
+export const ConnectedTVShowContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TVShowContainer);
+
+export default {
+  component: ConnectedTVShowContainer,
+  loadData: (store, params) => store.dispatch(fetchTvShowAllDetails(params.showId)),
+};

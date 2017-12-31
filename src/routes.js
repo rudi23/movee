@@ -3,6 +3,7 @@ import Home from './components/home/homeContainer';
 import ScheduleContainer from './components/schedule/scheduleContainer';
 import Search from './components/search/searchContainer';
 import Favourites from './components/favourites/favouriteContainer';
+import TVShow from './components/tvShow/tvShowContainer';
 import NotFound from './components/notFound';
 
 export default [
@@ -25,8 +26,20 @@ export default [
         path: '/search',
       },
       {
+        ...Search,
+        path: '/search/:query',
+      },
+      {
         ...Favourites,
         path: '/favourites',
+      },
+      {
+        ...TVShow,
+        path: '/show/:showId',
+      },
+      {
+        ...TVShow,
+        path: '/show/:showId/seasons',
       },
       {
         ...NotFound,
