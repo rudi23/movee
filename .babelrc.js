@@ -32,6 +32,10 @@ module.exports = function (context) {
         pragma: 'React.createElement',
         useBuiltIns: true,
       }],
+      ["transform-runtime", {
+        "polyfill": false,
+        "regenerator": true
+      }],
     ],
   };
 };

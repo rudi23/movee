@@ -1,27 +1,28 @@
 import scheduleConstants from '../constants/scheduleContants';
 import scheduleRepository from '../../repository/scheduleRepository';
 
-export const fetchSchedule = () => (dispatch, getState) => {
+export const fetchSchedule = () => async (dispatch, getState) => {
   dispatch({
     type: scheduleConstants.FETCH_SCHEDULE_PENDING,
   });
 
   const { date, country, channel: filterChannel } = getState().schedule.filter;
 
-  return scheduleRepository.findForDate(date, country, filterChannel)
-    .then(([schedule, channelOptions]) => {
-      dispatch({
-        type: scheduleConstants.FETCH_SCHEDULE_SUCCESS,
-        schedule,
-        channelOptions,
-      });
-    })
-    .catch((error) => {
-      dispatch({
-        type: scheduleConstants.FETCH_SCHEDULE_FAILED,
-        error,
-      });
+  try {
+    const [schedule, channelOptions] =
+      await scheduleRepository.findForDate(date, country, filterChannel);
+
+    dispatch({
+      type: scheduleConstants.FETCH_SCHEDULE_SUCCESS,
+      schedule,
+      channelOptions,
     });
+  } catch (error) {
+    dispatch({
+      type: scheduleConstants.FETCH_SCHEDULE_FAILED,
+      error,
+    });
+  }
 };
 
 export const setCountryFilter = country => (dispatch) => {

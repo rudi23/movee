@@ -15,22 +15,21 @@ export const clearQuery = () => (dispatch) => {
   });
 };
 
-export const fetchResults = query => (dispatch) => {
+export const fetchResults = query => async (dispatch) => {
   dispatch({
     type: searchConstants.FETCH_RESULTS_PENDING,
   });
 
-  return showRepository.search(query)
-    .then((results) => {
-      dispatch({
-        type: searchConstants.FETCH_RESULTS_SUCCESS,
-        results,
-      });
-    })
-    .catch((error) => {
-      dispatch({
-        type: searchConstants.FETCH_RESULTS_FAILED,
-        error,
-      });
+  try {
+    const results = await showRepository.search(query);
+    dispatch({
+      type: searchConstants.FETCH_RESULTS_SUCCESS,
+      results,
     });
+  } catch (error) {
+    dispatch({
+      type: searchConstants.FETCH_RESULTS_FAILED,
+      error,
+    });
+  }
 };
