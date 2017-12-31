@@ -28,7 +28,10 @@ app.get('*', (req, res) => {
   });
 
   Promise.all(promises).then(() => {
-    res.status(200);
+    const context = {};
+    const content = renderer(req, store, context);
+
+    res.status(context.notFound ? 404 : 200);
     res.set({
       Connection: 'Transfer-Encoding',
       'Content-Type': 'text/html; charset=utf-8',
@@ -39,7 +42,7 @@ app.get('*', (req, res) => {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
     });
-    res.send(renderer(req, store));
+    res.send(content);
   });
 });
 

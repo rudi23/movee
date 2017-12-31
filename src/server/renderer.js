@@ -6,13 +6,13 @@ import serialize from 'serialize-javascript';
 import { renderRoutes } from 'react-router-config';
 import Routes from '../routes';
 
-export default (req, store) => {
+export default (req, store, context) => {
   const supportsManifest = req.userAgentClassifiction === 'chrome';
   const { resources } = req;
 
   const content = (
     <Provider store={store}>
-      <StaticRouter location={req.path} context={{}}>
+      <StaticRouter location={req.path} context={context}>
         <div>{renderRoutes(Routes)}</div>
       </StaticRouter>
     </Provider>
