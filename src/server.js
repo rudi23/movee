@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import { matchRoutes } from 'react-router-config';
 import classifyBrowser from './server/plugins/classifyBrowser';
 import setRequestResources from './server/plugins/setRequestResources';
@@ -11,6 +12,7 @@ const logger = console;
 const app = express();
 const publicPath = process.env.NODE_ENV === 'development' ? 'public' : 'dist/client';
 
+app.use(cookieParser());
 app.use(express.static(publicPath));
 app.use(classifyBrowser);
 app.use(setRequestResources(webpackResources(logger)));
@@ -18,7 +20,7 @@ app.use(setRequestResources(webpackResources(logger)));
 app.get('*', (req, res) => {
   logger.info(`Request: ${req.path}`);
 
-  const store = createStore();
+  const store = createStore(req);
 
   // eslint-disable-next-line arrow-body-style
   const promises = matchRoutes(routes, req.path).map(({ route }) => {

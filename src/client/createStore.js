@@ -1,11 +1,12 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
+import cookies from 'js-cookie';
 import reducer from '../redux/reducers/index';
 import { favouritesMiddleware } from '../redux/middlewares/favouritesMiddleware';
 
 export default (initialStore = {}) => {
-  const extraArg = { storage: window.localStorage };
+  const extraArg = { storage: cookies };
 
   let enhancer = applyMiddleware(
     thunk.withExtraArgument(extraArg),

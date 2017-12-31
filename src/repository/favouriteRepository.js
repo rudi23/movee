@@ -1,6 +1,6 @@
 const favouriteRepository = storage => ({
   findAll: () => {
-    const encodedFavourites = storage.getItem('favourites');
+    const encodedFavourites = storage.get('favourites');
     if (encodedFavourites !== null) {
       return new Set(JSON.parse(encodedFavourites));
     }
@@ -8,7 +8,7 @@ const favouriteRepository = storage => ({
     return new Set();
   },
   save: (favourites) => {
-    storage.setItem('favourites', JSON.stringify([...favourites]));
+    storage.set('favourites', JSON.stringify([...favourites]));
   },
 });
 
