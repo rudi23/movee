@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toggleFavourite } from '../../redux/actions/favouritesActions';
-import { setQuery, clearQuery, fetchResults } from '../../redux/actions/searchActions';
-import Search from './search';
+import { toggleFavourite } from '../redux/actions/favouritesActions';
+import { setQuery, clearQuery, fetchResults } from '../redux/actions/searchActions';
+import Search from '../components/search/Search';
 
-class SearchContainer extends Component {
+class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -53,7 +53,7 @@ class SearchContainer extends Component {
   }
 }
 
-SearchContainer.propTypes = {
+SearchPage.propTypes = {
   favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
   match: PropTypes.shape({
@@ -86,6 +86,6 @@ const mapDispatchToProps = {
 };
 
 export default {
-  component: connect(mapStateToProps, mapDispatchToProps)(SearchContainer),
+  component: connect(mapStateToProps, mapDispatchToProps)(SearchPage),
 };
 

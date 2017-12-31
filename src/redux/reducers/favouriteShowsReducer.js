@@ -1,5 +1,5 @@
-import { FETCH_STATES } from './../../components/constants';
-import favouriteShowsConstants from './../constants/favouriteShowsContants';
+import { FETCH_STATES } from '../../constants';
+import favouriteShowsConstants from '../constants/favouriteShowsContants';
 
 export const defaultState = {
   data: [],

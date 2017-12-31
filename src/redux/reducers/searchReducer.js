@@ -1,5 +1,5 @@
-import { FETCH_STATES } from './../../components/constants';
-import searchConstants from './../constants/searchContants';
+import { FETCH_STATES } from '../../constants';
+import searchConstants from '../constants/searchContants';
 
 export const defaultState = {
   query: '',

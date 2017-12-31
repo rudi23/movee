@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const NotFound = ({ staticContext = {} }) => {
+const NotFoundPage = ({ staticContext = {} }) => {
   // eslint-disable-next-line no-param-reassign
   staticContext.notFound = true;
 
@@ -13,14 +13,14 @@ const NotFound = ({ staticContext = {} }) => {
   );
 };
 
-NotFound.defaultProps = {
+NotFoundPage.defaultProps = {
   staticContext: {},
 };
 
-NotFound.propTypes = {
+NotFoundPage.propTypes = {
   staticContext: PropTypes.object,
 };
 
 export default {
-  component: NotFound,
+  component: NotFoundPage,
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ScheduleEpisode from './scheduleEpisode';
+import ScheduleEpisode from './ScheduleEpisode';
 
 const ScheduleEpisodes = ({ episodes, favourites, toggleFavourite }) => (
   <div className="episodes">

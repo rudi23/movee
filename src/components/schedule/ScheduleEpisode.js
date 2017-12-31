@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import HtmlSummary from '../ui/htmlSummary';
-import FavouriteIcon from '../favourites/favouriteIcon';
+import HtmlSummary from '../ui/HtmlSummary';
+import FavouriteIcon from '../favourites/FavouriteIcon';
 
 const ScheduleEpisode = (props) => {
   const { isFavourite, toggleFavourite } = props;

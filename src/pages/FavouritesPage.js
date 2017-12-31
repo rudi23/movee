@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash.isequal';
-import { toggleFavourite } from '../../redux/actions/favouritesActions';
-import Spinner from '../ui/spinner';
-import FavouriteList from './favouriteList';
+import { toggleFavourite } from '../redux/actions/favouritesActions';
+import Spinner from '../components/ui/Spinner';
+import FavouriteList from '../components/favourites/FavouriteList';
 import { FETCH_STATES } from '../constants';
-import { fetchFavouriteShows } from '../../redux/actions/favouriteShowsActions';
-import requireAuth from '../hoc/requireAuth';
+import { fetchFavouriteShows } from '../redux/actions/favouriteShowsActions';
+import RequireAuth from '../components/hoc/RequireAuth';
 
-class FavouriteContainer extends Component {
+class FavouritesPage extends Component {
   componentDidMount() {
     this.props.fetchFavouriteShows(this.props.favourites);
   }
@@ -40,7 +40,7 @@ class FavouriteContainer extends Component {
   }
 }
 
-FavouriteContainer.propTypes = {
+FavouritesPage.propTypes = {
   favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
   fetchFavouriteShows: PropTypes.func.isRequired,
@@ -61,6 +61,6 @@ const mapDispatchToProps = {
 };
 
 export default {
-  component: connect(mapStateToProps, mapDispatchToProps)(requireAuth(FavouriteContainer)),
+  component: connect(mapStateToProps, mapDispatchToProps)(RequireAuth(FavouritesPage)),
   loadData: store => store.dispatch(fetchFavouriteShows(store.getState().favourites)),
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TVShowEpisode from './tvShowEpisode';
+import TVShowEpisode from './TvShowEpisode';
 
 const TVShowEpisodes = ({ episodes }) => (
   <div className="tv-show-episodes">

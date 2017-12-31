@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toggleFavourite } from '../../redux/actions/favouritesActions';
-import { setQuery, clearQuery } from '../../redux/actions/searchActions';
-import Home from './home';
+import { toggleFavourite } from '../redux/actions/favouritesActions';
+import { setQuery, clearQuery } from '../redux/actions/searchActions';
+import Home from '../components/home/Home';
 
-class HomeContainer extends Component {
+class HomePage extends Component {
   constructor(props) {
     super(props);
     this.typeSearchQuery = this.typeSearchQuery.bind(this);
@@ -47,7 +47,7 @@ class HomeContainer extends Component {
   }
 }
 
-HomeContainer.propTypes = {
+HomePage.propTypes = {
   favourites: PropTypes.object.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
   history: PropTypes.shape({
@@ -70,5 +70,5 @@ const mapDispatchToProps = {
 };
 
 export default {
-  component: connect(mapStateToProps, mapDispatchToProps)(HomeContainer),
+  component: connect(mapStateToProps, mapDispatchToProps)(HomePage),
 };

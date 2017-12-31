@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FETCH_STATES } from '../constants';
-import Spinner from '../ui/spinner';
-import TVShow from './tvShow';
-import { toggleFavourite } from '../../redux/actions/favouritesActions';
-import { fetchTvShowAllDetails } from '../../redux/actions/tvShowActions';
+import Spinner from '../components/ui/Spinner';
+import TVShow from '../components/tvShow/TvShow';
+import { toggleFavourite } from '../redux/actions/favouritesActions';
+import { fetchTvShowAllDetails } from '../redux/actions/tvShowActions';
 
-class TVShowContainer extends Component {
+class TVShowPage extends Component {
   componentDidMount() {
     const showId = parseInt(this.props.match.params.showId, 10);
 
@@ -52,7 +52,7 @@ class TVShowContainer extends Component {
   }
 }
 
-TVShowContainer.propTypes = {
+TVShowPage.propTypes = {
   toggleFavourite: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.object.isRequired,
@@ -80,12 +80,12 @@ const mapDispatchToProps = {
   fetchTvShowAllDetails,
 };
 
-export const ConnectedTVShowContainer = connect(
+export const ConnectedTVShowPage = connect(
   mapStateToProps,
   mapDispatchToProps
-)(TVShowContainer);
+)(TVShowPage);
 
 export default {
-  component: ConnectedTVShowContainer,
+  component: ConnectedTVShowPage,
   loadData: (store, params) => store.dispatch(fetchTvShowAllDetails(params.showId)),
 };

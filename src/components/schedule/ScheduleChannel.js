@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ScheduleEpisodes from './scheduleEpisodes';
+import ScheduleEpisodes from './ScheduleEpisodes';
 
 const ScheduleChannel = props => (
   <div className="schedule-channel">

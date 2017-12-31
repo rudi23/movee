@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchSchedule, setCountryFilter, setChannelFilter } from '../../redux/actions/scheduleActions';
-import Schedule from './schedule';
+import { fetchSchedule, setCountryFilter, setChannelFilter } from '../redux/actions/scheduleActions';
+import Schedule from '../components/schedule/Schedule';
 
-class ScheduleContainer extends Component {
+class SchedulePage extends Component {
   constructor(props) {
     super(props);
 
@@ -48,7 +48,7 @@ class ScheduleContainer extends Component {
   }
 }
 
-ScheduleContainer.propTypes = {
+SchedulePage.propTypes = {
   fetchState: PropTypes.string,
   schedule: PropTypes.arrayOf(PropTypes.object).isRequired,
   filter: PropTypes.object.isRequired,
@@ -59,7 +59,7 @@ ScheduleContainer.propTypes = {
   toggleFavourite: PropTypes.func.isRequired,
 };
 
-ScheduleContainer.defaultProps = {
+SchedulePage.defaultProps = {
   fetchState: null,
 };
 
@@ -75,12 +75,12 @@ const mapDispatchToProps = {
   setChannelFilter,
 };
 
-export const ConnectedScheduleContainer = connect(
+export const ConnectedSchedulePage = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ScheduleContainer);
+)(SchedulePage);
 
 export default {
-  component: ConnectedScheduleContainer,
+  component: ConnectedSchedulePage,
   loadData: store => store.dispatch(fetchSchedule()),
 };

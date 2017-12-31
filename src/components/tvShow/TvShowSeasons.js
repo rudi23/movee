@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import 'rc-collapse/assets/index.css';
 import Collapse, { Panel } from 'rc-collapse';
-import Spinner from '../ui/spinner';
-import { FETCH_STATES } from '../constants';
-import TVShowEpisodes from './tvShowEpisodes';
+import Spinner from '../ui/Spinner';
+import { FETCH_STATES } from '../../constants';
+import TVShowEpisodes from './TvShowEpisodes';
 
 const TVShowSeasons = ({ seasons, fetchState }) => {
   if (fetchState === FETCH_STATES.PENDING || fetchState === null) {

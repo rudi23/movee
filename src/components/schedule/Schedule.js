@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ScheduleChannels from './scheduleChannels';
-import Spinner from '../ui/spinner';
-import { FETCH_STATES } from '../constants';
-import ScheduleFilter from './scheduleFilter';
+import ScheduleChannels from './ScheduleChannels';
+import Spinner from '../ui/Spinner';
+import { FETCH_STATES } from '../../constants';
+import ScheduleFilter from './ScheduleFilter';
 
 const Schedule = ({
   country,

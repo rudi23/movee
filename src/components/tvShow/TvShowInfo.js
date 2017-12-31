@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import StarRating from 'react-star-rating-component';
-import FavouriteIcon from '../favourites/favouriteIcon';
-import HtmlSummary from '../ui/htmlSummary';
+import FavouriteIcon from '../favourites/FavouriteIcon';
+import HtmlSummary from '../ui/HtmlSummary';
 
 const renderCover = (show, isLinked = false) => (
   <div className="tv-show__cover">

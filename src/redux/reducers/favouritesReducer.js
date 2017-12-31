@@ -1,4 +1,4 @@
-import favouritesConstants from './../constants/favouritesContants';
+import favouritesConstants from '../constants/favouritesContants';
 
 export const defaultState = [];
 

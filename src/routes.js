@@ -1,10 +1,10 @@
-import App from './components/app';
-import Home from './components/home/homeContainer';
-import ScheduleContainer from './components/schedule/scheduleContainer';
-import Search from './components/search/searchContainer';
-import Favourites from './components/favourites/favouriteContainer';
-import TVShow from './components/tvShow/tvShowContainer';
-import NotFound from './components/notFound';
+import App from './components/App';
+import Home from './pages/HomePage';
+import SchedulePage from './pages/SchedulePage';
+import SearchPage from './pages/SearchPage';
+import FavouritesPage from './pages/FavouritesPage';
+import TVShowPage from './pages/TvShowPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 export default [
   {
@@ -16,33 +16,33 @@ export default [
         exact: true,
         routes: [
           {
-            ...ScheduleContainer,
+            ...SchedulePage,
             path: '/',
           },
         ],
       },
       {
-        ...Search,
+        ...SearchPage,
         path: '/search',
       },
       {
-        ...Search,
+        ...SearchPage,
         path: '/search/:query',
       },
       {
-        ...Favourites,
+        ...FavouritesPage,
         path: '/favourites',
       },
       {
-        ...TVShow,
+        ...TVShowPage,
         path: '/show/:showId',
       },
       {
-        ...TVShow,
+        ...TVShowPage,
         path: '/show/:showId/seasons',
       },
       {
-        ...NotFound,
+        ...NotFoundPage,
       },
     ],
   },

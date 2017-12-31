@@ -1,6 +1,6 @@
 import moment from 'moment';
-import { FETCH_STATES } from './../../components/constants';
-import scheduleConstants from './../constants/scheduleContants';
+import { FETCH_STATES } from '../../constants';
+import scheduleConstants from '../constants/scheduleContants';
 
 export const defaultState = {
   fetchState: null,

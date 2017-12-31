@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
-import HtmlSummary from '../ui/htmlSummary';
+import HtmlSummary from '../ui/HtmlSummary';
 
 const TVShowEpisode = ({ episode }) => (
   <div className="tv-show-episode">

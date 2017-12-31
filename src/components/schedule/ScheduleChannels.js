@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ScheduleChannel from './scheduleChannel';
-import { FETCH_STATES } from '../constants';
+import ScheduleChannel from './ScheduleChannel';
+import { FETCH_STATES } from '../../constants';
 
 const renderList = (channels, favourites, toggleFavourite) => channels.map(channel => (
   <ScheduleChannel

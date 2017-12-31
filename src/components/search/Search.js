@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SearchBar from './searchBar';
-import TVShowList from './tvShowList';
-import Spinner from '../ui/spinner';
-import { FETCH_STATES } from '../constants';
+import SearchBar from './SearchBar';
+import TVShowList from './TvShowList';
+import Spinner from '../ui/Spinner';
+import { FETCH_STATES } from '../../constants';
 
 const Search = ({
   query,

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import TVShowMenu from './tvShowMenu';
-import TVShowInfo from './tvShowInfo';
-import TVShowSeasons from './tvShowSeasons';
+import TVShowMenu from './TvShowMenu';
+import TVShowInfo from './TvShowInfo';
+import TVShowSeasons from './TvShowSeasons';
 
 const TVShow = ({
   match, seasons, seasonsFetchState, show, isFavourite, toggleFavourite,

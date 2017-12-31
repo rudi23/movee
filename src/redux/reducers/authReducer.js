@@ -1,4 +1,4 @@
-import authConstants from './../constants/authContants';
+import authConstants from '../constants/authContants';
 
 const defaultState = {
   isLogged: false,

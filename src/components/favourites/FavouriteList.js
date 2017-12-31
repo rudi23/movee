@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FETCH_STATES } from '../constants';
-import TVShowInfo from '../tvShow/tvShowInfo';
+import { FETCH_STATES } from '../../constants';
+import TVShowInfo from '../tvShow/TvShowInfo';
 
 const renderList = (shows, favourites, toggleFavourite) => shows.map(show => (
   <TVShowInfo

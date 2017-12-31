@@ -1,5 +1,5 @@
-import { FETCH_STATES } from './../../components/constants';
-import tvShowConstants from './../constants/tvShowContants';
+import { FETCH_STATES } from '../../constants';
+import tvShowConstants from '../constants/tvShowContants';
 
 export const defaultState = {
   fetchState: null,
