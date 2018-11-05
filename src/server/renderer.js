@@ -2,6 +2,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
 import { renderRoutes } from 'react-router-config';
 import Routes from '../routes';
@@ -17,6 +18,8 @@ export default (req, store, context) => {
       </StaticRouter>
     </Provider>
   );
+
+  const helmet = Helmet.renderStatic();
 
   return `
     <!doctype html>
@@ -35,7 +38,8 @@ export default (req, store, context) => {
         ${supportsManifest ? '<link rel="manifest" href="/manifest.json" />' : ''}
         ${resources.inline !== null ? `<style>${resources.inline}</style>` : ''}
         ${resources.css !== null ? `<link rel="stylesheet" href="${resources.css}" />` : ''}
-        <title>Movee</title>
+        ${helmet.title.toString()}
+        ${helmet.meta.toString()}
     </head>
     <body>
         <div id="root">${renderToString(content)}</div>

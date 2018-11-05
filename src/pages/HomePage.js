@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 import { toggleFavourite } from '../redux/actions/favouritesActions';
 import { setQuery, clearQuery } from '../redux/actions/searchActions';
 import Home from '../components/home/Home';
@@ -35,14 +36,20 @@ class HomePage extends Component {
 
   render() {
     return (
-      <Home
-        query={this.props.query}
-        favourites={this.props.favourites}
-        toggleFavourite={this.props.toggleFavourite}
-        handleChange={this.typeSearchQuery}
-        handleSubmit={this.submitSearch}
-        resetQuery={this.resetQuery}
-      />
+      <Fragment>
+        <Helmet>
+          <title>Home page</title>
+          <meta property="og:title" content="Home page" />
+        </Helmet>
+        <Home
+          query={this.props.query}
+          favourites={this.props.favourites}
+          toggleFavourite={this.props.toggleFavourite}
+          handleChange={this.typeSearchQuery}
+          handleSubmit={this.submitSearch}
+          resetQuery={this.resetQuery}
+        />
+      </Fragment>
     );
   }
 }
