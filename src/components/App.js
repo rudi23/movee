@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { renderRoutes } from 'react-router-config';
 import { fetchCurrentUser } from '../redux/actions/authActions';
 
-import Menu from './layout/Menu';
+// import Menu from './layout/Menu';
 import Footer from './layout/Footer';
 
 const App = ({ route }) => (
   <div>
-    <Menu />
+    {/*<Menu />*/}
     {renderRoutes(route.routes)}
     <Footer />
   </div>

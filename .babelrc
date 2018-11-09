@@ -1,0 +1,18 @@
+{
+  "presets": [
+    [
+      "./tools/babel",
+      {
+        "target": "client",
+        "preset-env": {
+          "modules": "commonjs"
+        }
+      }
+    ]
+  ],
+  "env": {
+    "test": {
+      "retainLines": true
+    }
+  }
+}

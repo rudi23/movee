@@ -1,8 +1,0 @@
-*
-!.gitignore
-!bundle
-!bundle/chrome
-!bundle/edge
-!bundle/fallback
-!bundle/firefox
-!bundle/safari

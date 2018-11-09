@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import TVShowMenu from './TvShowMenu';
+// import TVShowMenu from './TvShowMenu';
 import TVShowInfo from './TvShowInfo';
 import TVShowSeasons from './TvShowSeasons';
 
@@ -10,7 +10,7 @@ const TVShow = ({
 }) => (
   <div>
     <div className="col-md-12">
-      <TVShowMenu match={match} />
+      {/*<TVShowMenu match={match} />*/}
     </div>
 
     <div className="col-md-12">

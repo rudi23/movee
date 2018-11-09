@@ -1,7 +1,5 @@
 /node_modules
-/build
-/public/bundle.js
-/public/bundle.css
+/dist
 
 .DS_Store
 .env

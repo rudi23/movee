@@ -6,10 +6,10 @@ import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
 import { renderRoutes } from 'react-router-config';
 import Routes from '../routes';
+import getResources from './resources';
 
 export default (req, store, context) => {
   const supportsManifest = req.userAgentClassifiction === 'chrome';
-  const { resources } = req;
 
   const content = (
     <Provider store={store}>
@@ -20,6 +20,7 @@ export default (req, store, context) => {
   );
 
   const helmet = Helmet.renderStatic();
+  const resources = getResources();
 
   return `
     <!doctype html>
@@ -32,12 +33,9 @@ export default (req, store, context) => {
         <meta name="author" content="">
         <link rel="shortcut icon" href="/favicon.ico">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/css/index.css">
         ${supportsManifest ? '<meta name="theme-color" content="#0077B5" />' : ''}
         ${supportsManifest ? '<link rel="manifest" href="/manifest.json" />' : ''}
-        ${resources.inline !== null ? `<style>${resources.inline}</style>` : ''}
-        ${resources.css !== null ? `<link rel="stylesheet" href="${resources.css}" />` : ''}
+        ${resources.css.map(asset => `<link rel="stylesheet" href="/${asset}" />`).join('')}
         ${helmet.title.toString()}
         ${helmet.meta.toString()}
     </head>
@@ -46,7 +44,7 @@ export default (req, store, context) => {
         <script>
           window.INITIAL_STATE = ${serialize(store.getState())}
         </script>
-        <script src='${resources.js}' async defer></script>
+        ${resources.js.map(asset => `<script src="/${asset}"></script>`).join('')}
     </body>
     </html>
   `;

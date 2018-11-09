@@ -14,7 +14,7 @@ class TVShowPage extends Component {
     this.props.fetchTvShowAllDetails(showId);
   }
 
-  renderShowContent = () => {
+  renderShowContent() {
     const { match } = this.props;
     const isFavourite = this.props.favourites.has(parseInt(match.params.showId, 10));
     const { data: show, fetchState: showFetchState } = this.props.show;
@@ -38,7 +38,7 @@ class TVShowPage extends Component {
         toggleFavourite={this.props.toggleFavourite}
       />
     );
-  };
+  }
 
   render() {
     return (
