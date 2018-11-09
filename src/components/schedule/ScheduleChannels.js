@@ -1,20 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ScheduleChannel from './ScheduleChannel';
 import { FETCH_STATES } from '../../constants';
+import ScheduleChannel from './ScheduleChannel';
 
-const renderList = (channels, favourites, toggleFavourite) => channels.map(channel => (
-  <ScheduleChannel
-    key={channel.id}
-    favourites={favourites}
-    toggleFavourite={toggleFavourite}
-    {...channel}
-  />
-));
+const renderList = (channels, favourites, toggleFavourite) =>
+  channels.map(channel => (
+    <ScheduleChannel favourites={favourites} key={channel.id} toggleFavourite={toggleFavourite} {...channel} />
+  ));
 
-const ScheduleChannels = ({
-  channels, fetchState, favourites, toggleFavourite,
-}) => {
+const ScheduleChannels = ({ channels, fetchState, favourites, toggleFavourite }) => {
   let content = null;
 
   if (fetchState === FETCH_STATES.FAILED) {
@@ -34,8 +28,8 @@ ScheduleChannels.defaultProps = {
 
 ScheduleChannels.propTypes = {
   channels: PropTypes.arrayOf(PropTypes.object).isRequired,
-  fetchState: PropTypes.string,
   favourites: PropTypes.object.isRequired,
+  fetchState: PropTypes.string,
   toggleFavourite: PropTypes.func.isRequired,
 };
 

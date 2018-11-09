@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const FavouriteIcon = ({
-  isFavourite, toggleFavourite, tvShowId, className,
-}) => {
+const FavouriteIcon = ({ isFavourite, toggleFavourite, tvShowId, className }) => {
   const favClassName = isFavourite ? 'filled' : 'unfilled';
-  const onClick = (e) => {
+  const onClick = e => {
     toggleFavourite(tvShowId);
     e.preventDefault();
   };
 
   return (
     <div className={className}>
-      <button tabIndex="0" className="favourite-btn" onClick={onClick} onKeyPress={onClick}>
+      <button className="favourite-btn" onClick={onClick} onKeyPress={onClick} tabIndex="0" type="button">
         <i className={`fa fa-2x favourite-icon favourite-icon--${favClassName}`} />
       </button>
     </div>

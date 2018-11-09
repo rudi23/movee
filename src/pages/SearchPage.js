@@ -41,26 +41,27 @@ class SearchPage extends Component {
   render() {
     return (
       <Search
-        query={this.props.query}
-        results={this.props.results}
         favourites={this.props.favourites}
-        toggleFavourite={this.props.toggleFavourite}
-        handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+        query={this.props.query}
         resetQuery={this.resetQuery}
+        results={this.props.results}
+        toggleFavourite={this.props.toggleFavourite}
       />
     );
   }
 }
 
 SearchPage.propTypes = {
+  clearQuery: PropTypes.func.isRequired,
   favourites: PropTypes.object.isRequired,
-  toggleFavourite: PropTypes.func.isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.object.isRequired,
-  }).isRequired,
+  fetchResults: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.object.isRequired,
   }).isRequired,
   query: PropTypes.string.isRequired,
   results: PropTypes.shape({
@@ -68,8 +69,7 @@ SearchPage.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   setQuery: PropTypes.func.isRequired,
-  clearQuery: PropTypes.func.isRequired,
-  fetchResults: PropTypes.func.isRequired,
+  toggleFavourite: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -86,6 +86,8 @@ const mapDispatchToProps = {
 };
 
 export default {
-  component: connect(mapStateToProps, mapDispatchToProps)(SearchPage),
+  component: connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SearchPage),
 };
-

@@ -21,17 +21,18 @@ class FavouritesPage extends Component {
   }
 
   render() {
+    const { shows, favourites, toggleFavourite: toggleFavouriteProp } = this.props;
     return (
       <div className="container">
         <h1>Favourites</h1>
-        <div id="tv-show-list" className="row">
+        <div className="row" id="tv-show-list">
           <div className="col-md-12">
-            <Spinner visible={this.props.shows.fetchState === FETCH_STATES.PENDING} />
+            <Spinner visible={shows.fetchState === FETCH_STATES.PENDING} />
             <FavouriteList
-              shows={this.props.shows.data}
-              fetchState={this.props.shows.fetchState}
-              favourites={this.props.favourites}
-              toggleFavourite={this.props.toggleFavourite}
+              favourites={favourites}
+              fetchState={shows.fetchState}
+              shows={shows.data}
+              toggleFavourite={toggleFavouriteProp}
             />
           </div>
         </div>
@@ -42,12 +43,12 @@ class FavouritesPage extends Component {
 
 FavouritesPage.propTypes = {
   favourites: PropTypes.object.isRequired,
-  toggleFavourite: PropTypes.func.isRequired,
   fetchFavouriteShows: PropTypes.func.isRequired,
   shows: PropTypes.shape({
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchState: PropTypes.string,
   }).isRequired,
+  toggleFavourite: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -61,6 +62,9 @@ const mapDispatchToProps = {
 };
 
 export default {
-  component: connect(mapStateToProps, mapDispatchToProps)(RequireAuth(FavouritesPage)),
+  component: connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(RequireAuth(FavouritesPage)),
   loadData: store => store.dispatch(fetchFavouriteShows(store.getState().favourites)),
 };

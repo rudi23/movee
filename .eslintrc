@@ -3,16 +3,22 @@
     "browser": true,
     "node": true
   },
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "prettier",
+    "prettier/react"
+  ],
   "parser": "babel-eslint",
   "plugins": [
     "eslint-plugin-babel",
-    "react"
+    "react",
+    "prettier"
   ],
   "rules": {
-    "global-require": "off",
+    "global-require": "warn",
     "import/exports-last": "error",
     "import/extensions": "off",
+    "import/no-dynamic-require": "off",
     "import/no-extraneous-dependencies": "off",
     "import/no-unresolved": [
       "warn"
@@ -23,9 +29,12 @@
         "newlines-between": "never"
       }
     ],
+    "import/prefer-default-export": "off",
     "jsx-a11y/accessible-emoji": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/label-has-for": "off",
     "jsx-a11y/no-static-element-interactions": "off",
     "max-len": [
       "error",
@@ -37,7 +46,7 @@
         "ignoreTemplateLiterals": true,
         "ignoreTrailingComments": true,
         "ignoreUrls": true,
-        "tabWidth": 4
+        "tabWidth": 2
       }
     ],
     "no-irregular-whitespace": [
@@ -55,6 +64,7 @@
         "allowForLoopAfterthoughts": true
       }
     ],
+    "no-underscore-dangle": "off",
     "no-use-before-define": [
       "error",
       {
@@ -93,12 +103,22 @@
     ],
     "prefer-destructuring": "off",
     "prefer-promise-reject-errors": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 120,
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "es5"
+      }
+    ],
     "react/default-props-match-prop-types": [
       "error",
       {
         "allowRequiredDefaults": false
       }
     ],
+    "react/destructuring-assignment": "warn",
     "react/forbid-prop-types": 1,
     "react/jsx-closing-tag-location": "off",
     "react/jsx-filename-extension": [
@@ -113,11 +133,11 @@
     "react/jsx-first-prop-new-line": "error",
     "react/jsx-indent": [
       "error",
-      4
+      2
     ],
     "react/jsx-indent-props": [
       "error",
-      4
+      2
     ],
     "react/jsx-key": "error",
     "react/jsx-sort-default-props": [
@@ -136,7 +156,7 @@
     "react/no-redundant-should-component-update": "off",
     "react/prefer-stateless-function": 1,
     "react/require-default-props": "error",
-    "react/require-optimization": "error",
+    "react/require-optimization": "warn",
     "react/sort-comp": [
       "error",
       {

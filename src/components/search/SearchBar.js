@@ -1,39 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SearchBar = props => (
-  <div id="search-bar" className="row">
+const SearchBar = ({ onChange, onSubmit, query, resetQuery }) => (
+  <div className="row" id="search-bar">
     <div className="col-md-8 col-md-offset-2">
       <div className="row">
-        <form onSubmit={props.onSubmit} className="form">
+        <form className="form" onSubmit={onSubmit}>
           <div className="form-group col-md-9 col-xs-12">
             <div className="search-btn">
               <input
-                type="text"
                 className="form-control input-lg"
-                value={props.query}
-                onChange={props.onChange}
+                onChange={onChange}
                 placeholder="Type TV Show..."
+                type="text"
+                value={query}
               />
-              {props.query ?
-                (
-                  <span
-                    role="button"
-                    tabIndex={-1}
-                    className="search-btn__clear glyphicon glyphicon-remove-circle"
-                    onClick={props.resetQuery}
-                    onKeyPress={props.resetQuery}
-                  />
-                ) : null
-              }
+              {query ? (
+                <span
+                  className="search-btn__clear glyphicon glyphicon-remove-circle"
+                  onClick={resetQuery}
+                  onKeyPress={resetQuery}
+                  role="button"
+                  tabIndex={-1}
+                />
+              ) : null}
             </div>
           </div>
           <div className="form-group col-md-3 col-xs-12">
-            <button
-              type="submit"
-              className="btn btn-default btn-primary btn-lg col-xs-12"
-              title="Search"
-            >Search
+            <button className="btn btn-default btn-primary btn-lg col-xs-12" title="Search" type="submit">
+              Search
             </button>
           </div>
         </form>
@@ -43,9 +38,9 @@ const SearchBar = props => (
 );
 
 SearchBar.propTypes = {
-  query: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  query: PropTypes.string.isRequired,
   resetQuery: PropTypes.func.isRequired,
 };
 

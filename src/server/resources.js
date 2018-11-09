@@ -11,10 +11,13 @@ const getResources = () => {
   if (data) {
     const { assetsByChunkName } = JSON.parse(data);
 
-    return Object.values(assetsByChunkName).reduce((resources, chunk) => ({
-      css: resources.css.concat(chunk.filter(filename => /.css$/.test(filename))),
-      js: resources.js.concat(chunk.filter(filename => /.js$/.test(filename))),
-    }), initResources);
+    return Object.values(assetsByChunkName).reduce(
+      (resources, chunk) => ({
+        css: resources.css.concat(chunk.filter(filename => /.css$/.test(filename))),
+        js: resources.js.concat(chunk.filter(filename => /.js$/.test(filename))),
+      }),
+      initResources
+    );
   }
 
   return initResources;

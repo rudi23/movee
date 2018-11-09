@@ -10,9 +10,7 @@ module.exports = ({ outputPath }) => ({
     app: ['./src/client/index.js'],
   },
   module: {
-    rules: [
-      ...getJsRules(babelConfig, isClient),
-    ],
+    rules: [...getJsRules(babelConfig, isClient)],
   },
   name: 'client',
   optimization: {

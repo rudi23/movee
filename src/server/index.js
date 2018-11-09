@@ -25,7 +25,7 @@ export const start = () => {
 
         return opts;
       },
-    }),
+    })
   );
 
   app.get('*', (req, res) => {
@@ -34,12 +34,13 @@ export const start = () => {
     const store = createStore(req);
 
     const promises = matchRoutes(routes, req.path)
-      .map(({ route, match }) => { // eslint-disable-line arrow-body-style
-        return route.loadData && typeof route.loadData === 'function' ? route.loadData(store, match.params) : null;
-      })
-      .map((promise) => {
+      .map(({ route, match }) =>
+        // eslint-disable-line arrow-body-style
+        route.loadData && typeof route.loadData === 'function' ? route.loadData(store, match.params) : null
+      )
+      .map(promise => {
         if (promise instanceof Promise) {
-          return new Promise((resolve) => {
+          return new Promise(resolve => {
             promise.then(resolve).catch(resolve);
           });
         }

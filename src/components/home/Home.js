@@ -3,36 +3,21 @@ import PropTypes from 'prop-types';
 import SearchBar from '../search/SearchBar';
 import { ConnectedSchedulePage as ScheduleContainer } from '../../pages/SchedulePage';
 
-const Home = ({
-  query,
-  favourites,
-  toggleFavourite,
-  handleChange,
-  handleSubmit,
-  resetQuery,
-}) => (
+const Home = ({ query, favourites, toggleFavourite, handleChange, handleSubmit, resetQuery }) => (
   <div className="container">
     <h1>Home</h1>
-    <SearchBar
-      query={query}
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-      resetQuery={resetQuery}
-    />
-    <ScheduleContainer
-      favourites={favourites}
-      toggleFavourite={toggleFavourite}
-    />
+    <SearchBar onChange={handleChange} onSubmit={handleSubmit} query={query} resetQuery={resetQuery} />
+    <ScheduleContainer favourites={favourites} toggleFavourite={toggleFavourite} />
   </div>
 );
 
 Home.propTypes = {
-  query: PropTypes.string.isRequired,
   favourites: PropTypes.object.isRequired,
-  toggleFavourite: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  query: PropTypes.string.isRequired,
   resetQuery: PropTypes.func.isRequired,
+  toggleFavourite: PropTypes.func.isRequired,
 };
 
 export default Home;

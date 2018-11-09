@@ -13,10 +13,7 @@ export default (initialStore = {}) => {
     },
   };
 
-  let enhancer = applyMiddleware(
-    thunk.withExtraArgument(extraArg),
-    favouritesMiddleware(extraArg.storage)
-  );
+  let enhancer = applyMiddleware(thunk.withExtraArgument(extraArg), favouritesMiddleware(extraArg.storage));
 
   if (process.env.NODE_ENV !== 'production') {
     enhancer = composeWithDevTools(enhancer);

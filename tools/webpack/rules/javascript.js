@@ -15,9 +15,7 @@ const getJsRules = (babelConfig, isClient) => {
   };
 
   if (isClient) {
-    config.include = [
-      path.resolve(__dirname, '../../../src'),
-    ];
+    config.include = [path.resolve(__dirname, '../../../src')];
   } else {
     config.exclude = /(node_modules)/;
   }

@@ -7,7 +7,7 @@ const favouriteRepository = storage => ({
 
     return new Set();
   },
-  save: (favourites) => {
+  save: favourites => {
     storage.set('favourites', JSON.stringify([...favourites]));
   },
 });

@@ -1,5 +1,5 @@
-import fetchJson from './fetchJson';
 import transformer from '../transformer/tvShowTransformer';
+import fetchJson from './fetchJson';
 
 const API_BASE_URL = 'http://api.tvmaze.com';
 

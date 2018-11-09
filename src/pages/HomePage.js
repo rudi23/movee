@@ -35,19 +35,21 @@ class HomePage extends Component {
   }
 
   render() {
+    const { favourites, query, toggleFavourite: toggleFavouriteProp } = this.props;
+
     return (
       <Fragment>
         <Helmet>
           <title>Home page</title>
-          <meta property="og:title" content="Home page" />
+          <meta content="Home page" property="og:title" />
         </Helmet>
         <Home
-          query={this.props.query}
-          favourites={this.props.favourites}
-          toggleFavourite={this.props.toggleFavourite}
+          favourites={favourites}
           handleChange={this.typeSearchQuery}
           handleSubmit={this.submitSearch}
+          query={query}
           resetQuery={this.resetQuery}
+          toggleFavourite={toggleFavouriteProp}
         />
       </Fragment>
     );
@@ -55,14 +57,14 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
+  clearQuery: PropTypes.func.isRequired,
   favourites: PropTypes.object.isRequired,
-  toggleFavourite: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
   query: PropTypes.string.isRequired,
   setQuery: PropTypes.func.isRequired,
-  clearQuery: PropTypes.func.isRequired,
+  toggleFavourite: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -77,5 +79,8 @@ const mapDispatchToProps = {
 };
 
 export default {
-  component: connect(mapStateToProps, mapDispatchToProps)(HomePage),
+  component: connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(HomePage),
 };

@@ -27,17 +27,12 @@ const transformShow = apiShow => ({
 const transformSeasonEpisodes = ([seasons, episodes]) => {
   const filteredSeasons = seasons.filter(season => season.premiereDate !== null);
 
-  const seasonsWithEpisodes =
-    filteredSeasons.map(season => Object.assign({}, season, { episodes: [] }));
+  const seasonsWithEpisodes = filteredSeasons.map(season => Object.assign({}, season, { episodes: [] }));
 
-  episodes.forEach((episode) => {
+  episodes.forEach(episode => {
     const season = seasonsWithEpisodes.find(seasonItem => seasonItem.number === episode.season);
     if (season !== undefined) {
-      season.episodes.push(Object.assign(
-        {},
-        episode,
-        { image: getImage(episode.image, IMAGE_SIZE_LANDSCAPE) }
-      ));
+      season.episodes.push(Object.assign({}, episode, { image: getImage(episode.image, IMAGE_SIZE_LANDSCAPE) }));
     }
   });
 

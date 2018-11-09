@@ -8,7 +8,7 @@ const storage = cookies => ({
   set: () => null,
 });
 
-export default (req) => {
+export default req => {
   const extraArg = {
     storage: storage(req.cookies),
     apiAuthOptions: {
@@ -19,10 +19,7 @@ export default (req) => {
     },
   };
 
-  const enhancer = applyMiddleware(
-    thunk.withExtraArgument(extraArg),
-    favouritesMiddleware(extraArg.storage)
-  );
+  const enhancer = applyMiddleware(thunk.withExtraArgument(extraArg), favouritesMiddleware(extraArg.storage));
 
   return createStore(reducer, {}, enhancer);
 };

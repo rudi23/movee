@@ -1,7 +1,7 @@
 import tvShowConstants from '../constants/tvShowContants';
 import tvShowRepository from '../../repository/tvShowRepository';
 
-export const fetchTvShow = showId => async (dispatch) => {
+export const fetchTvShow = showId => async dispatch => {
   dispatch({
     type: tvShowConstants.FETCH_SHOW_PENDING,
   });
@@ -27,7 +27,7 @@ export const fetchTvShow = showId => async (dispatch) => {
   }
 };
 
-export const fetchTvShowSeasonAndEpisodes = showId => async (dispatch) => {
+export const fetchTvShowSeasonAndEpisodes = showId => async dispatch => {
   dispatch({
     type: tvShowConstants.FETCH_SHOW_SEASON_AND_EPISODES_PENDING,
   });
@@ -54,6 +54,6 @@ export const fetchTvShowSeasonAndEpisodes = showId => async (dispatch) => {
 };
 
 // eslint-disable-next-line arrow-body-style
-export const fetchTvShowAllDetails = showId => (dispatch) => {
+export const fetchTvShowAllDetails = showId => dispatch => {
   return fetchTvShow(showId)(dispatch).then(() => fetchTvShowSeasonAndEpisodes(showId)(dispatch));
 };

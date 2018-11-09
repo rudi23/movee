@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 import { FETCH_STATES } from '../../constants';
 import TVShowInfo from '../tvShow/TvShowInfo';
 
-const renderList = (shows, favourites, toggleFavourite) => shows.map(show => (
-  <TVShowInfo
-    key={show.id}
-    isFavourite={favourites.has(show.id)}
-    toggleFavourite={toggleFavourite}
-    show={show}
-    isLinked
-  />
-));
+const renderList = (shows, favourites, toggleFavourite) =>
+  shows.map(show => (
+    <TVShowInfo
+      isFavourite={favourites.has(show.id)}
+      isLinked
+      key={show.id}
+      show={show}
+      toggleFavourite={toggleFavourite}
+    />
+  ));
 
-const TVShowList = ({
-  shows, fetchState, query, favourites, toggleFavourite,
-}) => {
+const TVShowList = ({ shows, fetchState, query, favourites, toggleFavourite }) => {
   let content = null;
 
   if (fetchState === FETCH_STATES.FAILED) {
@@ -35,10 +34,10 @@ TVShowList.defaultProps = {
 };
 
 TVShowList.propTypes = {
-  shows: PropTypes.arrayOf(PropTypes.object).isRequired,
+  favourites: PropTypes.object.isRequired,
   fetchState: PropTypes.string,
   query: PropTypes.string,
-  favourites: PropTypes.object.isRequired,
+  shows: PropTypes.arrayOf(PropTypes.object).isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };
 

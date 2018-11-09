@@ -11,23 +11,29 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 const Menu = ({ auth = null }) => {
   const authButton = auth.isLogged ? (
-    <NavItem eventKey={4} href="/api/logout">Logout</NavItem>
+    <NavItem eventKey={4} href="/api/logout">
+      Logout
+    </NavItem>
   ) : (
-    <NavItem eventKey={4} href="/api/auth/google">Login</NavItem>
+    <NavItem eventKey={4} href="/api/auth/google">
+      Login
+    </NavItem>
   );
 
   return (
-    <Navbar inverse fixedTop>
+    <Navbar fixedTop inverse>
       <div className="container">
         <Navbar.Header>
           <NavbarToggle className="collapsed" />
           <Navbar.Brand>
-            <Link href="/" to="/">Movee</Link>
+            <Link href="/" to="/">
+              Movee
+            </Link>
           </Navbar.Brand>
         </Navbar.Header>
         <NavbarCollapse>
           <Nav>
-            <LinkContainer to="/" exact>
+            <LinkContainer exact to="/">
               <NavItem eventKey={1}>Home</NavItem>
             </LinkContainer>
             <LinkContainer to="/search">

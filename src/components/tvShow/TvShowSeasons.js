@@ -9,15 +9,17 @@ import TVShowEpisodes from './TvShowEpisodes';
 const TVShowSeasons = ({ seasons, fetchState }) => {
   if (fetchState === FETCH_STATES.PENDING || fetchState === null) {
     return <Spinner visible={fetchState === FETCH_STATES.PENDING} />;
-  } else if (fetchState === FETCH_STATES.FAILED) {
+  }
+  if (fetchState === FETCH_STATES.FAILED) {
     return <div>Sorry, an error occurred while trying to access resource.</div>;
-  } else if (fetchState === FETCH_STATES.SUCCESS && !seasons) {
+  }
+  if (fetchState === FETCH_STATES.SUCCESS && !seasons) {
     return <div>Sorry, we could not find searched show.</div>;
   }
 
   return (
-    <Collapse defaultActiveKey={`${seasons[0].id}`} accordion>
-      {seasons.map((season) => {
+    <Collapse accordion defaultActiveKey={`${seasons[0].id}`}>
+      {seasons.map(season => {
         const title = `Season ${season.number}: ${season.name} (${season.premiereDate} - ${season.endDate})`;
 
         return (
@@ -36,8 +38,8 @@ TVShowSeasons.defaultProps = {
 };
 
 TVShowSeasons.propTypes = {
-  seasons: PropTypes.array,
   fetchState: PropTypes.string,
+  seasons: PropTypes.array,
 };
 
 export default TVShowSeasons;

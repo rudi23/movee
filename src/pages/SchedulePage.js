@@ -28,20 +28,18 @@ class SchedulePage extends Component {
   }
 
   render() {
-    const {
-      schedule, fetchState, filter, favourites, toggleFavourite,
-    } = this.props;
+    const { schedule, fetchState, filter, favourites, toggleFavourite } = this.props;
 
     return (
       <Schedule
-        country={filter.country}
         channel={filter.channel}
         channelOptions={filter.channelOptions}
-        filterCountry={this.filterCountry}
-        filterChannel={this.filterChannel}
-        schedule={schedule}
-        fetchState={fetchState}
+        country={filter.country}
         favourites={favourites}
+        fetchState={fetchState}
+        filterChannel={this.filterChannel}
+        filterCountry={this.filterCountry}
+        schedule={schedule}
         toggleFavourite={toggleFavourite}
       />
     );
@@ -49,13 +47,13 @@ class SchedulePage extends Component {
 }
 
 SchedulePage.propTypes = {
-  fetchState: PropTypes.string,
-  schedule: PropTypes.arrayOf(PropTypes.object).isRequired,
-  filter: PropTypes.object.isRequired,
-  fetchSchedule: PropTypes.func.isRequired,
-  setCountryFilter: PropTypes.func.isRequired,
-  setChannelFilter: PropTypes.func.isRequired,
   favourites: PropTypes.object.isRequired,
+  fetchSchedule: PropTypes.func.isRequired,
+  fetchState: PropTypes.string,
+  filter: PropTypes.object.isRequired,
+  schedule: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setChannelFilter: PropTypes.func.isRequired,
+  setCountryFilter: PropTypes.func.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };
 

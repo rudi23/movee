@@ -6,8 +6,8 @@ const ScheduleEpisodes = ({ episodes, favourites, toggleFavourite }) => (
   <div className="episodes">
     {episodes.map(episode => (
       <ScheduleEpisode
-        key={episode.id}
         isFavourite={favourites.has(episode.show.id)}
+        key={episode.id}
         toggleFavourite={toggleFavourite}
         {...episode}
       />

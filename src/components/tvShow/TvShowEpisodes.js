@@ -4,7 +4,9 @@ import TVShowEpisode from './TvShowEpisode';
 
 const TVShowEpisodes = ({ episodes }) => (
   <div className="tv-show-episodes">
-    {episodes.map(episode => <TVShowEpisode key={episode.id} episode={episode} />)}
+    {episodes.map(episode => (
+      <TVShowEpisode episode={episode} key={episode.id} />
+    ))}
   </div>
 );
 

@@ -5,29 +5,19 @@ import PropTypes from 'prop-types';
 import TVShowInfo from './TvShowInfo';
 import TVShowSeasons from './TvShowSeasons';
 
-const TVShow = ({
-  match, seasons, seasonsFetchState, show, isFavourite, toggleFavourite,
-}) => (
+const TVShow = ({ match, seasons, seasonsFetchState, show, isFavourite, toggleFavourite }) => (
   <div>
-    <div className="col-md-12">
-      {/*<TVShowMenu match={match} />*/}
-    </div>
+    <div className="col-md-12">{/* <TVShowMenu match={match} /> */}</div>
 
     <div className="col-md-12">
       <Route
         path={`${match.url}/seasons`}
-        render={() => <TVShowSeasons seasons={seasons} fetchState={seasonsFetchState} />}
+        render={() => <TVShowSeasons fetchState={seasonsFetchState} seasons={seasons} />}
       />
       <Route
         exact
         path={match.url}
-        render={() => (
-          <TVShowInfo
-            isFavourite={isFavourite}
-            show={show}
-            toggleFavourite={toggleFavourite}
-          />
-        )}
+        render={() => <TVShowInfo isFavourite={isFavourite} show={show} toggleFavourite={toggleFavourite} />}
       />
     </div>
   </div>
@@ -38,6 +28,7 @@ TVShow.defaultProps = {
 };
 
 TVShow.propTypes = {
+  isFavourite: PropTypes.bool.isRequired,
   match: PropTypes.shape({
     params: PropTypes.object.isRequired,
     url: PropTypes.string.isRequired,
@@ -45,7 +36,6 @@ TVShow.propTypes = {
   seasons: PropTypes.arrayOf(PropTypes.object),
   seasonsFetchState: PropTypes.string.isRequired,
   show: PropTypes.object.isRequired,
-  isFavourite: PropTypes.bool.isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };
 

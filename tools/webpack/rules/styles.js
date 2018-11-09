@@ -4,7 +4,7 @@ const cssnano = require('cssnano');
 
 const getLocalIdentName = isProduction => (isProduction ? '[hash:base64:5]' : '[path][name]__[local]__[hash:base64:5]');
 
-const getClientStylesRules = ({ isProduction }) => ([
+const getClientStylesRules = ({ isProduction }) => [
   {
     test: /\.css$/,
     use: [
@@ -57,9 +57,9 @@ const getClientStylesRules = ({ isProduction }) => ([
       },
     ],
   },
-]);
+];
 
-const getServerStylesRules = ({ isProduction }) => ([
+const getServerStylesRules = ({ isProduction }) => [
   {
     test: /\.css$/,
     use: [
@@ -87,7 +87,7 @@ const getServerStylesRules = ({ isProduction }) => ([
       },
     ],
   },
-]);
+];
 
 module.exports = {
   getServerStylesRules,

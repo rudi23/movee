@@ -1,223 +1,224 @@
 body {
-    padding-top: 50px;
+  padding-top: 50px;
 }
 
-a:hover, a:focus {
-    text-decoration: none;
-    outline: none;
+a:hover,
+a:focus {
+  text-decoration: none;
+  outline: none;
 }
 
 .container {
-    position: relative;
+  position: relative;
 }
 
 .footer {
-    margin-top: 50px;
-    padding: 10px 30px 0;
-    color: #777;
-    border-top: 1px solid #e5e5e5;
+  margin-top: 50px;
+  padding: 10px 30px 0;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
 }
 
 #search-bar {
-    padding: 10px 0;
+  padding: 10px 0;
 }
 
 @media (min-width: 768px) {
-    #search-bar {
-        padding: 50px 0;
-    }
+  #search-bar {
+    padding: 50px 0;
+  }
 }
 
 .search-btn {
-    position: relative;
+  position: relative;
 }
 
 .search-btn__clear {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    bottom: 0;
-    height: 20px;
-    margin: auto;
-    font-size: 20px;
-    cursor: pointer;
-    color: #ccc;
+  position: absolute;
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  height: 20px;
+  margin: auto;
+  font-size: 20px;
+  cursor: pointer;
+  color: #ccc;
 }
 
 #tv-show-menu {
-    padding: 20px 0;
+  padding: 20px 0;
 }
 
 .tv-show {
-    border: #e3e3e3 solid 1px;
-    margin-bottom: 20px;
-    overflow: hidden;
+  border: #e3e3e3 solid 1px;
+  margin-bottom: 20px;
+  overflow: hidden;
 }
 
 .tv-show__cover {
-    float: left;
-    width: 210px;
-    height: 295px;
-    margin: 10px;
+  float: left;
+  width: 210px;
+  height: 295px;
+  margin: 10px;
 }
 
 .tv-show__cover img {
-    width: 210px;
+  width: 210px;
 }
 
 .tv-show__summary {
-    clear: both;
-    margin: 10px;
+  clear: both;
+  margin: 10px;
 }
 
 .tv-show-info {
-    float: left;
-    margin: 0 0 10px 10px;
+  float: left;
+  margin: 0 0 10px 10px;
 }
 
 @media (min-width: 768px) {
-    .tv-show-info {
-        margin-left: 0;
-    }
+  .tv-show-info {
+    margin-left: 0;
+  }
 }
 
 .tv-show-info__favourite {
-    float: left;
+  float: left;
 }
 
 .tv-show-info__title {
-    margin-left: 10px;
-    padding-left: 40px;
-    margin-top: 10px;
-    font-size: 25px;
+  margin-left: 10px;
+  padding-left: 40px;
+  margin-top: 10px;
+  font-size: 25px;
 }
 
 .tv-show-info__item {
-    font-size: 14px;
+  font-size: 14px;
 }
 
-/*noinspection CssUnusedSymbol*/
+/* noinspection CssUnusedSymbol */
 .tv-show-info__status--running {
-    color: dodgerblue;
+  color: dodgerblue;
 }
 
-/*noinspection CssUnusedSymbol*/
+/* noinspection CssUnusedSymbol */
 .tv-show-info__status--ended {
-    color: #E10028;
+  color: #e10028;
 }
 
 @keyframes blink {
-    50% {
-        color: transparent
-    }
+  50% {
+    color: transparent;
+  }
 }
 
 .loader__dot {
-    animation: 1s blink infinite
+  animation: 1s blink infinite;
 }
 
 .loader__dot:nth-child(2) {
-    animation-delay: 250ms
+  animation-delay: 250ms;
 }
 
 .loader__dot:nth-child(3) {
-    animation-delay: 500ms
+  animation-delay: 500ms;
 }
 
 .tv-show-season__title {
-    font-size: 20px;
+  font-size: 20px;
 }
 
-.tv-show-season__title :hover, .tv-show-season__title a:hover {
-    text-decoration: none;
+.tv-show-season__title :hover,
+.tv-show-season__title a:hover {
+  text-decoration: none;
 }
 
 .tv-show-episode {
-    border-top: #e3e3e3 solid 1px;
-    margin-bottom: 20px;
-    overflow: hidden;
+  border-top: #e3e3e3 solid 1px;
+  margin-bottom: 20px;
+  overflow: hidden;
 }
 
 .tv-show-episode__cover {
-    float: left;
-    width: 250px;
-    min-height: 140px;
-    margin: 10px;
+  float: left;
+  width: 250px;
+  min-height: 140px;
+  margin: 10px;
 }
 
 .tv-show-episode__cover img {
-    width: 250px;
+  width: 250px;
 }
 
 .tv-show-episode__summary {
-    clear: left;
-    margin: 10px;
+  clear: left;
+  margin: 10px;
 }
 
 .episode-info {
-    float: left;
-    padding-left: 10px;
+  float: left;
+  padding-left: 10px;
 }
 
 .episode-info__title {
-    margin-top: 10px;
-    font-size: 20px;
+  margin-top: 10px;
+  font-size: 20px;
 }
 
 .episode-info__item {
-    font-size: 14px;
+  font-size: 14px;
 }
 
-/*noinspection CssUnusedSymbol*/
+/* noinspection CssUnusedSymbol */
 .dv-star-rating-star {
-    font-size: 25px;
-    color: rgb(255, 180, 0) !important;
+  font-size: 25px;
+  color: rgb(255, 180, 0) !important;
 }
 
 .favourite-btn {
-    background-color: Transparent;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
 }
 
-/*noinspection CssUnusedSymbol*/
+/* noinspection CssUnusedSymbol */
 .favourite-icon {
-    color: #333;
+  color: #333;
 }
 
-/*noinspection CssUnusedSymbol*/
+/* noinspection CssUnusedSymbol */
 .favourite-icon--filled {
-    color: #E10028;
+  color: #e10028;
 }
 
-/*noinspection CssUnusedSymbol*/
-.favourite-icon--filled:before {
-    content: "\f004";
+/* noinspection CssUnusedSymbol */
+.favourite-icon--filled::before {
+  content: "\f004";
 }
 
-/*noinspection CssUnusedSymbol*/
-.favourite-icon--unfilled:before {
-    content: "\f08a";
+/* noinspection CssUnusedSymbol */
+.favourite-icon--unfilled::before {
+  content: "\f08a";
 }
 
 .schedule-episode {
-    border: 1px solid #e3e3e3;
-    padding: 10px;
-    margin-bottom: 5px;
+  border: 1px solid #e3e3e3;
+  padding: 10px;
+  margin-bottom: 5px;
 }
 
 .schedule-channel__name {
-    font-size: 24px;
-
+  font-size: 24px;
 }
 
 .schedule-channel__country {
-    margin-left: 10px;
-    font-size: 16px;
-    font-style: italic;
+  margin-left: 10px;
+  font-size: 16px;
+  font-style: italic;
 }
 
 .schedule-filter .form-group {
-    margin-right: 10px;
+  margin-right: 10px;
 }

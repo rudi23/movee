@@ -1,7 +1,7 @@
 import favouritesConstants from '../constants/favouritesContants';
 import favouriteRepository from '../../repository/favouriteRepository';
 
-export const favouritesMiddleware = storage => store => next => (action) => {
+export const favouritesMiddleware = storage => store => next => action => {
   if (action.type === favouritesConstants.FETCH_FAVOURITES) {
     const response = next(action);
 
@@ -26,4 +26,3 @@ export const favouritesMiddleware = storage => store => next => (action) => {
 
   return next(action);
 };
-

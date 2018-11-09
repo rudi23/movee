@@ -6,7 +6,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 const TVShowMenu = ({ match }) => (
   <Nav className="nav-pills" id="tv-show-menu">
-    <LinkContainer to={`${match.url}`} exact>
+    <LinkContainer exact to={`${match.url}`}>
       <NavItem eventKey={1}>Show</NavItem>
     </LinkContainer>
     <LinkContainer to={`${match.url}/seasons`}>

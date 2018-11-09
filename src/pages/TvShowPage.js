@@ -22,19 +22,21 @@ class TVShowPage extends Component {
 
     if (showFetchState === FETCH_STATES.PENDING || showFetchState === null) {
       return <Spinner visible={showFetchState === FETCH_STATES.PENDING} />;
-    } else if (showFetchState === FETCH_STATES.FAILED) {
+    }
+    if (showFetchState === FETCH_STATES.FAILED) {
       return <div>Sorry, an error occurred while trying to access resource.</div>;
-    } else if (showFetchState === FETCH_STATES.SUCCESS && !show) {
+    }
+    if (showFetchState === FETCH_STATES.SUCCESS && !show) {
       return <div>Sorry, we could not find searched show.</div>;
     }
 
     return (
       <TVShow
-        match={this.props.match}
-        show={show}
-        seasonsFetchState={seasonsFetchState}
-        seasons={seasons}
         isFavourite={isFavourite}
+        match={this.props.match}
+        seasons={seasons}
+        seasonsFetchState={seasonsFetchState}
+        show={show}
         toggleFavourite={this.props.toggleFavourite}
       />
     );
@@ -44,22 +46,19 @@ class TVShowPage extends Component {
     return (
       <div className="container">
         <h1>{this.props.show.data ? this.props.show.data.title : null}</h1>
-        <div className="row">
-          {this.renderShowContent()}
-        </div>
+        <div className="row">{this.renderShowContent()}</div>
       </div>
     );
   }
 }
 
 TVShowPage.propTypes = {
-  toggleFavourite: PropTypes.func.isRequired,
+  favourites: PropTypes.object.isRequired,
+  fetchTvShowAllDetails: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.object.isRequired,
     url: PropTypes.string.isRequired,
   }).isRequired,
-  favourites: PropTypes.object.isRequired,
-  fetchTvShowAllDetails: PropTypes.func.isRequired,
   show: PropTypes.shape({
     data: PropTypes.object,
     fetchState: PropTypes.string,
@@ -68,6 +67,7 @@ TVShowPage.propTypes = {
       fetchState: PropTypes.string,
     }).isRequired,
   }).isRequired,
+  toggleFavourite: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

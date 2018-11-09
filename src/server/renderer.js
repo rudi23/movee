@@ -13,7 +13,7 @@ export default (req, store, context) => {
 
   const content = (
     <Provider store={store}>
-      <StaticRouter location={req.path} context={context}>
+      <StaticRouter context={context} location={req.path}>
         <div>{renderRoutes(Routes)}</div>
       </StaticRouter>
     </Provider>

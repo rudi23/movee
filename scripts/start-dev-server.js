@@ -22,10 +22,7 @@ compiler.run(async (err, stats) => {
   }
 
   const appPath = path.join(serverConfig.output.path, '..');
-  const bundlePath = path.resolve(
-    serverConfig.output.path,
-    serverConfig.output.filename,
-  );
+  const bundlePath = path.resolve(serverConfig.output.path, serverConfig.output.filename);
 
   // eslint-disable-next-line import/no-dynamic-require
   const bundle = require(bundlePath);
@@ -46,7 +43,7 @@ compiler.run(async (err, stats) => {
   let _server;
   let previousServerHash;
 
-  compiler.hooks.done.tap({ name: 'restartServer' }, (multiStats) => {
+  compiler.hooks.done.tap({ name: 'restartServer' }, multiStats => {
     const { hash } = multiStats.stats[1]; // server stats
     if (previousServerHash && hash !== previousServerHash) {
       try {

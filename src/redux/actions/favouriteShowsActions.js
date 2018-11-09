@@ -1,7 +1,7 @@
 import favouriteShowsConstants from '../constants/favouriteShowsContants';
 import showRepository from '../../repository/tvShowRepository';
 
-export const fetchFavouriteShows = favouriteIds => async (dispatch) => {
+export const fetchFavouriteShows = favouriteIds => async dispatch => {
   dispatch({
     type: favouriteShowsConstants.FETCH_FAVOURITE_SHOWS_PENDING,
   });

@@ -1,7 +1,7 @@
 import favouritesConstants from '../constants/favouritesContants';
 import favouriteRepository from '../../repository/favouriteRepository';
 
-export const saveFavourites = favourites => (dispatch) => {
+export const saveFavourites = favourites => dispatch => {
   dispatch({
     type: favouritesConstants.SAVE_FAVOURITES,
     favourites,

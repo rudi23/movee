@@ -14,10 +14,10 @@ const createEpisode = apiEpisode => ({
 });
 
 const scheduleTransformer = {
-  transform: (apiData) => {
+  transform: apiData => {
     const channels = [];
 
-    apiData.forEach((el) => {
+    apiData.forEach(el => {
       const channel = el.show.network ? el.show.network : el.show.webChannel;
       const channelId = channel.id;
 

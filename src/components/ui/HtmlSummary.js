@@ -7,10 +7,7 @@ function createMarkup(summary) {
 }
 
 const HtmlSummary = ({ summary, className }) => (
-  <div
-    className={className}
-    dangerouslySetInnerHTML={summary !== null ? createMarkup(summary) : null}
-  />
+  <div className={className} dangerouslySetInnerHTML={summary !== null ? createMarkup(summary) : null} />
 );
 
 HtmlSummary.defaultProps = {
@@ -18,8 +15,8 @@ HtmlSummary.defaultProps = {
   summary: null,
 };
 HtmlSummary.propTypes = {
-  summary: PropTypes.string,
   className: PropTypes.string,
+  summary: PropTypes.string,
 };
 
 export default HtmlSummary;

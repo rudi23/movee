@@ -26,20 +26,11 @@ const getPresetEnvConfig = (target, presetEnv = {}) => {
 };
 
 module.exports = options => ({
-  presets: [
-    [
-      '@babel/preset-env',
-      getPresetEnvConfig('server', options['preset-env']),
-    ],
-    '@babel/preset-react',
-  ],
+  presets: [['@babel/preset-env', getPresetEnvConfig('server', options['preset-env'])], '@babel/preset-react'],
   plugins: [
     'babel-plugin-lodash',
     '@babel/plugin-transform-classes',
     '@babel/plugin-proposal-class-properties',
-    [
-      '@babel/plugin-proposal-object-rest-spread',
-      { useBuiltIns: true },
-    ],
+    ['@babel/plugin-proposal-object-rest-spread', { useBuiltIns: true }],
   ],
 });

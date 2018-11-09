@@ -28,9 +28,7 @@ module.exports = ({ outputPath }) => ({
     }),
   ],
   module: {
-    rules: [
-      ...getJsRules(babelConfig),
-    ],
+    rules: [...getJsRules(babelConfig)],
   },
   plugins: [
     new webpack.DefinePlugin({

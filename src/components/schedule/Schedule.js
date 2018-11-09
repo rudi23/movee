@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ScheduleChannels from './ScheduleChannels';
 import Spinner from '../ui/Spinner';
 import { FETCH_STATES } from '../../constants';
+import ScheduleChannels from './ScheduleChannels';
 import ScheduleFilter from './ScheduleFilter';
 
 const Schedule = ({
@@ -16,21 +16,21 @@ const Schedule = ({
   favourites,
   toggleFavourite,
 }) => (
-  <div id="schedule" className="row">
+  <div className="row" id="schedule">
     <div className="col-12 col-md-12">
       <h1>Schedule for today</h1>
       <ScheduleFilter
-        country={country}
         channel={channel}
         channelOptions={channelOptions}
-        filterCountry={filterCountry}
+        country={country}
         filterChannel={filterChannel}
+        filterCountry={filterCountry}
       />
       <Spinner visible={fetchState === FETCH_STATES.PENDING} />
       <ScheduleChannels
         channels={schedule}
-        fetchState={fetchState}
         favourites={favourites}
+        fetchState={fetchState}
         toggleFavourite={toggleFavourite}
       />
     </div>
@@ -43,14 +43,14 @@ Schedule.defaultProps = {
 };
 
 Schedule.propTypes = {
-  country: PropTypes.string.isRequired,
   channel: PropTypes.string,
   channelOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  filterCountry: PropTypes.func.isRequired,
-  filterChannel: PropTypes.func.isRequired,
-  fetchState: PropTypes.string,
-  schedule: PropTypes.arrayOf(PropTypes.object).isRequired,
+  country: PropTypes.string.isRequired,
   favourites: PropTypes.object.isRequired,
+  fetchState: PropTypes.string,
+  filterChannel: PropTypes.func.isRequired,
+  filterCountry: PropTypes.func.isRequired,
+  schedule: PropTypes.arrayOf(PropTypes.object).isRequired,
   toggleFavourite: PropTypes.func.isRequired,
 };
 
