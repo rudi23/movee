@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Nav from 'react-bootstrap/lib/Nav';
-import NavItem from 'react-bootstrap/lib/NavItem';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const TVShowMenu = ({ match }) => (
   <Nav className="nav-pills" id="tv-show-menu">
-    <LinkContainer exact to={`${match.url}`}>
-      <NavItem eventKey={1}>Show</NavItem>
-    </LinkContainer>
-    <LinkContainer to={`${match.url}/seasons`}>
-      <NavItem eventKey={2}>Episodes</NavItem>
-    </LinkContainer>
+    <NavItem>
+      <NavLink tag={Link} to={`${match.url}`}>
+        Show
+      </NavLink>
+      <NavLink tag={Link} to={`${match.url}/seasons`}>
+        Episodes
+      </NavLink>
+    </NavItem>
   </Nav>
 );
 

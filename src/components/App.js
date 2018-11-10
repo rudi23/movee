@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { renderRoutes } from 'react-router-config';
 import { fetchCurrentUser } from '../redux/actions/authActions';
-// import Menu from './layout/Menu';
+import Menu from './layout/Menu';
 import Footer from './layout/Footer';
 
 const App = ({ route }) => (
-  <div>
-    {/* <Menu /> */}
+  <Fragment>
+    <header>
+      <Menu />
+    </header>
     {renderRoutes(route.routes)}
     <Footer />
-  </div>
+  </Fragment>
 );
 
 App.propTypes = {

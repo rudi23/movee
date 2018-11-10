@@ -23,7 +23,7 @@ class FavouritesPage extends Component {
   render() {
     const { shows, favourites, toggleFavourite: toggleFavouriteProp } = this.props;
     return (
-      <div className="container">
+      <div className="container container-main">
         <h1>Favourites</h1>
         <div className="row" id="tv-show-list">
           <div className="col-md-12">

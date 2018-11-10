@@ -44,7 +44,7 @@ class TVShowPage extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container container-main">
         <h1>{this.props.show.data ? this.props.show.data.title : null}</h1>
         <div className="row">{this.renderShowContent()}</div>
       </div>

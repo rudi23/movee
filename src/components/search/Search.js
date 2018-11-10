@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../ui/Spinner';
 import { FETCH_STATES } from '../../constants';
@@ -6,8 +6,7 @@ import SearchBar from './SearchBar';
 import TVShowList from './TvShowList';
 
 const Search = ({ query, results, favourites, toggleFavourite, handleSubmit, handleChange, resetQuery }) => (
-  <div className="container">
-    <h1>Search</h1>
+  <Fragment>
     <SearchBar onChange={handleChange} onSubmit={handleSubmit} query={query} resetQuery={resetQuery} />
     <div className="row" id="tv-show-list">
       <div className="col-md-12">
@@ -21,7 +20,7 @@ const Search = ({ query, results, favourites, toggleFavourite, handleSubmit, han
         />
       </div>
     </div>
-  </div>
+  </Fragment>
 );
 
 Search.propTypes = {

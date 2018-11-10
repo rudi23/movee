@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 const SearchBar = ({ onChange, onSubmit, query, resetQuery }) => (
   <div className="row" id="search-bar">
-    <div className="col-md-8 col-md-offset-2">
-      <div className="row">
-        <form className="form" onSubmit={onSubmit}>
+    <div className="col-md-8 offset-md-2">
+      <form className="form" onSubmit={onSubmit}>
+        <div className="row">
           <div className="form-group col-md-9 col-xs-12">
             <div className="search-btn">
               <input
-                className="form-control input-lg"
+                className="form-control form-control-lg"
                 onChange={onChange}
                 placeholder="Type TV Show..."
                 type="text"
@@ -27,12 +27,12 @@ const SearchBar = ({ onChange, onSubmit, query, resetQuery }) => (
             </div>
           </div>
           <div className="form-group col-md-3 col-xs-12">
-            <button className="btn btn-default btn-primary btn-lg col-xs-12" title="Search" type="submit">
+            <button className="btn btn-primary btn-lg col-xs-12" title="Search" type="submit">
               Search
             </button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 );

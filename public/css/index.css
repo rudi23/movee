@@ -1,5 +1,5 @@
-body {
-  padding-top: 50px;
+.container-main {
+  padding: 100px 15px 0;
 }
 
 a:hover,
@@ -207,6 +207,10 @@ a:focus {
   border: 1px solid #e3e3e3;
   padding: 10px;
   margin-bottom: 5px;
+}
+
+.schedule-channel {
+  margin-top: 30px;
 }
 
 .schedule-channel__name {

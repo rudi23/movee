@@ -30,7 +30,7 @@ export default (request, store, context) => {
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="shortcut icon" href="/favicon/favicon.ico">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <meta name="theme-color" content="#0077B5" />
         <link rel="manifest" href="/manifest.json" />
         ${resources.css.map(asset => `<link rel="stylesheet" href="/${asset}" />`).join('')}

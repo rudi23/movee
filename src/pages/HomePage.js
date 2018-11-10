@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { toggleFavourite } from '../redux/actions/favouritesActions';
 import { setQuery, clearQuery } from '../redux/actions/searchActions';
-import Home from '../components/home/Home';
+import SearchBar from '../components/search/SearchBar';
+import { ConnectedSchedulePage as ScheduleContainer } from './SchedulePage';
 
 class HomePage extends Component {
   constructor(props) {
@@ -43,14 +44,16 @@ class HomePage extends Component {
           <title>Home page</title>
           <meta content="Home page" property="og:title" />
         </Helmet>
-        <Home
-          favourites={favourites}
-          handleChange={this.typeSearchQuery}
-          handleSubmit={this.submitSearch}
-          query={query}
-          resetQuery={this.resetQuery}
-          toggleFavourite={toggleFavouriteProp}
-        />
+        <div className="container container-main">
+          <h1>Home</h1>
+          <SearchBar
+            onChange={this.typeSearchQuery}
+            onSubmit={this.submitSearch}
+            query={query}
+            resetQuery={this.resetQuery}
+          />
+          <ScheduleContainer favourites={favourites} toggleFavourite={toggleFavouriteProp} />
+        </div>
       </Fragment>
     );
   }

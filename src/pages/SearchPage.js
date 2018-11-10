@@ -39,16 +39,20 @@ class SearchPage extends Component {
   }
 
   render() {
+    const { favourites, query, results, toggleFavourite: toggleFavouriteProp } = this.props;
     return (
-      <Search
-        favourites={this.props.favourites}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        query={this.props.query}
-        resetQuery={this.resetQuery}
-        results={this.props.results}
-        toggleFavourite={this.props.toggleFavourite}
-      />
+      <div className="container container-main">
+        <h1>Search</h1>
+        <Search
+          favourites={favourites}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          query={query}
+          resetQuery={this.resetQuery}
+          results={results}
+          toggleFavourite={toggleFavouriteProp}
+        />
+      </div>
     );
   }
 }

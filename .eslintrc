@@ -152,7 +152,7 @@
         "ignoreCase": true
       }
     ],
-    "react/no-access-state-in-setstate": "error",
+    "react/no-access-state-in-setstate": "warn",
     "react/no-redundant-should-component-update": "off",
     "react/prefer-stateless-function": 1,
     "react/require-default-props": "error",
