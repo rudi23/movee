@@ -1,20 +1,20 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import reducer from '../redux/reducers/index';
-import { favouritesMiddleware } from '../redux/middlewares/favouritesMiddleware';
+import reducer from '../../../redux/reducers/index';
+import { favouritesMiddleware } from '../../../redux/middlewares/favouritesMiddleware';
 
 const storage = cookies => ({
-  get: name => (cookies[name] ? cookies[name] : null),
+  get: name => (cookies.get(name) ? cookies.get(name) : null),
   set: () => null,
 });
 
-export default req => {
+export default ctx => {
   const extraArg = {
-    storage: storage(req.cookies),
+    storage: storage(ctx.cookies),
     apiAuthOptions: {
       baseUrl: 'http://react-ssr-api.herokuapp.com',
       options: {
-        headers: { cookie: req.get('cookie') || '' },
+        headers: { cookie: ctx.request.get('cookie') || '' },
       },
     },
   };

@@ -5,15 +5,13 @@ import { Provider } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
 import { renderRoutes } from 'react-router-config';
-import Routes from '../routes';
+import Routes from '../../../routes';
 import getResources from './resources';
 
-export default (req, store, context) => {
-  const supportsManifest = req.userAgentClassifiction === 'chrome';
-
+export default (request, store, context) => {
   const content = (
     <Provider store={store}>
-      <StaticRouter context={context} location={req.path}>
+      <StaticRouter context={context} location={request.path}>
         <div>{renderRoutes(Routes)}</div>
       </StaticRouter>
     </Provider>
@@ -31,10 +29,10 @@ export default (req, store, context) => {
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5" />
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="shortcut icon" href="/favicon.ico">
+        <link rel="shortcut icon" href="/favicon/favicon.ico">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        ${supportsManifest ? '<meta name="theme-color" content="#0077B5" />' : ''}
-        ${supportsManifest ? '<link rel="manifest" href="/manifest.json" />' : ''}
+        <meta name="theme-color" content="#0077B5" />
+        <link rel="manifest" href="/manifest.json" />
         ${resources.css.map(asset => `<link rel="stylesheet" href="/${asset}" />`).join('')}
         ${helmet.title.toString()}
         ${helmet.meta.toString()}

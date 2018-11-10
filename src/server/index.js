@@ -1,77 +1,26 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import { matchRoutes } from 'react-router-config';
-import proxy from 'express-http-proxy';
-import routes from '../routes';
-import classifyBrowser from './plugins/classifyBrowser';
-import renderer from './renderer';
-import createStore from './createStore';
+import serveStatic from 'koa-static';
+import mount from 'koa-mount';
+import compress from 'koa-compress';
+import userAgent from 'koa2-useragent';
+import helmet from 'koa-helmet';
+import logger from '../logger';
+import serveApp from './middlewares/serveApp';
+import authApi from './middlewares/authApi';
 
-export const start = () => {
-  const logger = console;
-  const app = express();
-  const publicPath = 'dist/client';
+const PORT = 3000;
 
-  app.use(cookieParser());
-  app.use(express.static(publicPath));
-  app.use(classifyBrowser);
+export const start = server => {
+  server.use(helmet());
+  server.use(compress());
 
-  app.use(
-    '/api',
-    proxy('http://react-ssr-api.herokuapp.com', {
-      proxyReqOptDecorator(opts) {
-        // eslint-disable-next-line no-param-reassign
-        opts.headers['x-forwarded-host'] = 'localhost:3000';
+  // todo-krudowski pass dist path
+  server.use(serveStatic('dist/client', { maxage: 31536000000 }));
+  server.use(userAgent());
 
-        return opts;
-      },
-    })
-  );
+  server.use(mount('/api', authApi()));
+  server.use(serveApp());
 
-  app.get('*', (req, res) => {
-    logger.info(`Request: ${req.path}`);
-
-    const store = createStore(req);
-
-    const promises = matchRoutes(routes, req.path)
-      .map(({ route, match }) =>
-        // eslint-disable-line arrow-body-style
-        route.loadData && typeof route.loadData === 'function' ? route.loadData(store, match.params) : null
-      )
-      .map(promise => {
-        if (promise instanceof Promise) {
-          return new Promise(resolve => {
-            promise.then(resolve).catch(resolve);
-          });
-        }
-        return promise;
-      });
-
-    Promise.all(promises).then(() => {
-      const context = {};
-      const content = renderer(req, store, context);
-
-      if (context.action === 'REPLACE' && context.url) {
-        return res.redirect(301, context.url);
-      }
-
-      res.status(context.notFound ? 404 : 200);
-      res.set({
-        Connection: 'Transfer-Encoding',
-        'Content-Type': 'text/html; charset=utf-8',
-        'Transfer-Encoding': 'chunked',
-        'Strict-Transport-Security': 'max-age=31557600; includeSubDomains; preload',
-        'Timing-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': 'true',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-      });
-
-      return res.send(content);
-    });
-  });
-
-  return app.listen(3000, () => {
-    logger.info('Start listening on port 3000');
+  return server.listen(PORT, () => {
+    logger.info(`Start listening on port ${PORT}`);
   });
 };
